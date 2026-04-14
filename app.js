@@ -155,8 +155,11 @@ function saveOfficer(info) {
 
 // --- Service Worker ---
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js")
-    .then(() => console.log("SW registered"))
+  navigator.serviceWorker.register("sw.js?v=2.1")
+    .then(reg => {
+      console.log("SW registered");
+      reg.update(); // Force check for updates
+    })
     .catch(err => console.error("SW error", err));
 }
 
