@@ -129,7 +129,7 @@ document.getElementById("officerSelect").addEventListener("change", function () 
 // --- Officers ---
 const OFFICERS = [
   "Héctor J. Prieto Pacheco",
-  "Mashable Ojeda Ocasio",
+  "Nashalee Ojeda Ocasio",
   "Felix E. Aponte Sanchez",
   "Jose R. Cintrón Meléndez",
   "Jorge D. Moyett Dávila",
