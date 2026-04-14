@@ -50,6 +50,61 @@ body {
   margin-left: 6px;
 }
 
+.status-stats {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.status-list {
+  list-style: none;
+  padding: 0 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.status-item {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-info {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.status-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.status-btn.active-green {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+
+.status-btn.active-red {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
 .pin-gate {
   text-align: center;
   padding: 2rem 1rem;

@@ -60,6 +60,15 @@ function dbClear() {
   }));
 }
 
+function dbUpdate(data) {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).put(data);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+
 // --- Tenants ---
 const DEFAULT_TENANTS = [
   { space: 1, name: "Barbería" },
@@ -165,7 +174,7 @@ document.querySelectorAll("nav .tab").forEach(btn => {
     document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
     if (btn.dataset.tab === "history") loadHistory();
     if (btn.dataset.tab === "status") loadStatusTab();
-    if (btn.dataset.tab === "settings") loadSettings();
+    if (btn.dataset.tab === "settings") { if (settingsUnlocked) loadSettings(); }
   });
 });
 
@@ -570,6 +579,63 @@ function downloadFile(content, filename, type) {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// --- Vehicle Status Tab ---
+async function loadStatusTab() {
+  const all = await dbGetAll();
+  const today = new Date().toISOString().slice(0, 10);
+  const todayInf = all.filter(i => i.date && i.date.startsWith(today));
+  todayInf.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+  const pending = todayInf.filter(i => !i.vehicleStatus).length;
+  const moved = todayInf.filter(i => i.vehicleStatus === "moved").length;
+  const notMoved = todayInf.filter(i => i.vehicleStatus === "not-moved").length;
+
+  document.getElementById("statusPending").textContent = pending;
+  document.getElementById("statusMoved").textContent = moved;
+  document.getElementById("statusNotMoved").textContent = notMoved;
+
+  const list = document.getElementById("statusList");
+  const empty = document.getElementById("statusEmpty");
+  list.innerHTML = "";
+
+  if (todayInf.length === 0) {
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+
+  todayInf.forEach(inf => {
+    const li = document.createElement("li");
+    li.className = "status-item";
+    const status = inf.vehicleStatus || "pending";
+    li.innerHTML = `
+      <div class="status-info">
+        <span class="tenant">${esc(inf.tenant)}</span>
+        <span class="plate">${esc(inf.plate)}</span>
+        <span class="type">${esc(inf.type)}</span>
+      </div>
+      <div class="status-actions">
+        <button class="status-btn ${status === 'moved' ? 'active-green' : ''}" data-id="${inf.id}" data-status="moved">✅ Moved</button>
+        <button class="status-btn ${status === 'not-moved' ? 'active-red' : ''}" data-id="${inf.id}" data-status="not-moved">🚫 Stayed</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+
+  list.querySelectorAll(".status-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      const all = await dbGetAll();
+      const inf = all.find(i => i.id === id);
+      if (inf) {
+        inf.vehicleStatus = btn.dataset.status;
+        await dbUpdate(inf);
+        loadStatusTab();
+      }
+    });
+  });
 }
 
 // --- Init ---

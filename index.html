@@ -19,6 +19,7 @@
   <nav id="navTabs">
     <button class="tab active" data-tab="log">📝 Log</button>
     <button class="tab" data-tab="history">📋 History</button>
+    <button class="tab" data-tab="status">🚗 Status</button>
     <button class="tab" data-tab="export">📤 Export</button>
     <button class="tab" data-tab="settings">⚙️ Settings</button>
   </nav>
@@ -142,6 +143,23 @@
 
     <ul id="infractionList"></ul>
     <div id="emptyState" class="empty-state">No infractions found.</div>
+  </div>
+
+  <!-- TAB: Vehicle Status -->
+  <div id="tab-status" class="tab-content">
+    <header>
+      <h1>🚗 Vehicle Status</h1>
+      <p>Follow-up: mark if vehicle moved or stayed</p>
+    </header>
+
+    <div class="status-stats">
+      <div class="stat-card"><div class="number" id="statusPending">0</div><div class="label">⏳ Pending</div></div>
+      <div class="stat-card"><div class="number" id="statusMoved">0</div><div class="label">✅ Moved</div></div>
+      <div class="stat-card"><div class="number" id="statusNotMoved">0</div><div class="label">🚫 Not Moved</div></div>
+    </div>
+
+    <ul id="statusList" class="status-list"></ul>
+    <div id="statusEmpty" class="empty-state">No infractions today.</div>
   </div>
 
   <!-- TAB: Export -->
