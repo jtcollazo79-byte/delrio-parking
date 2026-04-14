@@ -32,6 +32,39 @@ body {
   border-color: #334155;
 }
 
+.status-badge.moved {
+  background: #dcfce7;
+  color: #166534;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+.status-badge.not-moved {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+.pin-gate {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.pin-gate input {
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.5rem;
+  width: 200px;
+  padding: 0.75rem;
+  margin: 1rem auto;
+  display: block;
+}
+
 /* Nav Tabs */
 nav {
   position: fixed;

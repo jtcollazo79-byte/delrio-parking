@@ -70,6 +70,15 @@
         </label>
 
         <label>
+          Vehicle Status
+          <select id="vehicleStatusSelect" required>
+            <option value="">— Vehicle Status —</option>
+            <option value="moved">✅ Vehicle Moved</option>
+            <option value="not-moved">🚫 Vehicle Stayed</option>
+          </select>
+        </label>
+
+        <label>
           Vehicle Make / Model / Color
           <input type="text" id="vehicleInput" placeholder="e.g. White Toyota Corolla" />
         </label>
@@ -186,6 +195,14 @@
       <h1>⚙️ Settings</h1>
     </header>
 
+    <div id="settingsPinGate" class="pin-gate">
+      <p>🔒 Admin access required</p>
+      <input type="password" id="settingsPinInput" placeholder="Enter PIN" maxlength="6" />
+      <button type="button" id="settingsPinBtn" class="submit-btn">Unlock</button>
+      <p id="settingsPinError" class="pin-error" style="display:none;color:#ef4444;font-size:0.85rem;">Incorrect PIN</p>
+    </div>
+
+    <div id="settingsContent" style="display:none">
     <main>
       <div class="settings-section">
         <h3>Tenants / Spaces</h3>
@@ -213,9 +230,8 @@
         <p>© 2026 Del Rio Shopping Center</p>
       </div>
     </main>
+    </div><!-- end settingsContent -->
   </div>
-
-  <!-- Detail Modal -->
   <div id="detailModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">

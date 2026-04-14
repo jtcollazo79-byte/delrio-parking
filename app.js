@@ -164,6 +164,7 @@ document.querySelectorAll("nav .tab").forEach(btn => {
     btn.classList.add("active");
     document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
     if (btn.dataset.tab === "history") loadHistory();
+    if (btn.dataset.tab === "status") loadStatusTab();
     if (btn.dataset.tab === "settings") loadSettings();
   });
 });
@@ -261,6 +262,7 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
     plate: document.getElementById("plateInput").value.trim(),
     type: document.getElementById("infractionSelect").value,
     vehicle: document.getElementById("vehicleInput").value.trim(),
+    vehicleStatus: document.getElementById("vehicleStatusSelect").value,
     date: document.getElementById("dateInput").value,
     notes: document.getElementById("notesInput").value.trim(),
     photos: currentPhotos.slice(),
@@ -319,6 +321,7 @@ function renderHistory() {
         <span class="plate">${esc(inf.plate)}</span>
       </div>
       <span class="type">${esc(inf.type)}</span>
+      ${inf.vehicleStatus ? `<span class="status-badge ${inf.vehicleStatus}">${inf.vehicleStatus === 'moved' ? '✅ Moved' : '🚫 Stayed'}</span>` : ""}
       <div class="date">${formatDate(inf.date)}</div>
       ${inf.vehicle ? `<div class="vehicle">${esc(inf.vehicle)}</div>` : ""}
       ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
@@ -359,6 +362,7 @@ function showDetail(id) {
     <div class="detail-row"><div class="detail-label">Space / Tenant</div><div class="detail-value">${esc(inf.tenant)}</div></div>
     <div class="detail-row"><div class="detail-label">License Plate</div><div class="detail-value" style="font-family:monospace;font-size:1.2rem;font-weight:700">${esc(inf.plate)}</div></div>
     <div class="detail-row"><div class="detail-label">Infraction</div><div class="detail-value">${esc(inf.type)}</div></div>
+    ${inf.vehicleStatus ? `<div class="detail-row"><div class="detail-label">Vehicle Status</div><div class="detail-value">${inf.vehicleStatus === 'moved' ? '✅ Vehicle Moved' : '🚫 Vehicle Stayed'}</div></div>` : ""}
     <div class="detail-row"><div class="detail-label">Vehicle</div><div class="detail-value">${esc(inf.vehicle || "N/A")}</div></div>
     <div class="detail-row"><div class="detail-label">Date / Time</div><div class="detail-value">${formatDate(inf.date)}</div></div>
     <div class="detail-row"><div class="detail-label">Notes</div><div class="detail-value">${esc(inf.notes || "None")}</div></div>
@@ -390,7 +394,7 @@ document.getElementById("exportCSV").addEventListener("click", async () => {
   const data = await getFilteredExport();
   if (!data.length) return alert("No data to export.");
 
-  let csv = "ID,Date,Tenant,Plate,Type,Vehicle,Notes,GPS,Officer\n";
+  let csv = "ID,Date,Tenant,Plate,Type,Vehicle Status,Vehicle,Notes,GPS,Officer\n";
   data.forEach(inf => {
     csv += [
       inf.id,
@@ -398,6 +402,7 @@ document.getElementById("exportCSV").addEventListener("click", async () => {
       `"${(inf.tenant || "").replace(/"/g, '""')}"`,
       inf.plate,
       `"${(inf.type || "").replace(/"/g, '""')}"`,
+      inf.vehicleStatus === 'moved' ? 'Moved' : inf.vehicleStatus === 'not-moved' ? 'Stayed' : '',
       `"${(inf.vehicle || "").replace(/"/g, '""')}"`,
       `"${(inf.notes || "").replace(/"/g, '""')}"`,
       inf.gps ? `${inf.gps.lat},${inf.gps.lng}` : "",
@@ -570,3 +575,26 @@ function downloadFile(content, filename, type) {
 // --- Init ---
 populateTenantSelect();
 populateOfficerSelect();
+
+// --- Admin PIN for Settings ---
+const DEFAULT_PIN = "1234";
+let settingsUnlocked = false;
+
+document.getElementById("settingsPinBtn").addEventListener("click", () => {
+  const pin = document.getElementById("settingsPinInput").value;
+  const storedPin = localStorage.getItem("delrio_admin_pin") || DEFAULT_PIN;
+  if (pin === storedPin) {
+    settingsUnlocked = true;
+    document.getElementById("settingsPinGate").style.display = "none";
+    document.getElementById("settingsContent").style.display = "block";
+    document.getElementById("settingsPinError").style.display = "none";
+    loadSettings();
+  } else {
+    document.getElementById("settingsPinError").style.display = "block";
+    document.getElementById("settingsPinInput").value = "";
+  }
+});
+
+document.getElementById("settingsPinInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("settingsPinBtn").click();
+});
