@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Del Rio Parking Enforcement</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Nav Tabs -->
+  <nav id="navTabs">
+    <button class="tab active" data-tab="log">📝 Log</button>
+    <button class="tab" data-tab="history">📋 History</button>
+    <button class="tab" data-tab="export">📤 Export</button>
+    <button class="tab" data-tab="settings">⚙️ Settings</button>
+  </nav>
+
+  <!-- TAB: Log Infraction -->
+  <div id="tab-log" class="tab-content active">
+    <header>
+      <h1>🅿️ Parking Infraction</h1>
+      <p>Del Rio Shopping Center</p>
+    </header>
+
+    <main>
+      <div class="officer-clockin">
+        <label>👤 Today's Officer
+          <select id="officerSelect">
+            <option value="">— Clock In —</option>
+          </select>
+        </label>
+      </div>
+
+      <form id="infractionForm">
+        <label>
+          Space / Tenant
+          <select id="tenantSelect" required>
+            <option value="">— Select Space —</option>
+          </select>
+        </label>
+
+        <label>
+          License Plate
+          <input type="text" id="plateInput" placeholder="ABC-123" required />
+        </label>
+
+        <label>
+          Infraction Type
+          <select id="infractionSelect" required>
+            <option value="">— Select Infraction —</option>
+            <option value="Unauthorized Parking">Unauthorized Parking</option>
+            <option value="Blocking Entrance/Exit">Blocking Entrance/Exit</option>
+            <option value="Handicap Violation">Handicap Violation</option>
+            <option value="Double Parked">Double Parked</option>
+            <option value="Fire Lane">Fire Lane</option>
+            <option value="Loading Zone">Loading Zone</option>
+            <option value="Abandoned Vehicle">Abandoned Vehicle</option>
+            <option value="No Visible Plate">No Visible Plate</option>
+            <option value="Expired Permit">Expired Permit</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label>
+          Vehicle Make / Model / Color
+          <input type="text" id="vehicleInput" placeholder="e.g. White Toyota Corolla" />
+        </label>
+
+        <label>
+          Date / Time
+          <input type="datetime-local" id="dateInput" />
+        </label>
+
+        <label>
+          Notes
+          <textarea id="notesInput" placeholder="Additional details..."></textarea>
+        </label>
+
+        <!-- Photo Capture -->
+        <div class="photo-section">
+          <label>Photo Evidence</label>
+          <div class="photo-buttons">
+            <button type="button" id="cameraBtn" class="photo-btn">📷 Camera</button>
+            <button type="button" id="uploadBtn" class="photo-btn">📁 Upload</button>
+            <input type="file" id="photoInput" accept="image/*" capture="environment" hidden />
+          </div>
+          <div id="photoPreview" class="photo-preview"></div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Infraction</button>
+      </form>
+    </main>
+  </div>
+
+  <!-- TAB: History -->
+  <div id="tab-history" class="tab-content">
+    <header>
+      <h1>📋 Infraction History</h1>
+    </header>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="🔍 Search plate, tenant, type..." />
+      <select id="filterType">
+        <option value="">All Types</option>
+        <option value="Unauthorized Parking">Unauthorized Parking</option>
+        <option value="Blocking Entrance/Exit">Blocking Entrance/Exit</option>
+        <option value="Handicap Violation">Handicap Violation</option>
+        <option value="Double Parked">Double Parked</option>
+        <option value="Fire Lane">Fire Lane</option>
+        <option value="Loading Zone">Loading Zone</option>
+        <option value="Abandoned Vehicle">Abandoned Vehicle</option>
+        <option value="No Visible Plate">No Visible Plate</option>
+        <option value="Expired Permit">Expired Permit</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="date" id="filterDate" />
+      <button type="button" id="clearFilters" class="clear-btn">Clear</button>
+    </div>
+
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card"><div class="number" id="statToday">0</div><div class="label">Today</div></div>
+      <div class="stat-card"><div class="number" id="statWeek">0</div><div class="label">This Week</div></div>
+      <div class="stat-card"><div class="number" id="statTotal">0</div><div class="label">Total</div></div>
+    </div>
+
+    <ul id="infractionList"></ul>
+    <div id="emptyState" class="empty-state">No infractions found.</div>
+  </div>
+
+  <!-- TAB: Export -->
+  <div id="tab-export" class="tab-content">
+    <header>
+      <h1>📤 Export Data</h1>
+    </header>
+
+    <main>
+      <div class="export-section">
+        <h3>Date Range</h3>
+        <div class="date-range">
+          <input type="date" id="exportFrom" />
+          <span>to</span>
+          <input type="date" id="exportTo" />
+        </div>
+      </div>
+
+      <div class="export-section">
+        <h3>Filter by Type</h3>
+        <select id="exportType">
+          <option value="">All Types</option>
+          <option value="Unauthorized Parking">Unauthorized Parking</option>
+          <option value="Blocking Entrance/Exit">Blocking Entrance/Exit</option>
+          <option value="Handicap Violation">Handicap Violation</option>
+          <option value="Double Parked">Double Parked</option>
+          <option value="Fire Lane">Fire Lane</option>
+          <option value="Loading Zone">Loading Zone</option>
+          <option value="Abandoned Vehicle">Abandoned Vehicle</option>
+          <option value="No Visible Plate">No Visible Plate</option>
+          <option value="Expired Permit">Expired Permit</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="export-buttons">
+        <button type="button" id="exportCSV" class="export-btn">📊 Export CSV</button>
+        <button type="button" id="exportPDF" class="export-btn">📄 Export PDF</button>
+      </div>
+
+      <div class="export-section">
+        <h3>Data Management</h3>
+        <button type="button" id="clearAllData" class="danger-btn">🗑️ Clear All Data</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- TAB: Settings -->
+  <div id="tab-settings" class="tab-content">
+    <header>
+      <h1>⚙️ Settings</h1>
+    </header>
+
+    <main>
+      <div class="settings-section">
+        <h3>Tenants / Spaces</h3>
+        <p class="settings-hint">Add or edit tenant names for each space.</p>
+        <div id="tenantList" class="tenant-list"></div>
+        <button type="button" id="addTenantBtn" class="add-btn">+ Add Space</button>
+        <button type="button" id="saveTenantsBtn" class="submit-btn">Save Tenants</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>Officer Info</h3>
+        <label>Name
+          <input type="text" id="officerName" placeholder="Your name" />
+        </label>
+        <label>Badge / ID
+          <input type="text" id="officerBadge" placeholder="Badge number" />
+        </label>
+        <button type="button" id="saveOfficerBtn" class="submit-btn">Save Officer Info</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>About</h3>
+        <p>Del Rio Parking Enforcement PWA</p>
+        <p>Version 2.0.0</p>
+        <p>© 2026 Del Rio Shopping Center</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Infraction Detail</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div id="modalBody"></div>
+      <div class="modal-actions">
+        <button type="button" id="modalDelete" class="danger-btn">Delete</button>
+        <button type="button" id="modalClose2" class="clear-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

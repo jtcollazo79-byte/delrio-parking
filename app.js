@@ -1,0 +1,572 @@
+// ============================================
+// Del Rio Parking Enforcement PWA - v2.0
+// ============================================
+
+// --- IndexedDB Setup ---
+const DB_NAME = "DelRioParking";
+const DB_VERSION = 1;
+const STORE_NAME = "infractions";
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        const store = db.createObjectStore(STORE_NAME, { keyPath: "id" });
+        store.createIndex("date", "date", { unique: false });
+        store.createIndex("tenant", "tenant", { unique: false });
+        store.createIndex("type", "type", { unique: false });
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbAdd(data) {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).add(data);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+
+function dbGetAll() {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readonly");
+    const req = tx.objectStore(STORE_NAME).getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  }));
+}
+
+function dbDelete(id) {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).delete(id);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+
+function dbClear() {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).clear();
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+
+// --- Tenants ---
+const DEFAULT_TENANTS = [
+  { space: 1, name: "Barbería" },
+  { space: 2, name: "Royal Lab" },
+  { space: 3, name: "Sakura" },
+  { space: 4, name: "SuperCakes" },
+  { space: 5, name: "Dentista" },
+  { space: 6, name: "Mexcal" },
+  { space: 7, name: "Laboratorio" },
+  { space: 8, name: "Medikos" },
+  { space: 9, name: "Butcher's" },
+  { space: 10, name: "Bendecidos" },
+  { space: 11, name: "T Shirt" },
+  { space: 12, name: "Dra. Karla Amaral" },
+  { space: 13, name: "Therapy Lab" },
+  { space: 14, name: "My Look" },
+  { space: 15, name: "Optica" },
+  { space: 16, name: "Artesano" },
+  { space: 17, name: "Leaf Lab" },
+  { space: 18, name: "Sorrel" },
+  { space: 19, name: "Buenacoop" },
+];
+
+function getTenants() {
+  const stored = localStorage.getItem("delrio_tenants");
+  return stored ? JSON.parse(stored) : DEFAULT_TENANTS;
+}
+
+function saveTenants(tenants) {
+  localStorage.setItem("delrio_tenants", JSON.stringify(tenants));
+}
+
+function populateTenantSelect() {
+  const sel = document.getElementById("tenantSelect");
+  const tenants = getTenants();
+  sel.innerHTML = '<option value="">— Select Space —</option>';
+  tenants.forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = `${t.space}: ${t.name}`;
+    opt.textContent = `Space ${t.space} — ${t.name}`;
+    sel.appendChild(opt);
+  });
+}
+
+function populateOfficerSelect() {
+  const sel = document.getElementById("officerSelect");
+  sel.innerHTML = '<option value="">— Clock In —</option>';
+  OFFICERS.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  // Restore today's officer
+  const saved = JSON.parse(localStorage.getItem("delrio_today_officer") || "{}");
+  const today = new Date().toISOString().slice(0, 10);
+  if (saved.date === today) {
+    sel.value = saved.name;
+  }
+}
+
+document.getElementById("officerSelect").addEventListener("change", function () {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem("delrio_today_officer", JSON.stringify({ date: today, name: this.value }));
+});
+
+// --- Officers ---
+const OFFICERS = [
+  "Héctor J. Prieto Pacheco",
+  "Mashable Ojeda Ocasio",
+  "Felix E. Aponte Sanchez",
+  "Jose R. Cintrón Meléndez",
+  "Jorge D. Moyett Dávila",
+  "Andy J. Aponte Sánchez"
+];
+
+function getOfficer() {
+  return JSON.parse(localStorage.getItem("delrio_officer") || "{}");
+}
+
+function saveOfficer(info) {
+  localStorage.setItem("delrio_officer", JSON.stringify(info));
+}
+
+// --- Service Worker ---
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("SW registered"))
+    .catch(err => console.error("SW error", err));
+}
+
+// --- State ---
+let currentPhotos = [];
+let currentInfractions = [];
+let currentDetailId = null;
+
+// --- Tabs ---
+document.querySelectorAll("nav .tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav .tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    if (btn.dataset.tab === "history") loadHistory();
+    if (btn.dataset.tab === "settings") loadSettings();
+  });
+});
+
+// --- Date/Time Auto Fill ---
+function setDefaultDate() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset();
+  const local = new Date(now.getTime() - offset * 60000);
+  document.getElementById("dateInput").value = local.toISOString().slice(0, 16);
+}
+setDefaultDate();
+
+// --- License Plate Uppercase ---
+document.getElementById("plateInput").addEventListener("input", function () {
+  this.value = this.value.toUpperCase();
+});
+
+// --- Photo Capture ---
+document.getElementById("cameraBtn").addEventListener("click", () => {
+  const input = document.getElementById("photoInput");
+  input.setAttribute("capture", "environment");
+  input.click();
+});
+
+document.getElementById("uploadBtn").addEventListener("click", () => {
+  const input = document.getElementById("photoInput");
+  input.removeAttribute("capture");
+  input.click();
+});
+
+document.getElementById("photoInput").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    // Resize image to save space
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const MAX = 800;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = (h / w) * MAX; w = MAX; }
+        else { w = (w / h) * MAX; h = MAX; }
+      }
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+      currentPhotos.push(dataUrl);
+      renderPhotoPreview();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  this.value = "";
+});
+
+function renderPhotoPreview() {
+  const container = document.getElementById("photoPreview");
+  container.innerHTML = "";
+  currentPhotos.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.title = "Click to remove";
+    img.addEventListener("click", () => {
+      currentPhotos.splice(i, 1);
+      renderPhotoPreview();
+    });
+    container.appendChild(img);
+  });
+}
+
+// --- GPS ---
+let currentGPS = null;
+function getGPS() {
+  return new Promise((resolve) => {
+    if (!navigator.geolocation) return resolve(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      () => resolve(null),
+      { timeout: 5000, maximumAge: 60000 }
+    );
+  });
+}
+
+// --- Submit Infraction ---
+document.getElementById("infractionForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const gps = await getGPS();
+  const infraction = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    tenant: document.getElementById("tenantSelect").value,
+    plate: document.getElementById("plateInput").value.trim(),
+    type: document.getElementById("infractionSelect").value,
+    vehicle: document.getElementById("vehicleInput").value.trim(),
+    date: document.getElementById("dateInput").value,
+    notes: document.getElementById("notesInput").value.trim(),
+    photos: currentPhotos.slice(),
+    gps: gps,
+    officer: { name: document.getElementById("officerSelect").value },
+    created: new Date().toISOString()
+  };
+
+  try {
+    await dbAdd(infraction);
+    document.getElementById("infractionForm").reset();
+    currentPhotos = [];
+    renderPhotoPreview();
+    setDefaultDate();
+    alert("✅ Infraction saved!");
+  } catch (err) {
+    console.error(err);
+    alert("Error saving: " + err.message);
+  }
+});
+
+// --- History Tab ---
+async function loadHistory() {
+  currentInfractions = await dbGetAll();
+  currentInfractions.sort((a, b) => new Date(b.created) - new Date(a.created));
+  renderHistory();
+  updateStats();
+}
+
+function renderHistory() {
+  const list = document.getElementById("infractionList");
+  const empty = document.getElementById("emptyState");
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const typeFilter = document.getElementById("filterType").value;
+  const dateFilter = document.getElementById("filterDate").value;
+
+  let filtered = currentInfractions.filter(inf => {
+    if (search && !`${inf.tenant} ${inf.plate} ${inf.type} ${inf.notes}`.toLowerCase().includes(search)) return false;
+    if (typeFilter && inf.type !== typeFilter) return false;
+    if (dateFilter && !inf.date.startsWith(dateFilter)) return false;
+    return true;
+  });
+
+  list.innerHTML = "";
+  if (filtered.length === 0) {
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+
+  filtered.forEach(inf => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div class="infraction-header">
+        <span class="tenant">${esc(inf.tenant)}</span>
+        <span class="plate">${esc(inf.plate)}</span>
+      </div>
+      <span class="type">${esc(inf.type)}</span>
+      <div class="date">${formatDate(inf.date)}</div>
+      ${inf.vehicle ? `<div class="vehicle">${esc(inf.vehicle)}</div>` : ""}
+      ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
+    `;
+    li.addEventListener("click", () => showDetail(inf.id));
+    list.appendChild(li);
+  });
+}
+
+function updateStats() {
+  const today = new Date().toISOString().slice(0, 10);
+  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+
+  document.getElementById("statToday").textContent = currentInfractions.filter(i => i.date && i.date.startsWith(today)).length;
+  document.getElementById("statWeek").textContent = currentInfractions.filter(i => i.date && i.date.slice(0, 10) >= weekAgo).length;
+  document.getElementById("statTotal").textContent = currentInfractions.length;
+}
+
+// Filters
+document.getElementById("searchInput").addEventListener("input", renderHistory);
+document.getElementById("filterType").addEventListener("change", renderHistory);
+document.getElementById("filterDate").addEventListener("change", renderHistory);
+document.getElementById("clearFilters").addEventListener("click", () => {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("filterType").value = "";
+  document.getElementById("filterDate").value = "";
+  renderHistory();
+});
+
+// --- Detail Modal ---
+function showDetail(id) {
+  currentDetailId = id;
+  const inf = currentInfractions.find(i => i.id === id);
+  if (!inf) return;
+
+  const body = document.getElementById("modalBody");
+  body.innerHTML = `
+    <div class="detail-row"><div class="detail-label">Space / Tenant</div><div class="detail-value">${esc(inf.tenant)}</div></div>
+    <div class="detail-row"><div class="detail-label">License Plate</div><div class="detail-value" style="font-family:monospace;font-size:1.2rem;font-weight:700">${esc(inf.plate)}</div></div>
+    <div class="detail-row"><div class="detail-label">Infraction</div><div class="detail-value">${esc(inf.type)}</div></div>
+    <div class="detail-row"><div class="detail-label">Vehicle</div><div class="detail-value">${esc(inf.vehicle || "N/A")}</div></div>
+    <div class="detail-row"><div class="detail-label">Date / Time</div><div class="detail-value">${formatDate(inf.date)}</div></div>
+    <div class="detail-row"><div class="detail-label">Notes</div><div class="detail-value">${esc(inf.notes || "None")}</div></div>
+    ${inf.gps ? `<div class="detail-row"><div class="detail-label">GPS Location</div><div class="detail-value">${inf.gps.lat.toFixed(6)}, ${inf.gps.lng.toFixed(6)}</div></div>` : ""}
+    ${inf.officer && inf.officer.name ? `<div class="detail-row"><div class="detail-label">Officer</div><div class="detail-value">${esc(inf.officer.name)}${inf.officer.badge ? " — " + esc(inf.officer.badge) : ""}</div></div>` : ""}
+    ${inf.photos && inf.photos.length ? inf.photos.map(p => `<img class="detail-photo" src="${p}" />`).join("") : ""}
+  `;
+  document.getElementById("detailModal").classList.add("active");
+}
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("modalClose2").addEventListener("click", closeModal);
+
+function closeModal() {
+  document.getElementById("detailModal").classList.remove("active");
+  currentDetailId = null;
+}
+
+document.getElementById("modalDelete").addEventListener("click", async () => {
+  if (!currentDetailId) return;
+  if (!confirm("Delete this infraction?")) return;
+  await dbDelete(currentDetailId);
+  closeModal();
+  loadHistory();
+});
+
+// --- Export ---
+document.getElementById("exportCSV").addEventListener("click", async () => {
+  const data = await getFilteredExport();
+  if (!data.length) return alert("No data to export.");
+
+  let csv = "ID,Date,Tenant,Plate,Type,Vehicle,Notes,GPS,Officer\n";
+  data.forEach(inf => {
+    csv += [
+      inf.id,
+      inf.date,
+      `"${(inf.tenant || "").replace(/"/g, '""')}"`,
+      inf.plate,
+      `"${(inf.type || "").replace(/"/g, '""')}"`,
+      `"${(inf.vehicle || "").replace(/"/g, '""')}"`,
+      `"${(inf.notes || "").replace(/"/g, '""')}"`,
+      inf.gps ? `${inf.gps.lat},${inf.gps.lng}` : "",
+      inf.officer ? `${inf.officer.name || ""} ${inf.officer.badge || ""}`.trim() : ""
+    ].join(",") + "\n";
+  });
+
+  downloadFile(csv, "del-rio-infractions.csv", "text/csv");
+});
+
+document.getElementById("exportPDF").addEventListener("click", async () => {
+  const data = await getFilteredExport();
+  if (!data.length) return alert("No data to export.");
+
+  // Simple HTML-to-printable PDF
+  let html = `<!DOCTYPE html><html><head><title>Del Rio Infractions Report</title>
+  <style>
+    body{font-family:system-ui;max-width:800px;margin:0 auto;padding:20px;color:#0f172a}
+    h1{font-size:1.3rem;border-bottom:2px solid #0f172a;padding-bottom:8px}
+    table{width:100%;border-collapse:collapse;margin-top:16px;font-size:0.8rem}
+    th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left}
+    th{background:#0f172a;color:white}
+    tr:nth-child(even){background:#f1f5f9}
+    .meta{font-size:0.75rem;color:#94a3b8;margin-top:4px}
+  </style></head><body>
+  <h1>Del Rio Shopping Center — Parking Infractions Report</h1>
+  <p class="meta">Generated: ${new Date().toLocaleString()}</p>
+  <p class="meta">Total Records: ${data.length}</p>
+  <table><tr><th>#</th><th>Date/Time</th><th>Space/Tenant</th><th>Plate</th><th>Infraction</th><th>Vehicle</th><th>Officer</th><th>Notes</th></tr>`;
+
+  data.forEach((inf, i) => {
+    html += `<tr>
+      <td>${i + 1}</td>
+      <td>${formatDate(inf.date)}</td>
+      <td>${esc(inf.tenant)}</td>
+      <td style="font-family:monospace;font-weight:700">${esc(inf.plate)}</td>
+      <td>${esc(inf.type)}</td>
+      <td>${esc(inf.vehicle || "")}</td>
+      <td>${inf.officer ? esc(inf.officer.name || "") : ""}</td>
+      <td>${esc(inf.notes || "")}</td>
+    </tr>`;
+  });
+
+  html += "</table></body></html>";
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "del-rio-infractions-report.html";
+  a.click();
+  URL.revokeObjectURL(url);
+  alert("Report downloaded. Open it and use Cmd+P to print as PDF.");
+});
+
+async function getFilteredExport() {
+  const all = await dbGetAll();
+  const from = document.getElementById("exportFrom").value;
+  const to = document.getElementById("exportTo").value;
+  const type = document.getElementById("exportType").value;
+
+  return all.filter(inf => {
+    const d = inf.date ? inf.date.slice(0, 10) : "";
+    if (from && d < from) return false;
+    if (to && d > to) return false;
+    if (type && inf.type !== type) return false;
+    return true;
+  }).sort((a, b) => new Date(a.date) - new Date(b.date));
+}
+
+document.getElementById("clearAllData").addEventListener("click", async () => {
+  if (!confirm("⚠️ DELETE ALL infraction data? This cannot be undone.")) return;
+  if (!confirm("Are you really sure?")) return;
+  await dbClear();
+  alert("All data cleared.");
+});
+
+// --- Settings Tab ---
+function loadSettings() {
+  const tenants = getTenants();
+  const container = document.getElementById("tenantList");
+  container.innerHTML = "";
+  tenants.forEach((t, i) => {
+    const div = document.createElement("div");
+    div.className = "tenant-item";
+    div.innerHTML = `
+      <span>Space ${t.space}</span>
+      <input type="text" value="${esc(t.name)}" data-idx="${i}" />
+      <button class="remove-tenant" data-idx="${i}">✕</button>
+    `;
+    container.appendChild(div);
+  });
+
+  // Remove tenant buttons
+  container.querySelectorAll(".remove-tenant").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.dataset.idx);
+      const tenants = getTenants();
+      tenants.splice(idx, 1);
+      saveTenants(tenants);
+      loadSettings();
+    });
+  });
+
+  // Officer info
+  const officer = getOfficer();
+  document.getElementById("officerName").value = officer.name || "";
+  document.getElementById("officerBadge").value = officer.badge || "";
+}
+
+document.getElementById("addTenantBtn").addEventListener("click", () => {
+  const tenants = getTenants();
+  const next = tenants.length > 0 ? Math.max(...tenants.map(t => t.space)) + 1 : 1;
+  tenants.push({ space: next, name: `Space ${next}` });
+  saveTenants(tenants);
+  loadSettings();
+});
+
+document.getElementById("saveTenantsBtn").addEventListener("click", () => {
+  const inputs = document.querySelectorAll("#tenantList .tenant-item input");
+  const tenants = getTenants();
+  inputs.forEach(inp => {
+    const idx = parseInt(inp.dataset.idx);
+    if (tenants[idx]) tenants[idx].name = inp.value;
+  });
+  saveTenants(tenants);
+  populateTenantSelect();
+  alert("✅ Tenants saved!");
+});
+
+document.getElementById("saveOfficerBtn").addEventListener("click", () => {
+  saveOfficer({
+    name: document.getElementById("officerName").value.trim(),
+    badge: document.getElementById("officerBadge").value.trim()
+  });
+  alert("✅ Officer info saved!");
+});
+
+// --- Helpers ---
+function esc(str) {
+  if (!str) return "";
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "N/A";
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleString("en-US", {
+      month: "short", day: "numeric", year: "numeric",
+      hour: "numeric", minute: "2-digit"
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+function downloadFile(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// --- Init ---
+populateTenantSelect();
+populateOfficerSelect();
