@@ -186,7 +186,8 @@ function setDefaultDate() {
   const now = new Date();
   const offset = now.getTimezoneOffset();
   const local = new Date(now.getTime() - offset * 60000);
-  document.getElementById("dateInput").value = local.toISOString().slice(0, 16);
+  document.getElementById("dateInputDate").value = local.toISOString().slice(0, 10);
+  document.getElementById("dateInputTime").value = local.toISOString().slice(11, 16);
 }
 setDefaultDate();
 
@@ -275,7 +276,7 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
     type: document.getElementById("infractionSelect").value,
     vehicle: document.getElementById("vehicleInput").value.trim(),
     vehicleStatus: document.getElementById("vehicleStatusSelect").value,
-    date: document.getElementById("dateInput").value,
+    date: document.getElementById("dateInputDate").value + "T" + document.getElementById("dateInputTime").value,
     notes: document.getElementById("notesInput").value.trim(),
     photos: currentPhotos.slice(),
     gps: gps,
