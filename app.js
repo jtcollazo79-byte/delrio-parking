@@ -643,7 +643,7 @@ populateTenantSelect();
 populateOfficerSelect();
 
 // --- Admin PIN for Settings ---
-const DEFAULT_PIN = "1234";
+const DEFAULT_PIN = "AdminDelRio";
 let settingsUnlocked = false;
 
 document.getElementById("settingsPinBtn").addEventListener("click", () => {
