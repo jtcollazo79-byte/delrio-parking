@@ -2,6 +2,19 @@
 // Del Rio Parking Enforcement PWA - v2.0
 // ============================================
 
+// --- Firebase ---
+const firebaseConfig = {
+  apiKey: "AIzaSyAo8THlHjdaA-B5DoZgAg4xUySy85MYzOo",
+  authDomain: "del-rio-parking.firebaseapp.com",
+  projectId: "del-rio-parking",
+  storageBucket: "del-rio-parking.firebasestorage.app",
+  messagingSenderId: "32189559016",
+  appId: "1:32189559016:web:758d96678f68715c64595d"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const FIRESTORE_COLLECTION = "infractions";
+
 // --- IndexedDB Setup ---
 const DB_NAME = "DelRioParking";
 const DB_VERSION = 1;
@@ -296,6 +309,12 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
 
   try {
     await dbAdd(infraction);
+    // Sync to Firestore
+    try {
+      const syncData = { ...infraction };
+      delete syncData.photos; // Don't sync photos (too large for free plan)
+      await db.collection(FIRESTORE_COLLECTION).doc(infraction.id).set(syncData);
+    } catch (e) { console.error("Firestore sync failed:", e); }
     document.getElementById("infractionForm").reset();
     currentPhotos = [];
     renderPhotoPreview();
@@ -408,6 +427,10 @@ document.getElementById("modalDelete").addEventListener("click", async () => {
   if (!currentDetailId) return;
   if (!confirm("Delete this infraction?")) return;
   await dbDelete(currentDetailId);
+  // Sync delete to Firestore
+  try {
+    await db.collection(FIRESTORE_COLLECTION).doc(currentDetailId).delete();
+  } catch (e) { console.error("Firestore delete failed:", e); }
   closeModal();
   loadHistory();
 });
@@ -646,6 +669,10 @@ async function loadStatusTab() {
       if (inf) {
         inf.vehicleStatus = btn.dataset.status;
         await dbUpdate(inf);
+        // Sync status to Firestore
+        try {
+          await db.collection(FIRESTORE_COLLECTION).doc(inf.id).update({ vehicleStatus: inf.vehicleStatus });
+        } catch (e) { console.error("Firestore sync failed:", e); }
         loadStatusTab();
       }
     });

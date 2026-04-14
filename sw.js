@@ -1,10 +1,12 @@
-const CACHE = "delrio-v2.2";
+const CACHE = "delrio-v3.0";
 const FILES = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./manifest.json"
+  "./manifest.json",
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"
 ];
 
 self.addEventListener("install", (e) => {
