@@ -155,10 +155,20 @@ function saveOfficer(info) {
 
 // --- Service Worker ---
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js?v=2.1")
+  navigator.serviceWorker.register("sw.js?v=2.2")
     .then(reg => {
       console.log("SW registered");
-      reg.update(); // Force check for updates
+      // Auto-update: check every 30 seconds
+      setInterval(() => reg.update(), 30000);
+      // When new SW activates, reload automatically
+      reg.addEventListener("updatefound", () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener("statechange", () => {
+          if (newWorker.state === "activated") {
+            window.location.reload();
+          }
+        });
+      });
     })
     .catch(err => console.error("SW error", err));
 }
