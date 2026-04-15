@@ -425,6 +425,8 @@ function closeModal() {
 
 document.getElementById("modalDelete").addEventListener("click", async () => {
   if (!currentDetailId) return;
+  const pin = prompt("Admin PIN required to delete:");
+  if (pin !== DEFAULT_PIN) return alert("Incorrect PIN. Only admin can delete.");
   if (!confirm("Delete this infraction?")) return;
   await dbDelete(currentDetailId);
   // Sync delete to Firestore
