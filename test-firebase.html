@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+</head><body style="font-family:sans-serif;padding:20px;background:#111;color:#fff">
+<h2>🔥 Firebase Test</h2>
+<button onclick="testWrite()" style="padding:15px 30px;font-size:1.2rem;background:#e94560;color:#fff;border:none;border-radius:8px;cursor:pointer">ENVIAR PRUEBA</button>
+<p id="result" style="margin-top:20px;font-size:1.1rem"></p>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAo8THlHjdaA-B5DoZgAg4xUySy85MYzOo",authDomain:"del-rio-parking.firebaseapp.com",projectId:"del-rio-parking",storageBucket:"del-rio-parking.firebasestorage.app",messagingSenderId:"32189559016",appId:"1:32189559016:web:758d96678f68715c64595d"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+async function testWrite(){
+  document.getElementById("result").textContent="Enviando...";
+  try{
+    await db.collection("infractions").doc("test-"+Date.now()).set({plate:"TEST",date:new Date().toISOString().split("T")[0]+"T"+new Date().toTimeString().slice(0,5),type:"Test",notes:"Firebase test from browser"});
+    document.getElementById("result").textContent="✅ SUCCESS! Data sent to Firestore";
+  }catch(e){
+    document.getElementById("result").textContent="❌ ERROR: "+e.message;
+  }
+}
+</script></body></html>
