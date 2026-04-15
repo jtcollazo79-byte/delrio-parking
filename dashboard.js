@@ -39,7 +39,7 @@ function startListening(dateStr) {
   if (unsubscribe) unsubscribe();
 
   unsubscribe = db.collection("infractions")
-    .limitToLast(100)
+    .limitToLast(200)
     .onSnapshot(snapshot => {
       allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         .filter(inf => {
@@ -63,14 +63,16 @@ function applyFilters() {
   let filtered = allInfractions;
 
   if (statusFilter === "moved") filtered = filtered.filter(i => i.vehicleStatus === "moved");
-  else if (statusFilter === "stayed") filtered = filtered.filter(i => i.vehicleStatus === "stayed");
+  else if (statusFilter === "stayed") filtered = filtered.filter(i => i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved");
   else if (statusFilter === "") {
-    // "pending" means no status set
     const val = document.getElementById("filterStatus").selectedOptions[0].textContent;
     if (val.includes("Pendiente")) filtered = filtered.filter(i => !i.vehicleStatus);
   }
 
-  if (spaceFilter) filtered = filtered.filter(i => i.space == spaceFilter);
+  if (spaceFilter) filtered = filtered.filter(i => {
+    const s = i.space || (i.tenant ? parseInt(i.tenant) : null);
+    return s == spaceFilter;
+  });
   if (plateFilter) filtered = filtered.filter(i => i.plate && i.plate.toLowerCase().includes(plateFilter));
 
   renderList(filtered);
@@ -80,7 +82,7 @@ function applyFilters() {
 function updateStats() {
   const total = allInfractions.length;
   const moved = allInfractions.filter(i => i.vehicleStatus === "moved").length;
-  const stayed = allInfractions.filter(i => i.vehicleStatus === "stayed").length;
+  const stayed = allInfractions.filter(i => i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved").length;
   const pending = total - moved - stayed;
 
   document.getElementById("statTotal").textContent = total;
@@ -98,23 +100,30 @@ function renderList(infractions) {
   }
 
   list.innerHTML = infractions.map(inf => {
-    const statusClass = inf.vehicleStatus === "moved" ? "status-moved"
-      : inf.vehicleStatus === "stayed" ? "status-stayed" : "status-pending";
-    const statusText = inf.vehicleStatus === "moved" ? "✅ Se Movió"
-      : inf.vehicleStatus === "stayed" ? "🚫 Se Quedó" : "⏳ Pendiente";
-    const tenant = TENANTS[inf.space - 1] || "—";
+    // Normalize vehicle status
+    const vs = inf.vehicleStatus === "not-moved" ? "stayed" : (inf.vehicleStatus || "");
+    const statusClass = vs === "moved" ? "status-moved"
+      : vs === "stayed" ? "status-stayed" : "status-pending";
+    const statusText = vs === "moved" ? "✅ Se Movió"
+      : vs === "stayed" ? "🚫 Se Quedó" : "⏳ Pendiente";
+
+    // Get space and tenant
+    const spaceNum = inf.space || (inf.tenant ? inf.tenant.split(":")[0].trim() : "—");
+    const tenantName = inf.tenant || (inf.space ? TENANTS[inf.space - 1] : "—");
     const time = inf.date ? inf.date.split("T")[1] || "" : "";
     const date = inf.date ? inf.date.split("T")[0] || "" : "";
+    const officerName = inf.officer && typeof inf.officer === "object" ? (inf.officer.name || "—") : (inf.officer || "—");
 
     return `
       <div class="infraction-card">
-        <div class="field space-num">Espacio ${inf.space} — ${tenant}</div>
+        <div class="field space-num">Espacio ${spaceNum} — ${tenantName}</div>
         <div class="field"><span class="status-badge ${statusClass}">${statusText}</span></div>
         <div class="field"><span>Placa:</span> <strong>${inf.plate || "—"}</strong></div>
+        <div class="field"><span>Vehículo:</span> <strong>${inf.vehicle || "—"}</strong></div>
         <div class="field"><span>Tipo:</span> <strong>${inf.type || "—"}</strong></div>
         <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
         <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
-        <div class="field"><span>Oficial:</span> <strong>${inf.officer || "—"}</strong></div>
+        <div class="field"><span>Oficial:</span> <strong>${officerName}</strong></div>
         <div class="field"><span>Notas:</span> <strong>${inf.notes || "—"}</strong></div>
       </div>
     `;
