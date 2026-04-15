@@ -36,9 +36,9 @@ dateInput.value = new Date().toISOString().split("T")[0];
 
 // Real-time listener
 function startListening(dateStr) {
-  if (unsubscribe) unsubscribe();
+  allInfractions = [];
 
-  unsubscribe = db.collection("infractions")
+  db.collection("infractions")
     .get()
     .then(snapshot => {
       allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
