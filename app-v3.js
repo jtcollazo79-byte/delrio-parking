@@ -423,6 +423,42 @@ function closeModal() {
   currentDetailId = null;
 }
 
+document.getElementById("modalEdit").addEventListener("click", () => {
+  if (!currentDetailId) return;
+  const inf = currentInfractions.find(i => i.id === currentDetailId);
+  if (!inf) return;
+
+  const body = document.getElementById("modalBody");
+  const infTypes = ["Handicap Violation","Fire Lane","No Parking Zone","Double Parked","Blocking Entrance","Expired Meter","Unauthorized Vehicle","Other"];
+  const statusOpts = ["","moved","not-moved"];
+
+  body.innerHTML = `
+    <div class="edit-form">
+      <label>Placa</label><input id="editPlate" value="${esc(inf.plate||"")}" />
+      <label>Vehículo</label><input id="editVehicle" value="${esc(inf.vehicle||"")}" />
+      <label>Tipo</label><select id="editType">${infTypes.map(t=>`<option ${t===inf.type?"selected":""}>${t}</option>`).join("")}</select>
+      <label>Notas</label><textarea id="editNotes" rows="3">${esc(inf.notes||"")}</textarea>
+      <label>Estado</label><select id="editStatus">${statusOpts.map(s=>`<option value="${s}" ${s===(inf.vehicleStatus||"")?"selected":""}>${s==="moved"?"✅ Se Movió":s==="not-moved"?"🚫 Se Quedó":"⏳ Pendiente"}</option>`).join("")}</select>
+      <button id="editSave" class="btn-primary" style="margin-top:12px;width:100%">Save Changes</button>
+    </div>
+  `;
+
+  document.getElementById("editSave").addEventListener("click", async () => {
+    inf.plate = document.getElementById("editPlate").value;
+    inf.vehicle = document.getElementById("editVehicle").value;
+    inf.type = document.getElementById("editType").value;
+    inf.notes = document.getElementById("editNotes").value;
+    inf.vehicleStatus = document.getElementById("editStatus").value || null;
+    await dbUpdate(inf);
+    try {
+      const syncData = {...inf}; delete syncData.photos;
+      await db.collection(FIRESTORE_COLLECTION).doc(inf.id).set(syncData);
+    } catch(e) { console.error("Firestore sync failed:", e); }
+    showDetail(inf.id);
+    loadHistory();
+  });
+});
+
 document.getElementById("modalDelete").addEventListener("click", async () => {
   if (!currentDetailId) return;
   const pin = prompt("Admin PIN required to delete:");

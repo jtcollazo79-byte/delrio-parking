@@ -643,3 +643,12 @@ li .photo-thumb {
 .modal-actions button {
   flex: 1;
 }
+
+/* Edit Form */
+.edit-form { display: flex; flex-direction: column; gap: 8px; }
+.edit-form label { font-size: 0.8rem; color: #888; font-weight: 600; }
+.edit-form input, .edit-form select, .edit-form textarea {
+  background: #1a1a2e; color: #e0e0e0; border: 1px solid #333;
+  padding: 8px 10px; border-radius: 6px; font-size: 0.9rem;
+}
+.edit-form textarea { resize: vertical; }
