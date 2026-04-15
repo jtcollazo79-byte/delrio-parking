@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Del Rio — Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header>
+    <h1>🔥 Del Rio Parking — Dashboard</h1>
+    <div class="header-controls">
+      <input type="date" id="filterDate">
+      <button id="btnToday" class="btn-primary">Hoy</button>
+      <button id="btnRefresh" class="btn-secondary">↻ Refresh</button>
+    </div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-number" id="statTotal">0</span>
+      <span class="stat-label">Infracciones</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statMoved">0</span>
+      <span class="stat-label">✅ Se Movieron</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statStayed">0</span>
+      <span class="stat-label">🚫 Se Quedaron</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statPending">0</span>
+      <span class="stat-label">⏳ Pendientes</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <select id="filterStatus">
+      <option value="">Todos los estados</option>
+      <option value="moved">✅ Se Movió</option>
+      <option value="stayed">🚫 Se Quedó</option>
+      <option value="">⏳ Pendiente</option>
+    </select>
+    <select id="filterSpace">
+      <option value="">Todos los espacios</option>
+    </select>
+    <input type="text" id="filterPlate" placeholder="Buscar placa...">
+  </div>
+
+  <div id="infractionsList" class="infractions-list">
+    <p class="empty">Cargando datos...</p>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
