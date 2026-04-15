@@ -39,8 +39,8 @@ function startListening(dateStr) {
   if (unsubscribe) unsubscribe();
 
   unsubscribe = db.collection("infractions")
-    .limitToLast(200)
-    .onSnapshot(snapshot => {
+    .get()
+    .then(snapshot => {
       allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         .filter(inf => {
           if (!inf.date) return false;
@@ -48,10 +48,11 @@ function startListening(dateStr) {
           return d === dateStr;
         });
       applyFilters();
-    }, err => {
+    })
+    .catch(err => {
       console.error("Firestore error:", err);
       document.getElementById("infractionsList").innerHTML =
-        '<p class="empty">Error cargando datos.</p>';
+        '<p class="empty">Error: ' + err.message + '</p>';
     });
 }
 
