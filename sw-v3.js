@@ -1,4 +1,4 @@
-const CACHE = "delrio-v3.1";
+const CACHE = "delrio-v4.0";
 const FILES = [
   "./",
   "./index.html",
@@ -6,10 +6,10 @@ const FILES = [
   "./app-v3.js",
   "./manifest.json",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js",
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"
 ];
 
+// Install: cache files, skip waiting
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open(CACHE).then((cache) => cache.addAll(FILES))
@@ -17,26 +17,36 @@ self.addEventListener("install", (e) => {
   self.skipWaiting();
 });
 
+// Activate: delete old caches, claim all clients immediately
 self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+// Fetch: network first, fallback to cache
 self.addEventListener("fetch", (e) => {
+  // Only cache same-origin and firebase CDN
+  const url = new URL(e.request.url);
+  const isCacheable = url.origin === self.location.origin || 
+    url.hostname.includes("gstatic.com");
+  
+  if (!isCacheable || e.request.method !== "GET") {
+    e.respondWith(fetch(e.request));
+    return;
+  }
+
   e.respondWith(
-    caches.match(e.request).then((cached) => {
-      const fetchPromise = fetch(e.request).then((response) => {
+    fetch(e.request)
+      .then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE).then((cache) => cache.put(e.request, clone));
         }
         return response;
-      }).catch(() => cached);
-      return cached || fetchPromise;
-    })
+      })
+      .catch(() => caches.match(e.request))
   );
 });
