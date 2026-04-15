@@ -46,9 +46,9 @@ function startListening(dateStr) {
   const end = dateStr + "T23:59";
 
   unsubscribe = db.collection("infractions")
-    .where("dateTime", ">=", start)
-    .where("dateTime", "<=", end)
-    .orderBy("dateTime", "desc")
+    .where("date", ">=", start)
+    .where("date", "<=", end)
+    .orderBy("date", "desc")
     .onSnapshot(snapshot => {
       allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       applyFilters();
@@ -107,8 +107,8 @@ function renderList(infractions) {
     const statusText = inf.vehicleStatus === "moved" ? "✅ Se Movió"
       : inf.vehicleStatus === "stayed" ? "🚫 Se Quedó" : "⏳ Pendiente";
     const tenant = TENANTS[inf.space - 1] || "—";
-    const time = inf.dateTime ? inf.dateTime.split("T")[1] || "" : "";
-    const date = inf.dateTime ? inf.dateTime.split("T")[0] || "" : "";
+    const time = inf.date ? inf.date.split("T")[1] || "" : "";
+    const date = inf.date ? inf.date.split("T")[0] || "" : "";
 
     return `
       <div class="infraction-card">
