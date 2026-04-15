@@ -186,6 +186,45 @@ if ("serviceWorker" in navigator) {
     .catch(err => console.error("SW error", err));
 }
 
+// --- Sync Queue ---
+function getSyncQueue() {
+  try { return JSON.parse(localStorage.getItem("syncQueue") || "[]"); } catch { return []; }
+}
+function queueSync(id) {
+  const q = getSyncQueue();
+  if (!q.includes(id)) { q.push(id); localStorage.setItem("syncQueue", JSON.stringify(q)); }
+}
+function removeFromSyncQueue(id) {
+  const q = getSyncQueue().filter(x => x !== id);
+  localStorage.setItem("syncQueue", JSON.stringify(q));
+}
+async function processSyncQueue() {
+  const q = getSyncQueue();
+  if (q.length === 0) return;
+  console.log(`Processing ${q.length} pending syncs...`);
+  for (const id of q) {
+    try {
+      const all = await dbGetAll();
+      const inf = all.find(i => i.id === id);
+      if (inf) {
+        const syncData = { ...inf };
+        delete syncData.photos;
+        await db.collection(FIRESTORE_COLLECTION).doc(id).set(syncData);
+      }
+      removeFromSyncQueue(id);
+    } catch (e) { console.error(`Sync failed for ${id}:`, e); }
+  }
+  console.log("Sync queue processed");
+}
+
+// Auto-sync when online
+window.addEventListener("online", () => {
+  console.log("Back online, processing sync queue...");
+  processSyncQueue();
+});
+// Also try on load if online
+if (navigator.onLine) processSyncQueue();
+
 // --- State ---
 let currentPhotos = [];
 let currentInfractions = [];
@@ -312,9 +351,12 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
     // Sync to Firestore
     try {
       const syncData = { ...infraction };
-      delete syncData.photos; // Don't sync photos (too large for free plan)
+      delete syncData.photos;
       await db.collection(FIRESTORE_COLLECTION).doc(infraction.id).set(syncData);
-    } catch (e) { console.error("Firestore sync failed:", e); }
+    } catch (e) {
+      console.error("Firestore sync failed, queuing:", e);
+      queueSync(infraction.id);
+    }
     document.getElementById("infractionForm").reset();
     currentPhotos = [];
     renderPhotoPreview();
