@@ -10,6 +10,10 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
+
+// Anonymous auth
+auth.signInAnonymously().catch(e => console.error("Auth failed:", e));
 
 const TENANTS = [
   "Barbería", "Royal Lab", "Sakura", "SuperCakes", "Dentista",
