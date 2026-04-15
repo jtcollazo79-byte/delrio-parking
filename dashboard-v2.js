@@ -190,3 +190,6 @@ document.getElementById("exportPDF").addEventListener("click", () => {
 
 // Start
 fetchData(dateInput.value);
+
+// Auto-refresh every 30 seconds
+setInterval(() => fetchData(dateInput.value), 30000);
