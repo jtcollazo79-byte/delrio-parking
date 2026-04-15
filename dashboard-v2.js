@@ -28,15 +28,15 @@ for (let i = 1; i <= 19; i++) {
 }
 
 let allInfractions = [];
-let unsubscribe = null;
+
 
 // Set default date to today
 const dateInput = document.getElementById("filterDate");
 dateInput.value = new Date().toISOString().split("T")[0];
 
 // Real-time listener
-function startListening(dateStr) {
-  allInfractions = [];
+function fetchData(dateStr) {
+  document.getElementById("infractionsList").innerHTML = '<p class="empty">Cargando...</p>';
 
   db.collection("infractions")
     .get()
@@ -132,15 +132,15 @@ function renderList(infractions) {
 }
 
 // Event listeners
-dateInput.addEventListener("change", () => startListening(dateInput.value));
+dateInput.addEventListener("change", () => fetchData(dateInput.value));
 document.getElementById("btnToday").addEventListener("click", () => {
   dateInput.value = new Date().toISOString().split("T")[0];
-  startListening(dateInput.value);
+  fetchData(dateInput.value);
 });
-document.getElementById("btnRefresh").addEventListener("click", () => startListening(dateInput.value));
+document.getElementById("btnRefresh").addEventListener("click", () => fetchData(dateInput.value));
 document.getElementById("filterStatus").addEventListener("change", applyFilters);
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
 
 // Start
-startListening(dateInput.value);
+fetchData(dateInput.value);
