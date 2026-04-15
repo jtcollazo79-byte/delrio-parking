@@ -39,7 +39,6 @@ function startListening(dateStr) {
   if (unsubscribe) unsubscribe();
 
   unsubscribe = db.collection("infractions")
-    .orderBy("date", "desc")
     .limitToLast(100)
     .onSnapshot(snapshot => {
       allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
