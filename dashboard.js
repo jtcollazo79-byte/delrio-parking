@@ -42,20 +42,21 @@ dateInput.value = new Date().toISOString().split("T")[0];
 function startListening(dateStr) {
   if (unsubscribe) unsubscribe();
 
-  const start = dateStr + "T00:00";
-  const end = dateStr + "T23:59";
-
   unsubscribe = db.collection("infractions")
-    .where("date", ">=", start)
-    .where("date", "<=", end)
     .orderBy("date", "desc")
+    .limitToLast(100)
     .onSnapshot(snapshot => {
-      allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter(inf => {
+          if (!inf.date) return false;
+          const d = inf.date.split("T")[0];
+          return d === dateStr;
+        });
       applyFilters();
     }, err => {
       console.error("Firestore error:", err);
       document.getElementById("infractionsList").innerHTML =
-        '<p class="empty">Error cargando datos. ¿Firestore está en test mode?</p>';
+        '<p class="empty">Error cargando datos.</p>';
     });
 }
 
