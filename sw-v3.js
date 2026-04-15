@@ -2,8 +2,8 @@ const CACHE = "delrio-v3.1";
 const FILES = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles-v3.css",
+  "./app-v3.js",
   "./manifest.json",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js",

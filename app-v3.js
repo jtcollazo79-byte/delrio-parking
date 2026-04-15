@@ -172,7 +172,7 @@ function saveOfficer(info) {
 
 // --- Service Worker ---
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js?v=2.2")
+  navigator.serviceWorker.register("sw-v3.js")
     .then(reg => {
       console.log("SW registered");
       // Auto-update: check every 30 seconds
