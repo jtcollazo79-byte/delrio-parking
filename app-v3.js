@@ -13,11 +13,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const auth = firebase.auth();
 const FIRESTORE_COLLECTION = "infractions";
-
-// Anonymous auth
-auth.signInAnonymously().catch(e => console.error("Auth failed:", e));
 
 // --- IndexedDB Setup ---
 const DB_NAME = "DelRioParking";
