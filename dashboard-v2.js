@@ -130,6 +130,7 @@ function renderList(infractions) {
         <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
         <div class="field"><span>Oficial:</span> <strong>${officerName}</strong></div>
         <div class="field"><span>Notas:</span> <strong>${inf.notes || "—"}</strong></div>
+        <button onclick="deleteInf('${inf.id}')" class="delete-btn">🗑 Delete</button>
       </div>
     `;
   }).join("");
@@ -145,6 +146,15 @@ document.getElementById("btnRefresh").addEventListener("click", () => fetchData(
 document.getElementById("filterStatus").addEventListener("change", applyFilters);
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
+
+// --- Delete Infraction ---
+window.deleteInf = async function(id) {
+  if (!confirm("Delete this infraction?")) return;
+  try {
+    await db.collection(FIRESTORE_COLLECTION).doc(id).delete();
+    fetchData(dateInput.value);
+  } catch(e) { alert("Error: " + e.message); }
+};
 
 // --- Export CSV ---
 document.getElementById("exportCSV").addEventListener("click", () => {

@@ -69,3 +69,5 @@ header h1 { font-size: 1.3rem; color: #fff; }
   .infraction-card { grid-template-columns: 1fr; }
   header { flex-direction: column; }
 }
+.delete-btn { margin-top: 8px; background: #c0392b; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.delete-btn:hover { background: #e74c3c; }
