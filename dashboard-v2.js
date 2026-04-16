@@ -151,7 +151,7 @@ document.getElementById("filterPlate").addEventListener("input", applyFilters);
 window.deleteInf = async function(id) {
   if (!confirm("Delete this infraction?")) return;
   try {
-    await db.collection(FIRESTORE_COLLECTION).doc(id).delete();
+    await db.collection("infractions").doc(id).delete();
     fetchData(dateInput.value);
   } catch(e) { alert("Error: " + e.message); }
 };
