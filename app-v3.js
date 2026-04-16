@@ -370,7 +370,12 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
         queueSync(infraction.id);
       }
     };
-    if (authReady) { doSync(); } else { queueSync(infraction.id); }
+    // Sync to Firestore (non-blocking)
+    if (authReady) {
+      doSync(); // fire and forget
+    } else {
+      queueSync(infraction.id);
+    }
     document.getElementById("infractionForm").reset();
     currentPhotos = [];
     renderPhotoPreview();
