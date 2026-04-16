@@ -17,7 +17,14 @@ const auth = firebase.auth();
 const FIRESTORE_COLLECTION = "infractions";
 
 // Anonymous auth
-auth.signInAnonymously().catch(e => console.error("Auth failed:", e));
+// Wait for auth before any Firestore ops
+let authReady = false;
+auth.signInAnonymously()
+  .then(() => { authReady = true; console.log("Auth ready"); processSyncQueue(); })
+  .catch(e => console.error("Auth failed:", e));
+auth.onAuthStateChanged(user => {
+  if (user) { authReady = true; processSyncQueue(); }
+});
 
 // --- IndexedDB Setup ---
 const DB_NAME = "DelRioParking";
@@ -352,15 +359,18 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
 
   try {
     await dbAdd(infraction);
-    // Sync to Firestore
-    try {
-      const syncData = { ...infraction };
-      delete syncData.photos;
-      await db.collection(FIRESTORE_COLLECTION).doc(infraction.id).set(syncData);
-    } catch (e) {
-      console.error("Firestore sync failed, queuing:", e);
-      queueSync(infraction.id);
-    }
+    // Sync to Firestore (wait for auth)
+    const doSync = async () => {
+      try {
+        const syncData = { ...infraction };
+        delete syncData.photos;
+        await db.collection(FIRESTORE_COLLECTION).doc(infraction.id).set(syncData);
+      } catch (e) {
+        console.error("Firestore sync failed, queuing:", e);
+        queueSync(infraction.id);
+      }
+    };
+    if (authReady) { doSync(); } else { queueSync(infraction.id); }
     document.getElementById("infractionForm").reset();
     currentPhotos = [];
     renderPhotoPreview();
