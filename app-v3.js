@@ -236,6 +236,12 @@ window.addEventListener("online", () => {
 // Also try on load if online
 if (navigator.onLine) processSyncQueue();
 
+// Retry pending syncs every 10 seconds
+setInterval(() => {
+  const q = getSyncQueue();
+  if (q.length > 0 && navigator.onLine) processSyncQueue();
+}, 10000);
+
 // --- State ---
 let currentPhotos = [];
 let currentInfractions = [];
