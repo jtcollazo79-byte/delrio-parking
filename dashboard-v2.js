@@ -34,12 +34,29 @@ for (let i = 1; i <= 19; i++) {
 let allInfractions = [];
 
 
-// Set default date to today
+// Date range picker
 const dateInput = document.getElementById("filterDate");
+const dateEndInput = document.getElementById("filterDateEnd");
 dateInput.value = new Date().toISOString().split("T")[0];
+if (dateEndInput) dateEndInput.value = new Date().toISOString().split("T")[0];
+
+// Date range mode toggle
+let dateRangeMode = false;
+const rangeToggle = document.getElementById("rangeToggle");
+if (rangeToggle) {
+  rangeToggle.addEventListener("click", () => {
+    dateRangeMode = !dateRangeMode;
+    rangeToggle.textContent = dateRangeMode ? "📅 Range" : "📅 Day";
+    rangeToggle.classList.toggle("active", dateRangeMode);
+    const endGroup = document.getElementById("endDateGroup");
+    if (endGroup) endGroup.style.display = dateRangeMode ? "inline-block" : "none";
+    fetchData(dateInput.value);
+  });
+}
 
 // Real-time listener
 function fetchData(dateStr) {
+  const endDate = dateEndInput && dateRangeMode ? dateEndInput.value : dateStr;
   document.getElementById("infractionsList").innerHTML = '<p class="empty">Cargando...</p>';
 
   db.collection("infractions")
@@ -49,6 +66,9 @@ function fetchData(dateStr) {
         .filter(inf => {
           if (!inf.date) return false;
           const d = inf.date.split("T")[0];
+          if (dateRangeMode) {
+            return d >= dateStr && d <= endDate;
+          }
           return d === dateStr;
         });
       applyFilters();
@@ -138,6 +158,7 @@ function renderList(infractions) {
 
 // Event listeners
 dateInput.addEventListener("change", () => fetchData(dateInput.value));
+if (dateEndInput) dateEndInput.addEventListener("change", () => fetchData(dateInput.value));
 document.getElementById("btnToday").addEventListener("click", () => {
   dateInput.value = new Date().toISOString().split("T")[0];
   fetchData(dateInput.value);
@@ -173,7 +194,7 @@ document.getElementById("exportCSV").addEventListener("click", () => {
   const blob = new Blob([csv], {type: "text/csv"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `delrio-infractions-${dateInput.value}.csv`;
+  a.download = `delrio-infractions-${dateInput.value}${dateRangeMode && dateEndInput ? '-to-' + dateEndInput.value : ''}.csv`;
   a.click();
 });
 
@@ -181,7 +202,7 @@ document.getElementById("exportCSV").addEventListener("click", () => {
 document.getElementById("exportPDF").addEventListener("click", () => {
   if (allInfractions.length === 0) return alert("No hay datos");
   let html = `<html><head><title>Del Rio - Infracciones</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #333;padding:6px 8px;font-size:11px}th{background:#e94560;color:#fff}h1{color:#e94560}</style></head><body>`;
-  html += `<h1>Del Rio Shopping Center - Infracciones</h1><p>Fecha: ${dateInput.value} | Total: ${allInfractions.length}</p>`;
+  html += `<h1>Del Rio Shopping Center - Infracciones</h1><p>Fecha: ${dateInput.value}${dateRangeMode && dateEndInput ? ' a ' + dateEndInput.value : ''} | Total: ${allInfractions.length}</p>`;
   html += `<table><tr><th>Espacio</th><th>Tenant</th><th>Placa</th><th>Vehículo</th><th>Tipo</th><th>Hora</th><th>Oficial</th><th>Estado</th><th>Notas</th></tr>`;
   allInfractions.forEach(inf => {
     const spaceNum = inf.space || (inf.tenant ? inf.tenant.split(":")[0].trim() : "");
