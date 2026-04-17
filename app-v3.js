@@ -236,11 +236,35 @@ window.addEventListener("online", () => {
 // Also try on load if online
 if (navigator.onLine) processSyncQueue();
 
-// Retry pending syncs every 10 seconds
+// --- Full Sync: push ALL local items to Firestore ---
+async function fullSyncToFirestore() {
+  if (!authReady || !navigator.onLine) return;
+  try {
+    const local = await dbGetAll();
+    for (const inf of local) {
+      try {
+        const syncData = { ...inf };
+        delete syncData.photos;
+        await db.collection(FIRESTORE_COLLECTION).doc(inf.id).set(syncData, { merge: true });
+      } catch (e) { console.error(`Full sync failed for ${inf.id}:`, e); }
+    }
+    // Clear sync queue since everything is synced now
+    localStorage.setItem("syncQueue", JSON.stringify([]));
+    console.log(`Full sync complete: ${local.length} items pushed`);
+  } catch (e) { console.error("Full sync error:", e); }
+}
+
+// Retry pending syncs every 30 seconds
 setInterval(() => {
   const q = getSyncQueue();
   if (q.length > 0 && navigator.onLine) processSyncQueue();
-}, 10000);
+}, 30000);
+
+// Full sync every 2 minutes
+setInterval(() => { fullSyncToFirestore(); }, 120000);
+
+// Full sync on load after auth is ready
+auth.onAuthStateChanged(() => { setTimeout(fullSyncToFirestore, 3000); });
 
 // --- State ---
 let currentPhotos = [];
