@@ -419,7 +419,26 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
 
 // --- History Tab ---
 async function loadHistory() {
-  currentInfractions = await dbGetAll();
+  // Load from IndexedDB first
+  let local = await dbGetAll();
+  
+  // If online and auth ready, also fetch from Firestore
+  if (authReady && navigator.onLine) {
+    try {
+      const snapshot = await db.collection(FIRESTORE_COLLECTION).get();
+      const remote = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      // Merge: remote items not in local get added to local IndexedDB
+      for (const inf of remote) {
+        if (!local.find(l => l.id === inf.id)) {
+          await dbAdd(inf); // save to local
+          local.push(inf);
+        }
+      }
+    } catch (e) { console.error("Firestore load error:", e); }
+  }
+  
+  currentInfractions = local;
   currentInfractions.sort((a, b) => new Date(b.created) - new Date(a.created));
   renderHistory();
   updateStats();
