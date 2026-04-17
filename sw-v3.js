@@ -1,4 +1,4 @@
-const CACHE = "delrio-v4.0";
+const CACHE = "delrio-v5.0";
 const FILES = [
   "./",
   "./index.html",
