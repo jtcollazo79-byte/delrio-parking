@@ -10,6 +10,24 @@
   <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" style="display:none;position:fixed;inset:0;background:#0f0f0f;z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#1a1a2e;padding:40px;border-radius:16px;border:2px solid #e94560;text-align:center;min-width:320px;">
+    <h2 style="color:#fff;margin-bottom:8px;">🔥 Del Rio Dashboard</h2>
+    <p style="color:#888;margin-bottom:24px;font-size:0.9rem;">Ingrese sus credenciales</p>
+    <input type="text" id="loginUser" placeholder="Usuario" autocomplete="username"
+      style="width:100%;padding:12px;margin-bottom:12px;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:8px;font-size:1rem;">
+    <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password"
+      style="width:100%;padding:12px;margin-bottom:20px;background:#0f0f0f;color:#e0e0e0;border:1px solid #333;border-radius:8px;font-size:1rem;">
+    <div id="loginError" style="color:#e94560;margin-bottom:12px;font-size:0.85rem;display:none;">Usuario o contraseña incorrectos</div>
+    <button id="loginBtn" onclick="doLogin()"
+      style="width:100%;padding:12px;background:#e94560;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">Entrar</button>
+  </div>
+</div>
+
+<!-- MAIN DASHBOARD (hidden until login) -->
+<div id="mainApp" style="display:none;">
   <header>
     <h1>🔥 Del Rio Parking — Dashboard</h1>
     <div class="header-controls">
@@ -63,5 +81,35 @@
   </div>
 
   <script src="dashboard-v2.js"></script>
+  <script>
+  // LOGIN SYSTEM
+  const USERS = {
+    'admin': 'DelRio',
+    'j1': 'j1admin2026'
+  };
+
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim().toLowerCase();
+    const p = document.getElementById('loginPass').value;
+    if (USERS[u] && USERS[u] === p) {
+      sessionStorage.setItem('dashAuth', u);
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainApp').style.display = 'block';
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  // Enter key to login
+  document.getElementById('loginPass').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  // Check auth on load
+  if (sessionStorage.getItem('dashAuth')) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+  }
+  </script>
 </body>
 </html>
