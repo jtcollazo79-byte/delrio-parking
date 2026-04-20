@@ -182,6 +182,8 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw-v3.js")
     .then(reg => {
       console.log("SW registered");
+      // Force immediate update check on load
+      reg.update();
       // Auto-update: check every 30 seconds
       setInterval(() => reg.update(), 30000);
       // When new SW activates, reload automatically
