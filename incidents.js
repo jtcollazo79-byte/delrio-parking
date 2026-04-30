@@ -167,6 +167,8 @@ const INCIDENT_STATUSES = {
 
 // --- Init Incidents Tab ---
 function initIncidentsTab() {
+  console.log("initIncidentsTab called");
+  try {
   // Category selection
   document.querySelectorAll("#tab-incidents .category-card").forEach(card => {
     card.addEventListener("click", () => {
@@ -185,6 +187,9 @@ function initIncidentsTab() {
     });
   });
 
+  } catch(initErr) { console.error("initIncidentsTab category/priority error:", initErr); }
+
+  try {
   // Photo capture for incidents
   document.getElementById("incidentCameraBtn").addEventListener("click", () => {
     const input = document.getElementById("incidentPhotoInput");
@@ -235,6 +240,9 @@ function initIncidentsTab() {
     }
   });
 
+  } catch(photoErr) { console.error("initIncidentsTab photo/gps error:", photoErr); }
+
+  try {
   // Submit incident form
   document.getElementById("incidentForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -309,7 +317,11 @@ function initIncidentsTab() {
     }
   });
 
+  } catch(formErr) { console.error("initIncidentsTab form error:", formErr); }
+
+  try {
   // View toggle (Report | History)
+  console.log("Registering toggle buttons, count:", document.querySelectorAll("#tab-incidents .toggle-btn").length);
   document.querySelectorAll("#tab-incidents .toggle-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("#tab-incidents .toggle-btn").forEach(b => b.classList.remove("active"));
@@ -321,6 +333,9 @@ function initIncidentsTab() {
     });
   });
 
+  } catch(toggleErr) { console.error("initIncidentsTab toggle error:", toggleErr); }
+
+  try {
   // Incident history filters
   document.getElementById("incidentSearchInput").addEventListener("input", renderIncidentHistory);
   document.getElementById("incidentFilterCategory").addEventListener("change", renderIncidentHistory);
@@ -336,19 +351,30 @@ function initIncidentsTab() {
     renderIncidentHistory();
   });
 
+  } catch(filterErr) { console.error("initIncidentsTab filter error:", filterErr); }
+
+  try {
   // Export incidents
   document.getElementById("exportIncidentCSV").addEventListener("click", exportIncidentsCSV);
   document.getElementById("exportIncidentPDF").addEventListener("click", exportIncidentsPDF);
 
+  } catch(exportErr) { console.error("initIncidentsTab export error:", exportErr); }
+
+  try {
   // Incident modal buttons
   document.getElementById("incidentModalClose").addEventListener("click", closeIncidentModal);
   document.getElementById("incidentModalClose2").addEventListener("click", closeIncidentModal);
   document.getElementById("incidentModalDelete").addEventListener("click", deleteIncident);
 
+  } catch(modalErr) { console.error("initIncidentsTab modal error:", modalErr); }
+
+  try {
   // Auto-date
   setDefaultIncidentDate();
 
-  // Auto-sync intervals
+  } catch(dateErr) { console.error("initIncidentsTab date error:", dateErr); }
+
+  console.log("initIncidentsTab complete");
   setInterval(() => {
     const q = getIncidentSyncQueue();
     if (q.length > 0 && navigator.onLine) processIncidentSyncQueue();

@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><title>Test Incident Save</title></head><body>
+<h2>Incident Save Test</h2>
+<button onclick="testSave()">Test Save to IndexedDB</button>
+<button onclick="testRead()">Read from IndexedDB</button>
+<pre id="output"></pre>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = { apiKey: "AIzaSyDnTqF3hS1Y3lMlU1Y4ZjK1Z2X3H4L5M6N", authDomain: "del-rio-parking.firebaseapp.com", projectId: "del-rio-parking", storageBucket: "del-rio-parking.firebasestorage.app", messagingSenderId: "32189559016", appId: "1:32189559016:web:758d96678f68715c64595d" };
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function log(msg) { document.getElementById('output').textContent += msg + '\n'; }
+
+async function testSave() {
+  const testInc = {
+    id: "test_" + Date.now(),
+    category: "security",
+    priority: "low",
+    description: "Test incident from debug",
+    status: "open",
+    created: new Date().toISOString()
+  };
+  
+  // Test IndexedDB
+  try {
+    const req = indexedDB.open("DelRioParking", 3);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains("incidents")) {
+        d.createObjectStore("incidents", { keyPath: "id" });
+      }
+    };
+    req.onsuccess = async () => {
+      const idb = req.result;
+      const tx = idb.transaction("incidents", "readwrite");
+      tx.objectStore("incidents").add(testInc);
+      tx.oncomplete = () => log("✅ IndexedDB save OK: " + testInc.id);
+      tx.onerror = () => log("❌ IndexedDB error: " + tx.error);
+    };
+  } catch(e) { log("❌ IDB error: " + e.message); }
+  
+  // Test Firestore
+  try {
+    await db.collection("incidents").doc(testInc.id).set(testInc);
+    log("✅ Firestore save OK: " + testInc.id);
+  } catch(e) { log("❌ Firestore error: " + e.message); }
+}
+
+async function testRead() {
+  try {
+    const snapshot = await db.collection("incidents").get();
+    log("Firestore incidents count: " + snapshot.size);
+    snapshot.docs.forEach(doc => log("  → " + doc.id + " | " + JSON.stringify(doc.data()).substring(0, 100)));
+  } catch(e) { log("❌ Read error: " + e.message); }
+  
+  try {
+    const req = indexedDB.open("DelRioParking", 3);
+    req.onsuccess = () => {
+      const idb = req.result;
+      if (!idb.objectStoreNames.contains("incidents")) {
+        log("❌ No 'incidents' store in IndexedDB!");
+        return;
+      }
+      const tx = idb.transaction("incidents", "readonly");
+      const store = tx.objectStore("incidents").getAll();
+      store.onsuccess = () => {
+        log("IndexedDB incidents count: " + store.result.length);
+        store.result.forEach(i => log("  → " + i.id + " | " + (i.description||"").substring(0, 60)));
+      };
+    };
+  } catch(e) { log("❌ IDB read error: " + e.message); }
+}
+</script></body></html>
