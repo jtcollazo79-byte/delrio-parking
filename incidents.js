@@ -301,6 +301,8 @@ function initIncidentsTab() {
       document.querySelector('#tab-incidents .priority-btn[data-priority="medium"]')?.classList.add("selected");
 
       alert("✅ Incident reported!");
+      // Switch to list view and refresh
+      loadIncidentHistory();
     } catch (err) {
       console.error(err);
       alert("Error saving incident: " + err.message);
@@ -427,6 +429,15 @@ async function loadIncidentHistory() {
   currentIncidents.sort((a, b) => new Date(b.created) - new Date(a.created));
   renderIncidentHistory();
   updateIncidentStats();
+  
+  // Auto-switch to list view if there are incidents
+  if (currentIncidents.length > 0 && incidentViewMode === "report") {
+    document.querySelectorAll("#tab-incidents .toggle-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('#tab-incidents .toggle-btn[data-view="list"]').classList.add("active");
+    incidentViewMode = "list";
+    document.getElementById("incidentReportView").style.display = "none";
+    document.getElementById("incidentListView").style.display = "block";
+  }
 }
 
 function renderIncidentHistory() {

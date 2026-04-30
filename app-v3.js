@@ -396,7 +396,9 @@ document.querySelectorAll("nav .tab").forEach(btn => {
     document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
     if (btn.dataset.tab === "history") loadHistory();
     if (btn.dataset.tab === "status") loadStatusTab();
-    if (btn.dataset.tab === "incidents") { if (typeof loadIncidentHistory === 'function') loadIncidentHistory(); }
+    if (btn.dataset.tab === "incidents") {
+      if (typeof loadIncidentHistory === 'function') loadIncidentHistory();
+    }
     if (btn.dataset.tab === "settings") { if (settingsUnlocked) loadSettings(); }
   });
 });
