@@ -627,6 +627,7 @@ function renderHistory() {
         <span class="type" style="background:#ede9fe;color:#5b21b6">${esc(inf.category)}</span>
         ${inf.status ? `<span class="status-badge ${inf.status === 'resolved' || inf.status === 'closed' ? 'moved' : 'not-moved'}">${inf.status}</span>` : ""}
         <div class="date">${formatDate(inf.date)}</div>
+        ${(inf.officer?.name || inf.officerCompany) ? `<div class="vehicle">👤 ${esc(inf.officer?.name || "")}${inf.officerCompany ? " — " + esc(inf.officerCompany) : ""}</div>` : ""}
         ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
       `;
       li.addEventListener("click", () => {
