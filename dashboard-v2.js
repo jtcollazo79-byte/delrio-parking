@@ -13,7 +13,9 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 
 // Anonymous auth
-auth.signInAnonymously().catch(e => console.error("Auth failed:", e));
+auth.signInAnonymously()
+  .then(() => { console.log("Dashboard auth ready"); fetchData(dateInput.value); })
+  .catch(e => console.error("Auth failed:", e));
 
 const TENANTS = [
   "Barbería", "Royal Lab", "Sakura", "SuperCakes", "Dentista",
@@ -357,8 +359,7 @@ const CAT_LABELS = { security: "Seguridad", maintenance: "Mantenimiento", emerge
 const PRI_COLORS = { low: "#22c55e", medium: "#f59e0b", high: "#f97316", critical: "#ef4444" };
 const STATUS_LABELS = { open: "🟡 Abierto", "in-progress": "🔵 En Progreso", resolved: "🟢 Resuelto", closed: "⚪ Cerrado" };
 
-// Start
-fetchData(dateInput.value);
+// Start — fetchData is called after auth is ready (see auth.signInAnonymously .then)
 
 // Auto-refresh every 2 minutes
 setInterval(() => fetchData(dateInput.value), 120000);
