@@ -168,8 +168,26 @@ const INCIDENT_STATUSES = {
 // --- Init Incidents Tab ---
 function initIncidentsTab() {
   console.log("initIncidentsTab called");
+
+  // === TOGGLE FIRST — most critical ===
   try {
-  // Category selection
+    const toggles = document.querySelectorAll("#tab-incidents .toggle-btn");
+    console.log("Toggle buttons found:", toggles.length);
+    toggles.forEach(btn => {
+      btn.addEventListener("click", () => {
+        console.log("Toggle clicked:", btn.dataset.view);
+        toggles.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        incidentViewMode = btn.dataset.view;
+        document.getElementById("incidentReportView").style.display = incidentViewMode === "report" ? "block" : "none";
+        document.getElementById("incidentListView").style.display = incidentViewMode === "list" ? "block" : "none";
+        if (incidentViewMode === "list") loadIncidentHistory();
+      });
+    });
+  } catch(e) { console.error("Toggle init error:", e); }
+
+  // === Category selection ===
+  try {
   document.querySelectorAll("#tab-incidents .category-card").forEach(card => {
     card.addEventListener("click", () => {
       document.querySelectorAll("#tab-incidents .category-card").forEach(c => c.classList.remove("selected"));
@@ -177,8 +195,10 @@ function initIncidentsTab() {
       selectedCategory = card.dataset.category;
     });
   });
+  } catch(e) { console.error("Category init error:", e); }
 
-  // Priority selection
+  // === Priority selection ===
+  try {
   document.querySelectorAll("#tab-incidents .priority-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("#tab-incidents .priority-btn").forEach(b => b.classList.remove("selected"));
@@ -318,22 +338,6 @@ function initIncidentsTab() {
   });
 
   } catch(formErr) { console.error("initIncidentsTab form error:", formErr); }
-
-  try {
-  // View toggle (Report | History)
-  console.log("Registering toggle buttons, count:", document.querySelectorAll("#tab-incidents .toggle-btn").length);
-  document.querySelectorAll("#tab-incidents .toggle-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("#tab-incidents .toggle-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      incidentViewMode = btn.dataset.view;
-      document.getElementById("incidentReportView").style.display = incidentViewMode === "report" ? "block" : "none";
-      document.getElementById("incidentListView").style.display = incidentViewMode === "list" ? "block" : "none";
-      if (incidentViewMode === "list") loadIncidentHistory();
-    });
-  });
-
-  } catch(toggleErr) { console.error("initIncidentsTab toggle error:", toggleErr); }
 
   try {
   // Incident history filters
