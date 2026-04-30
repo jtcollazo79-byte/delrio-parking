@@ -22,6 +22,15 @@ const TENANTS = [
   "Artesano", "Leaf Lab", "Sorrel", "Buenacoop"
 ];
 
+const OFFICERS = [
+  "Héctor J. Prieto Pacheco",
+  "Nashalee Ojeda Ocasio",
+  "Felix E. Aponte Sanchez",
+  "Jose R. Cintrón Meléndez",
+  "Jorge D. Moyett Dávila",
+  "Andy J. Aponte Sánchez"
+];
+
 // Populate space filter
 const spaceSelect = document.getElementById("filterSpace");
 for (let i = 1; i <= 19; i++) {
@@ -139,18 +148,49 @@ function renderList(infractions) {
     const date = inf.date ? inf.date.split("T")[0] || "" : "";
     const officerName = inf.officer && typeof inf.officer === "object" ? (inf.officer.name || "—") : (inf.officer || "—");
 
+    const eid = inf.id;
     return `
-      <div class="infraction-card">
-        <div class="field space-num">Espacio ${spaceNum} — ${tenantName}</div>
-        <div class="field"><span class="status-badge ${statusClass}">${statusText}</span></div>
-        <div class="field"><span>Placa:</span> <strong>${inf.plate || "—"}</strong></div>
-        <div class="field"><span>Vehículo:</span> <strong>${inf.vehicle || "—"}</strong></div>
-        <div class="field"><span>Tipo:</span> <strong>${inf.type || "—"}</strong></div>
-        <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
-        <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
-        <div class="field"><span>Oficial:</span> <strong>${officerName}</strong></div>
-        <div class="field"><span>Notas:</span> <strong>${inf.notes || "—"}</strong></div>
-        <button onclick="deleteInf('${inf.id}')" class="delete-btn">🗑 Delete</button>
+      <div class="infraction-card" id="card-${eid}">
+        <div class="card-header">
+          <span class="field space-num">Espacio ${spaceNum} — ${tenantName}</span>
+          <span class="status-badge ${statusClass}">${statusText}</span>
+        </div>
+        <div class="card-fields" id="fields-${eid}">
+          <div class="field"><span>Placa:</span> <strong>${inf.plate || "—"}</strong></div>
+          <div class="field"><span>Vehículo:</span> <strong>${inf.vehicle || "—"}</strong></div>
+          <div class="field"><span>Tipo:</span> <strong>${inf.type || "—"}</strong></div>
+          <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
+          <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
+          <div class="field"><span>Oficial:</span> <strong>${officerName}</strong></div>
+          <div class="field"><span>Notas:</span> <strong>${inf.notes || "—"}</strong></div>
+        </div>
+        <div class="card-edit" id="edit-${eid}" style="display:none">
+          <div class="field edit-row">
+            <label>Local:</label>
+            <select id="e-tenant-${eid}">
+              ${TENANTS.map((t, i) => `<option value="${i+1}: ${t}" ${spaceNum == i+1 ? 'selected' : ''}>Espacio ${i+1} — ${t}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field edit-row">
+            <label>Estado:</label>
+            <select id="e-status-${eid}">
+              <option value="" ${!vs ? 'selected' : ''}>⏳ Pendiente</option>
+              <option value="moved" ${vs==='moved' ? 'selected' : ''}>✅ Se Movió</option>
+              <option value="stayed" ${vs==='stayed' ? 'selected' : ''}>🚫 Se Quedó</option>
+            </select>
+          </div>
+          <div class="field edit-row"><label>Placa:</label><input id="e-plate-${eid}" value="${inf.plate || ''}"></div>
+          <div class="field edit-row"><label>Vehículo:</label><input id="e-vehicle-${eid}" value="${inf.vehicle || ''}"></div>
+          <div class="field edit-row"><label>Tipo:</label><input id="e-type-${eid}" value="${inf.type || ''}"></div>
+          <div class="field edit-row"><label>Oficial:</label><select id="e-officer-${eid}"><option value="">— Sin oficial —</option>${OFFICERS.map(o => `<option value="${o}" ${officerName === o ? 'selected' : ''}>${o}</option>`).join('')}</select></div>
+          <div class="field edit-row"><label>Notas:</label><input id="e-notes-${eid}" value="${inf.notes || ''}"></div>
+        </div>
+        <div class="card-actions">
+          <button onclick="toggleEdit('${eid}')" class="edit-btn" id="editbtn-${eid}">✏️ Editar</button>
+          <button onclick="saveEdit('${eid}')" class="save-btn" id="savebtn-${eid}" style="display:none">💾 Guardar</button>
+          <button onclick="cancelEdit('${eid}')" class="cancel-btn" id="cancelbtn-${eid}" style="display:none">Cancelar</button>
+          <button onclick="deleteInf('${eid}')" class="delete-btn">🗑</button>
+        </div>
       </div>
     `;
   }).join("");
@@ -168,9 +208,50 @@ document.getElementById("filterStatus").addEventListener("change", applyFilters)
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
 
+// --- Edit Functions ---
+window.toggleEdit = function(id) {
+  document.getElementById('fields-' + id).style.display = 'none';
+  document.getElementById('edit-' + id).style.display = 'block';
+  document.getElementById('editbtn-' + id).style.display = 'none';
+  document.getElementById('savebtn-' + id).style.display = 'inline-block';
+  document.getElementById('cancelbtn-' + id).style.display = 'inline-block';
+};
+
+window.cancelEdit = function(id) {
+  document.getElementById('fields-' + id).style.display = 'grid';
+  document.getElementById('edit-' + id).style.display = 'none';
+  document.getElementById('editbtn-' + id).style.display = 'inline-block';
+  document.getElementById('savebtn-' + id).style.display = 'none';
+  document.getElementById('cancelbtn-' + id).style.display = 'none';
+};
+
+window.saveEdit = async function(id) {
+  const tenant = document.getElementById('e-tenant-' + id).value;
+  const spaceNum = parseInt(tenant.split(':')[0].trim());
+  const status = document.getElementById('e-status-' + id).value;
+  const updates = {
+    tenant: tenant,
+    space: spaceNum,
+    plate: document.getElementById('e-plate-' + id).value,
+    vehicle: document.getElementById('e-vehicle-' + id).value,
+    type: document.getElementById('e-type-' + id).value,
+    officer: document.getElementById('e-officer-' + id).value,
+    notes: document.getElementById('e-notes-' + id).value,
+    updatedAt: new Date().toISOString()
+  };
+  if (status) updates.vehicleStatus = status;
+  else updates.vehicleStatus = firebase.firestore.FieldValue.delete();
+
+  try {
+    await db.collection('infractions').doc(id).update(updates);
+    fetchData(dateInput.value);
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
 // --- Delete Infraction ---
 window.deleteInf = async function(id) {
-  if (!confirm("Delete this infraction?")) return;
+  const pwd = prompt("Password para eliminar:");
+  if (pwd !== "DelRio") { alert("Password incorrecto"); return; }
   try {
     await db.collection("infractions").doc(id).delete();
     fetchData(dateInput.value);
@@ -223,4 +304,4 @@ document.getElementById("exportPDF").addEventListener("click", () => {
 fetchData(dateInput.value);
 
 // Auto-refresh every 30 seconds
-setInterval(() => fetchData(dateInput.value), 30000);
+setInterval(() => fetchData(dateInput.value), 120000);

@@ -1,0 +1,313 @@
+/* ============================================
+   Incidents Tab Styles — Del Rio PWA
+   ============================================ */
+
+/* Incident Form */
+.incident-form-wrapper {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Category Cards */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.category-card:hover {
+  border-color: #2563eb;
+  background: #f0f9ff;
+}
+
+.category-card.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+.category-card .cat-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.category-card .cat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.category-card.selected .cat-label {
+  color: #1e40af;
+}
+
+/* Priority Selector */
+.priority-grid {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.priority-btn {
+  flex: 1;
+  padding: 0.6rem 0.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  background: white;
+  transition: all 0.2s;
+}
+
+.priority-btn:hover {
+  opacity: 0.85;
+}
+
+.priority-btn.selected {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+.priority-btn[data-priority="low"] { color: #16a34a; }
+.priority-btn[data-priority="low"].selected { background: #dcfce7; border-color: #22c55e; }
+
+.priority-btn[data-priority="medium"] { color: #d97706; }
+.priority-btn[data-priority="medium"].selected { background: #fef3c7; border-color: #f59e0b; }
+
+.priority-btn[data-priority="high"] { color: #ea580c; }
+.priority-btn[data-priority="high"].selected { background: #ffedd5; border-color: #f97316; }
+
+.priority-btn[data-priority="critical"] { color: #dc2626; font-weight: 700; }
+.priority-btn[data-priority="critical"].selected { background: #fee2e2; border-color: #ef4444; }
+
+.priority-btn .p-icon {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.priority-btn .p-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+/* Location Input */
+.location-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.location-row input {
+  flex: 1;
+}
+
+.location-row .gps-btn {
+  width: auto;
+  padding: 0.6rem 0.75rem;
+  background: #f0f9ff;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Incident List Items */
+.incident-card {
+  border-left: 4px solid #94a3b8;
+}
+
+.incident-card.cat-security { border-left-color: #2563eb; }
+.incident-card.cat-maintenance { border-left-color: #f59e0b; }
+.incident-card.cat-emergency { border-left-color: #ef4444; }
+.incident-card.cat-noise { border-left-color: #8b5cf6; }
+.incident-card.cat-other { border-left-color: #64748b; }
+
+.incident-card .incident-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.incident-card .incident-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.incident-card .incident-meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.badge-cat {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.badge-cat-security { background: #dbeafe; color: #1e40af; }
+.badge-cat-maintenance { background: #fef3c7; color: #92400e; }
+.badge-cat-emergency { background: #fee2e2; color: #991b1b; }
+.badge-cat-noise { background: #ede9fe; color: #5b21b6; }
+.badge-cat-other { background: #f1f5f9; color: #475569; }
+
+.badge-priority-low { background: #dcfce7; color: #166534; }
+.badge-priority-medium { background: #fef3c7; color: #92400e; }
+.badge-priority-high { background: #ffedd5; color: #9a3412; }
+.badge-priority-critical { background: #fee2e2; color: #991b1b; animation: pulse-badge 2s infinite; }
+
+.badge-status-open { background: #fef3c7; color: #92400e; }
+.badge-status-in-progress { background: #dbeafe; color: #1e40af; }
+.badge-status-resolved { background: #dcfce7; color: #166534; }
+.badge-status-closed { background: #f1f5f9; color: #64748b; }
+
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Incident Stats */
+.incident-stats {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.incident-stat {
+  flex: 1;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.incident-stat .number {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.incident-stat .label {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Incident Detail */
+.incident-detail-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.incident-detail-photos img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Status Update Buttons in Detail Modal */
+.status-update-grid {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.status-update-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.status-update-btn:hover {
+  opacity: 0.85;
+}
+
+.status-update-btn.active-status {
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.3);
+}
+
+.status-update-btn[data-status="open"] { color: #d97706; }
+.status-update-btn[data-status="open"].active-status { background: #fef3c7; border-color: #f59e0b; }
+
+.status-update-btn[data-status="in-progress"] { color: #2563eb; }
+.status-update-btn[data-status="in-progress"].active-status { background: #dbeafe; border-color: #2563eb; }
+
+.status-update-btn[data-status="resolved"] { color: #16a34a; }
+.status-update-btn[data-status="resolved"].active-status { background: #dcfce7; border-color: #22c55e; }
+
+.status-update-btn[data-status="closed"] { color: #64748b; }
+.status-update-btn[data-status="closed"].active-status { background: #f1f5f9; border-color: #94a3b8; }
+
+/* Toggle between Report/List view */
+.incident-view-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background: #0f172a;
+  color: white;
+}
+
+.toggle-btn:first-child {
+  border-right: 1px solid #e2e8f0;
+}

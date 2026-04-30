@@ -69,5 +69,24 @@ header h1 { font-size: 1.3rem; color: #fff; }
   .infraction-card { grid-template-columns: 1fr; }
   header { flex-direction: column; }
 }
-.delete-btn { margin-top: 8px; background: #c0392b; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.edit-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.edit-row label { color: #888; font-size: 0.8rem; min-width: 60px; white-space: nowrap; }
+.edit-row select, .edit-row input {
+  flex: 1; background: #0f0f0f; color: #e0e0e0; border: 1px solid #444;
+  padding: 6px 8px; border-radius: 6px; font-size: 0.8rem;
+}
+.edit-row select:focus, .edit-row input:focus { border-color: #e94560; outline: none; }
+
+.card-header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+.card-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.card-edit { display: grid; grid-template-columns: 1fr; gap: 4px; }
+.card-actions { grid-column: 1 / -1; display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2a2a4a; }
+
+.edit-btn { background: #2a5298; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+.edit-btn:hover { background: #3a62a8; }
+.save-btn { background: #1b6b3a; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+.save-btn:hover { background: #2b8b4a; }
+.cancel-btn { background: #555; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+.cancel-btn:hover { background: #666; }
+.delete-btn { background: #c0392b; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
 .delete-btn:hover { background: #e74c3c; }

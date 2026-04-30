@@ -18,6 +18,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles-v3.css">
+  <link rel="stylesheet" href="incidents.css">
 </head>
 <body>
   <!-- Nav Tabs -->
@@ -25,6 +26,7 @@
     <button class="tab active" data-tab="log">📝 Log</button>
     <button class="tab" data-tab="history">📋 History</button>
     <button class="tab" data-tab="status">🚗 Status</button>
+    <button class="tab" data-tab="incidents">🚨 Incidents</button>
     <button class="tab" data-tab="export">📤 Export</button>
     <button class="tab" data-tab="settings">⚙️ Settings</button>
   </nav>
@@ -38,11 +40,19 @@
 
     <main>
       <div class="officer-clockin">
-        <label>👤 Today's Officer
+        <label>🏢 Select Your Company
+          <select id="companySelect">
+            <option value="">— Select Company —</option>
+            <option value="plaza">Plaza de Descuentos</option>
+            <option value="lordguard">Lord Guard LLC</option>
+          </select>
+        </label>
+        <label id="officerSelectWrapper" style="display:none">👤 Your Name
           <select id="officerSelect">
             <option value="">— Clock In —</option>
           </select>
         </label>
+        <div id="officerCompanyBadge" class="company-badge" style="display:none"></div>
       </div>
 
       <form id="infractionForm">
@@ -168,6 +178,142 @@
     <div id="statusEmpty" class="empty-state">No infractions today.</div>
   </div>
 
+  <!-- TAB: Incidents -->
+  <div id="tab-incidents" class="tab-content">
+    <header>
+      <h1>🚨 Incident Reports</h1>
+      <p>Non-vehicle incidents — security, maintenance, emergencies</p>
+    </header>
+
+    <main>
+      <!-- View Toggle -->
+      <div class="incident-view-toggle">
+        <button class="toggle-btn active" data-view="report">📝 Report</button>
+        <button class="toggle-btn" data-view="list">📋 History</button>
+      </div>
+
+      <!-- Report View -->
+      <div id="incidentReportView">
+        <form id="incidentForm" class="incident-form-wrapper">
+          <label style="font-size:0.8rem;font-weight:600;color:#475569;margin-bottom:0.5rem">Category</label>
+          <div class="category-grid">
+            <div class="category-card" data-category="security">
+              <span class="cat-icon">🔒</span>
+              <span class="cat-label">Security</span>
+            </div>
+            <div class="category-card" data-category="maintenance">
+              <span class="cat-icon">🔧</span>
+              <span class="cat-label">Maintenance</span>
+            </div>
+            <div class="category-card" data-category="emergency">
+              <span class="cat-icon">🚨</span>
+              <span class="cat-label">Emergency</span>
+            </div>
+            <div class="category-card" data-category="noise">
+              <span class="cat-icon">🔊</span>
+              <span class="cat-label">Noise</span>
+            </div>
+            <div class="category-card" data-category="other">
+              <span class="cat-icon">📌</span>
+              <span class="cat-label">Other</span>
+            </div>
+          </div>
+
+          <label style="font-size:0.8rem;font-weight:600;color:#475569;margin-bottom:0.5rem">Priority</label>
+          <div class="priority-grid">
+            <button type="button" class="priority-btn" data-priority="low">
+              <span class="p-icon">🟢</span><span class="p-label">Low</span>
+            </button>
+            <button type="button" class="priority-btn selected" data-priority="medium">
+              <span class="p-icon">🟡</span><span class="p-label">Medium</span>
+            </button>
+            <button type="button" class="priority-btn" data-priority="high">
+              <span class="p-icon">🟠</span><span class="p-label">High</span>
+            </button>
+            <button type="button" class="priority-btn" data-priority="critical">
+              <span class="p-icon">🔴</span><span class="p-label">Critical</span>
+            </button>
+          </div>
+
+          <label>Title
+            <input type="text" id="incidentTitleInput" placeholder="Brief description of incident" required />
+          </label>
+
+          <label>Description
+            <textarea id="incidentDescInput" placeholder="What happened? Include details..." rows="3"></textarea>
+          </label>
+
+          <label>Location / Area
+            <input type="text" id="incidentLocationInput" placeholder="e.g. Parking Lot A, Main Entrance, Space 5" />
+          </label>
+
+          <label>Date / Time
+            <input type="date" id="incidentDateInput" />
+            <input type="time" id="incidentTimeInput" />
+          </label>
+
+          <!-- Photo Capture -->
+          <div class="photo-section">
+            <label>Photo Evidence</label>
+            <div class="photo-buttons">
+              <button type="button" id="incidentCameraBtn" class="photo-btn">📷 Camera</button>
+              <button type="button" id="incidentUploadBtn" class="photo-btn">📁 Upload</button>
+              <input type="file" id="incidentPhotoInput" accept="image/*" capture="environment" hidden />
+            </div>
+            <div id="incidentPhotoPreview" class="photo-preview"></div>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Incident Report</button>
+        </form>
+      </div>
+
+      <!-- List View -->
+      <div id="incidentListView" style="display:none">
+        <div class="incident-stats">
+          <div class="incident-stat"><div class="number" id="incStatOpen" style="color:#d97706">0</div><div class="label">Open</div></div>
+          <div class="incident-stat"><div class="number" id="incStatToday" style="color:#2563eb">0</div><div class="label">Today</div></div>
+          <div class="incident-stat"><div class="number" id="incStatCritical" style="color:#ef4444">0</div><div class="label">Critical</div></div>
+        </div>
+
+        <div class="filters">
+          <input type="text" id="incidentSearchInput" placeholder="🔍 Search incidents..." />
+          <select id="incidentFilterCategory">
+            <option value="">All Categories</option>
+            <option value="security">🔒 Security</option>
+            <option value="maintenance">🔧 Maintenance</option>
+            <option value="emergency">🚨 Emergency</option>
+            <option value="noise">🔊 Noise</option>
+            <option value="other">📌 Other</option>
+          </select>
+          <select id="incidentFilterPriority">
+            <option value="">All Priorities</option>
+            <option value="low">🟢 Low</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="high">🟠 High</option>
+            <option value="critical">🔴 Critical</option>
+          </select>
+          <select id="incidentFilterStatus">
+            <option value="">All Statuses</option>
+            <option value="open">🟡 Open</option>
+            <option value="in-progress">🔵 In Progress</option>
+            <option value="resolved">🟢 Resolved</option>
+            <option value="closed">⚪ Closed</option>
+          </select>
+          <input type="date" id="incidentFilterDate" />
+          <button type="button" id="incidentClearFilters" class="clear-btn">Clear</button>
+        </div>
+
+        <ul id="incidentList"></ul>
+        <div id="incidentEmptyState" class="empty-state">No incidents found.</div>
+
+        <div class="export-buttons" style="padding:1rem;max-width:600px;margin:0 auto">
+          <button type="button" id="exportIncidentCSV" class="export-btn">📊 Export CSV</button>
+          <button type="button" id="exportIncidentPDF" class="export-btn">📄 Export PDF</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
   <!-- TAB: Export -->
   <div id="tab-export" class="tab-content">
     <header>
@@ -238,6 +384,12 @@
 
       <div class="settings-section">
         <h3>Officer Info</h3>
+        <div id="officerInfoDisplay" style="margin-bottom:1rem">
+          <p style="font-size:0.85rem;color:#64748b">Current officer info:</p>
+          <p id="officerInfoName" style="font-weight:600"></p>
+          <p id="officerInfoBadge" style="font-size:0.85rem;color:#64748b"></p>
+          <p id="officerInfoCompany" style="font-size:0.85rem;font-weight:600"></p>
+        </div>
         <label>Name
           <input type="text" id="officerName" placeholder="Your name" />
         </label>
@@ -271,6 +423,22 @@
     </div>
   </div>
 
+  <!-- Incident Detail Modal -->
+  <div id="incidentDetailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🚨 Incident Detail</h2>
+        <button class="modal-close" id="incidentModalClose">✕</button>
+      </div>
+      <div id="incidentModalBody"></div>
+      <div class="modal-actions">
+        <button type="button" id="incidentModalDelete" class="danger-btn">Delete</button>
+        <button type="button" id="incidentModalClose2" class="clear-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script src="app-v3.js"></script>
+  <script src="incidents.js"></script>
 </body>
 </html>

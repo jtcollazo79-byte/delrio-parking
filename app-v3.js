@@ -28,7 +28,7 @@ auth.onAuthStateChanged(user => {
 
 // --- IndexedDB Setup ---
 const DB_NAME = "DelRioParking";
-const DB_VERSION = 1;
+const DB_VERSION = 3;
 const STORE_NAME = "infractions";
 
 function openDB() {
@@ -42,6 +42,14 @@ function openDB() {
         store.createIndex("tenant", "tenant", { unique: false });
         store.createIndex("type", "type", { unique: false });
       }
+      // Incidents store (v3)
+      if (!db.objectStoreNames.contains("incidents")) {
+        const store = db.createObjectStore("incidents", { keyPath: "id" });
+        store.createIndex("date", "date", { unique: false });
+        store.createIndex("category", "category", { unique: false });
+        store.createIndex("priority", "priority", { unique: false });
+        store.createIndex("status", "status", { unique: false });
+      }
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
@@ -52,6 +60,15 @@ function dbAdd(data) {
   return openDB().then(db => new Promise((res, rej) => {
     const tx = db.transaction(STORE_NAME, "readwrite");
     tx.objectStore(STORE_NAME).add(data);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+
+function dbPut(data) {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).put(data);
     tx.oncomplete = () => res();
     tx.onerror = () => rej(tx.error);
   }));
@@ -138,35 +155,107 @@ function populateTenantSelect() {
 }
 
 function populateOfficerSelect() {
-  const sel = document.getElementById("officerSelect");
-  sel.innerHTML = '<option value="">— Clock In —</option>';
-  OFFICERS.forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    sel.appendChild(opt);
-  });
-  // Restore today's officer
+  // Reset
+  const companySel = document.getElementById("companySelect");
+  const officerSel = document.getElementById("officerSelect");
+  const wrapper = document.getElementById("officerSelectWrapper");
+  const badge = document.getElementById("officerCompanyBadge");
+  
+  companySel.value = "";
+  officerSel.innerHTML = '<option value="">— Clock In —</option>';
+  wrapper.style.display = "none";
+  badge.style.display = "none";
+  
+  // Restore saved officer
   const saved = JSON.parse(localStorage.getItem("delrio_today_officer") || "{}");
   const today = new Date().toISOString().slice(0, 10);
-  if (saved.date === today) {
-    sel.value = saved.name;
+  if (saved.date === today && saved.company && saved.name) {
+    companySel.value = saved.company;
+    populateOfficersForCompany(saved.company);
+    officerSel.value = saved.name;
+    showCompanyBadge(saved.company);
   }
 }
 
+function populateOfficersForCompany(companyKey) {
+  const officerSel = document.getElementById("officerSelect");
+  const wrapper = document.getElementById("officerSelectWrapper");
+  
+  if (!companyKey || !OFFICER_GROUPS[companyKey]) {
+    wrapper.style.display = "none";
+    officerSel.innerHTML = '<option value="">— Clock In —</option>';
+    return;
+  }
+  
+  wrapper.style.display = "block";
+  officerSel.innerHTML = '<option value="">— Clock In —</option>';
+  OFFICER_GROUPS[companyKey].officers.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    officerSel.appendChild(opt);
+  });
+}
+
+function showCompanyBadge(companyKey) {
+  const badge = document.getElementById("officerCompanyBadge");
+  if (!companyKey || !OFFICER_GROUPS[companyKey]) {
+    badge.style.display = "none";
+    return;
+  }
+  const group = OFFICER_GROUPS[companyKey];
+  badge.textContent = (companyKey === 'plaza' ? '🏪 ' : '🛡️ ') + group.name;
+  badge.className = 'company-badge ' + companyKey;
+  badge.style.display = "inline-block";
+}
+
+document.getElementById("companySelect").addEventListener("change", function () {
+  const companyKey = this.value;
+  populateOfficersForCompany(companyKey);
+  showCompanyBadge(companyKey);
+  // Reset officer selection and save
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem("delrio_today_officer", JSON.stringify({ date: today, company: companyKey, name: "" }));
+});
+
 document.getElementById("officerSelect").addEventListener("change", function () {
   const today = new Date().toISOString().slice(0, 10);
-  localStorage.setItem("delrio_today_officer", JSON.stringify({ date: today, name: this.value }));
+  const companyKey = document.getElementById("companySelect").value;
+  localStorage.setItem("delrio_today_officer", JSON.stringify({ date: today, company: companyKey, name: this.value }));
 });
 
 // --- Officers ---
+const OFFICER_GROUPS = {
+  plaza: {
+    name: "Plaza de Descuentos",
+    color: "#1e40af",
+    officers: [
+      "Héctor J. Prieto Pacheco",
+      "Mashable Ojeda Ocasio",
+      "Felix E. Aponte Sanchez",
+      "Jose R. Cintrón Meléndez",
+      "Jorge D. Moyett Dávila",
+      "Andy J. Aponte Sánchez"
+    ]
+  },
+  lordguard: {
+    name: "Lord Guard LLC",
+    color: "#7c2d12",
+    officers: [
+      "Joel Cartagena",
+      "Credencio Colón",
+      "Michael Torres",
+      "Héctor Algarin",
+      "Nicolás Méndez",
+      "Harry Gonzalez"
+    ]
+  }
+};
+
+// Legacy flat list for backward compat
 const OFFICERS = [
-  "Héctor J. Prieto Pacheco",
-  "Nashalee Ojeda Ocasio",
-  "Felix E. Aponte Sanchez",
-  "Jose R. Cintrón Meléndez",
-  "Jorge D. Moyett Dávila",
-  "Andy J. Aponte Sánchez"
+  ...OFFICER_GROUPS.plaza.officers,
+  ...OFFICER_GROUPS.lordguard.officers
 ];
 
 function getOfficer() {
@@ -282,6 +371,7 @@ document.querySelectorAll("nav .tab").forEach(btn => {
     document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
     if (btn.dataset.tab === "history") loadHistory();
     if (btn.dataset.tab === "status") loadStatusTab();
+    if (btn.dataset.tab === "incidents") { /* incidents module handles its own init */ }
     if (btn.dataset.tab === "settings") { if (settingsUnlocked) loadSettings(); }
   });
 });
@@ -374,6 +464,8 @@ function getGPS() {
 document.getElementById("infractionForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const gps = await getGPS();
+  const companyKey = document.getElementById("companySelect").value;
+  const companyName = companyKey && OFFICER_GROUPS[companyKey] ? OFFICER_GROUPS[companyKey].name : null;
   const infraction = {
     id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
     tenant: document.getElementById("tenantSelect").value,
@@ -386,6 +478,7 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
     photos: currentPhotos.slice(),
     gps: gps,
     officer: { name: document.getElementById("officerSelect").value },
+    officerCompany: companyName,
     created: new Date().toISOString()
   };
 
@@ -424,17 +517,37 @@ async function loadHistory() {
   // Load from IndexedDB first
   let local = await dbGetAll();
   
-  // If online and auth ready, also fetch from Firestore
+  // If online and auth ready, merge with Firestore
   if (authReady && navigator.onLine) {
     try {
       const snapshot = await db.collection(FIRESTORE_COLLECTION).get();
       const remote = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const localMap = new Map(local.map(l => [l.id, l]));
       
-      // Merge: remote items not in local get added to local IndexedDB
       for (const inf of remote) {
-        if (!local.find(l => l.id === inf.id)) {
-          await dbAdd(inf); // save to local
+        const existing = localMap.get(inf.id);
+        if (!existing) {
+          // New from Firestore
+          await dbAdd(inf);
           local.push(inf);
+        } else {
+          // Update local if remote is newer (edited from dashboard)
+          const rTime = new Date(inf.updatedAt || inf.created || 0).getTime();
+          const lTime = new Date(existing.updatedAt || existing.created || 0).getTime();
+          if (rTime > lTime) {
+            await dbPut(inf);
+            const idx = local.findIndex(l => l.id === inf.id);
+            local[idx] = inf;
+          }
+        }
+      }
+      
+      // Remove locally deleted items
+      const remoteIds = new Set(remote.map(r => r.id));
+      for (const l of [...local]) {
+        if (!remoteIds.has(l.id)) {
+          await dbDelete(l.id);
+          local = local.filter(x => x.id !== l.id);
         }
       }
     } catch (e) { console.error("Firestore load error:", e); }
