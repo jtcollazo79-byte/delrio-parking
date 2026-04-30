@@ -259,7 +259,7 @@ function initIncidentsTab() {
       id: "inc_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
       category: selectedCategory,
       priority: selectedPriority,
-      title: document.getElementById("incidentTitleInput").value.trim(),
+      title: document.getElementById("incidentDescInput").value.trim().substring(0, 80),
       description: document.getElementById("incidentDescInput").value.trim(),
       location: document.getElementById("incidentLocationInput").value.trim(),
       date: incidentDate,
@@ -441,7 +441,7 @@ function renderIncidentHistory() {
   const dateFilter = document.getElementById("incidentFilterDate").value;
 
   let filtered = currentIncidents.filter(inc => {
-    if (search && !`${inc.title} ${inc.description} ${inc.location} ${inc.category} ${inc.officer?.name || ""}`.toLowerCase().includes(search)) return false;
+    if (search && !`${inc.description} ${inc.location} ${inc.category} ${inc.officer?.name || ""}`.toLowerCase().includes(search)) return false;
     if (catFilter && inc.category !== catFilter) return false;
     if (priFilter && inc.priority !== priFilter) return false;
     if (statusFilter && inc.status !== statusFilter) return false;
@@ -464,7 +464,7 @@ function renderIncidentHistory() {
 
     li.innerHTML = `
       <div class="incident-header">
-        <span class="incident-title">${cat.icon} ${escHtml(inc.title || "Untitled")}</span>
+        <span class="incident-title">${cat.icon} ${escHtml(inc.description ? inc.description.substring(0, 60) + (inc.description.length > 60 ? "..." : "") : "No description")}</span>
       </div>
       <div class="incident-meta">
         <span class="badge badge-cat-${inc.category}">${cat.label}</span>
@@ -506,10 +506,6 @@ function showIncidentDetail(id) {
   const body = document.getElementById("incidentModalBody");
   body.innerHTML = `
     <div class="detail-row">
-      <div class="detail-label">Title</div>
-      <div class="detail-value">${cat.icon} ${escHtml(inc.title || "Untitled")}</div>
-    </div>
-    <div class="detail-row">
       <div class="detail-label">Category</div>
       <div class="detail-value"><span class="badge badge-cat-${inc.category}">${cat.label}</span></div>
     </div>
@@ -534,8 +530,8 @@ function showIncidentDetail(id) {
       </div>
     </div>
     <div class="detail-row" style="margin-top:0.75rem">
-      <div class="detail-label">Description</div>
-      <div class="detail-value">${escHtml(inc.description || "No description")}</div>
+      <div class="detail-label">Notes</div>
+      <div class="detail-value">${escHtml(inc.description || "No notes")}</div>
     </div>
     <div class="detail-row">
       <div class="detail-label">Location</div>
@@ -597,12 +593,12 @@ async function exportIncidentsCSV() {
   const data = await getFilteredIncidentsForExport();
   if (!data.length) return alert("No incidents to export.");
 
-  let csv = "ID,Date,Title,Category,Priority,Status,Location,Description,GPS,Officer,Company\n";
+  let csv = "ID,Date,Category,Priority,Status,Location,Description,GPS,Officer,Company\n";
   data.forEach(inc => {
     csv += [
       inc.id,
       inc.date,
-      `"${(inc.title || "").replace(/"/g, '""')}"`,
+      `"${(inc.description || "").replace(/"/g, '""')}"`,
       inc.category,
       inc.priority,
       inc.status,
@@ -640,13 +636,13 @@ async function exportIncidentsPDF() {
   <h1>Del Rio Shopping Center — Incident Report</h1>
   <p class="meta">Generated: ${new Date().toLocaleString()}</p>
   <p class="meta">Total Records: ${data.length}</p>
-  <table><tr><th>#</th><th>Date</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Location</th><th>Officer</th></tr>`;
+  <table><tr><th>#</th><th>Date</th><th>Category</th><th>Priority</th><th>Status</th><th>Location</th><th>Officer</th></tr>`;
 
   data.forEach((inc, i) => {
     html += `<tr>
       <td>${i + 1}</td>
       <td>${formatDate(inc.date)}</td>
-      <td>${escHtml(inc.title || "")}</td>
+      <td>${escHtml(inc.description ? inc.description.substring(0, 40) : "")}</td>
       <td>${inc.category}</td>
       <td>${inc.priority}</td>
       <td>${inc.status}</td>
