@@ -1,4 +1,4 @@
-const CACHE = "delrio-v9.0";
+const CACHE = "delrio-v10.0";
 const FILES = [
   "./",
   "./index.html",
@@ -6,6 +6,8 @@ const FILES = [
   "./incidents.css",
   "./app-v3.js",
   "./incidents.js",
+  "./icon-192.png",
+  "./icon-512.png",
   "./manifest.json",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js",
