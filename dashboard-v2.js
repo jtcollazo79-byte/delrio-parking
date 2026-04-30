@@ -197,13 +197,14 @@ function renderList(infractions) {
 }
 
 // Event listeners
-dateInput.addEventListener("change", () => fetchData(dateInput.value));
-if (dateEndInput) dateEndInput.addEventListener("change", () => fetchData(dateInput.value));
+dateInput.addEventListener("change", () => { fetchData(dateInput.value); fetchIncidents(); });
+if (dateEndInput) dateEndInput.addEventListener("change", () => { fetchData(dateInput.value); fetchIncidents(); });
 document.getElementById("btnToday").addEventListener("click", () => {
   dateInput.value = new Date().toISOString().split("T")[0];
   fetchData(dateInput.value);
+  fetchIncidents();
 });
-document.getElementById("btnRefresh").addEventListener("click", () => fetchData(dateInput.value));
+document.getElementById("btnRefresh").addEventListener("click", () => { fetchData(dateInput.value); fetchIncidents(); });
 document.getElementById("filterStatus").addEventListener("change", applyFilters);
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
@@ -302,6 +303,83 @@ document.getElementById("exportPDF").addEventListener("click", () => {
 
 // Start
 fetchData(dateInput.value);
+fetchIncidents();
 
-// Auto-refresh every 30 seconds
-setInterval(() => fetchData(dateInput.value), 120000);
+// --- INCIDENTS ---
+let allIncidents = [];
+
+const CAT_ICONS = { security: "🔒", maintenance: "🔧", emergency: "🚨", noise: "🔊", other: "📌" };
+const CAT_LABELS = { security: "Seguridad", maintenance: "Mantenimiento", emergency: "Emergencia", noise: "Ruido", other: "Otro" };
+const PRI_COLORS = { low: "#22c55e", medium: "#f59e0b", high: "#f97316", critical: "#ef4444" };
+const STATUS_LABELS = { open: "🟡 Abierto", "in-progress": "🔵 En Progreso", resolved: "🟢 Resuelto", closed: "⚪ Cerrado" };
+
+function fetchIncidents() {
+  const startDate = dateInput.value;
+  const endDate = dateEndInput && dateRangeMode ? dateEndInput.value : startDate;
+
+  db.collection("incidents")
+    .get()
+    .then(snapshot => {
+      allIncidents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter(inc => {
+          if (!inc.date) return false;
+          const d = inc.date.split("T")[0];
+          return d >= startDate && d <= endDate;
+        });
+      allIncidents.sort((a, b) => new Date(b.created) - new Date(a.created));
+      renderIncidents();
+    })
+    .catch(err => console.error("Incidents fetch error:", err));
+}
+
+function renderIncidents() {
+  const header = document.getElementById("incidentsHeader");
+  const stats = document.getElementById("incidentsStats");
+  const list = document.getElementById("incidentsList");
+
+  if (allIncidents.length === 0) {
+    header.style.display = "none";
+    stats.style.display = "none";
+    list.innerHTML = '<p class="empty">Sin incidentes para esta fecha</p>';
+    return;
+  }
+
+  header.style.display = "block";
+  stats.style.display = "flex";
+
+  // Stats
+  document.getElementById("incStatTotal").textContent = allIncidents.length;
+  document.getElementById("incStatOpen").textContent = allIncidents.filter(i => i.status === 'open' || !i.status).length;
+  document.getElementById("incStatResolved").textContent = allIncidents.filter(i => i.status === 'resolved' || i.status === 'closed').length;
+  document.getElementById("incStatCritical").textContent = allIncidents.filter(i => i.priority === 'critical').length;
+
+  list.innerHTML = allIncidents.map(inc => {
+    const cat = CAT_ICONS[inc.category] || "📌";
+    const catLabel = CAT_LABELS[inc.category] || inc.category;
+    const priColor = PRI_COLORS[inc.priority] || "#94a3b8";
+    const statusLabel = STATUS_LABELS[inc.status] || "🟡 Abierto";
+    const officerName = inc.officer && typeof inc.officer === "object" ? (inc.officer.name || "—") : (inc.officer || "—");
+    const time = inc.date ? inc.date.split("T")[1] || "" : "";
+    const date = inc.date ? inc.date.split("T")[0] || "" : "";
+
+    return `
+      <div class="infraction-card" style="border-left:4px solid ${priColor}">
+        <div class="card-header">
+          <span class="field space-num">${cat} ${inc.description ? inc.description.substring(0, 60) + (inc.description.length > 60 ? '...' : '') : 'Sin descripción'}</span>
+          <span class="status-badge" style="background:${priColor}20;color:${priColor}">${inc.priority}</span>
+        </div>
+        <div class="card-fields">
+          <div class="field"><span>Categoría:</span> <strong>${catLabel}</strong></div>
+          <div class="field"><span>Estado:</span> <strong>${statusLabel}</strong></div>
+          <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
+          <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
+          <div class="field"><span>Oficial:</span> <strong>${officerName}${inc.officerCompany ? ' — ' + inc.officerCompany : ''}</strong></div>
+          <div class="field"><span>Notas:</span> <strong>${inc.description || '—'}</strong></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// Auto-refresh every 2 minutes
+setInterval(() => { fetchData(dateInput.value); fetchIncidents(); }, 120000);
