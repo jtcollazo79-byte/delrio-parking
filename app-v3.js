@@ -332,16 +332,41 @@ async function fullSyncToFirestore() {
   if (!authReady || !navigator.onLine) return;
   try {
     const local = await dbGetAll();
+    // Fetch remote to compare timestamps — don't overwrite dashboard edits
+    let remoteMap = new Map();
+    try {
+      const snapshot = await db.collection(FIRESTORE_COLLECTION).get();
+      snapshot.docs.forEach(doc => remoteMap.set(doc.id, doc.data()));
+    } catch (e) { console.error("Full sync: remote fetch failed, skipping", e); return; }
+
+    let pushed = 0, skipped = 0, pulled = 0;
     for (const inf of local) {
       try {
+        const remote = remoteMap.get(inf.id);
+        if (remote) {
+          const rTime = new Date(remote.updatedAt || remote.created || 0).getTime();
+          const lTime = new Date(inf.updatedAt || inf.created || 0).getTime();
+          if (rTime > lTime) {
+            // Remote is newer (dashboard edit) — pull to local instead
+            await dbPut({ id: inf.id, ...remote });
+            pulled++;
+            continue;
+          }
+          if (lTime <= rTime) {
+            // Same age — skip, no need to push
+            skipped++;
+            continue;
+          }
+        }
+        // Local is newer or remote doesn't exist — push
         const syncData = { ...inf };
         delete syncData.photos;
         await db.collection(FIRESTORE_COLLECTION).doc(inf.id).set(syncData, { merge: true });
+        pushed++;
       } catch (e) { console.error(`Full sync failed for ${inf.id}:`, e); }
     }
-    // Clear sync queue since everything is synced now
     localStorage.setItem("syncQueue", JSON.stringify([]));
-    console.log(`Full sync complete: ${local.length} items pushed`);
+    console.log(`Full sync: ${pushed} pushed, ${skipped} skipped, ${pulled} pulled from remote`);
   } catch (e) { console.error("Full sync error:", e); }
 }
 

@@ -106,8 +106,24 @@ async function fullSyncIncidentsToFirestore() {
   if (!authReady || !navigator.onLine) return;
   try {
     const local = await incDbGetAll();
+    let remoteMap = new Map();
+    try {
+      const snapshot = await db.collection(FIRESTORE_INCIDENTS).get();
+      snapshot.docs.forEach(doc => remoteMap.set(doc.id, doc.data()));
+    } catch (e) { console.error("Incident full sync: remote fetch failed", e); return; }
+
     for (const inc of local) {
       try {
+        const remote = remoteMap.get(inc.id);
+        if (remote) {
+          const rTime = new Date(remote.updatedAt || remote.created || 0).getTime();
+          const lTime = new Date(inc.updatedAt || inc.created || 0).getTime();
+          if (rTime > lTime) {
+            await incDbPut({ id: inc.id, ...remote });
+            continue;
+          }
+          if (lTime <= rTime) continue;
+        }
         const syncData = { ...inc };
         delete syncData.photos;
         await db.collection(FIRESTORE_INCIDENTS).doc(inc.id).set(syncData, { merge: true });
