@@ -541,10 +541,10 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
 
 // --- History Tab ---
 async function loadHistory() {
-  // Load from IndexedDB first
+  // Load infractions from IndexedDB first
   let local = await dbGetAll();
   
-  // If online and auth ready, merge with Firestore
+  // If online and auth ready, merge infractions with Firestore
   if (authReady && navigator.onLine) {
     try {
       const snapshot = await db.collection(FIRESTORE_COLLECTION).get();
@@ -554,11 +554,9 @@ async function loadHistory() {
       for (const inf of remote) {
         const existing = localMap.get(inf.id);
         if (!existing) {
-          // New from Firestore
           await dbAdd(inf);
           local.push(inf);
         } else {
-          // Update local if remote is newer (edited from dashboard)
           const rTime = new Date(inf.updatedAt || inf.created || 0).getTime();
           const lTime = new Date(existing.updatedAt || existing.created || 0).getTime();
           if (rTime > lTime) {
@@ -569,7 +567,6 @@ async function loadHistory() {
         }
       }
       
-      // Remove locally deleted items
       const remoteIds = new Set(remote.map(r => r.id));
       for (const l of [...local]) {
         if (!remoteIds.has(l.id)) {
@@ -579,7 +576,15 @@ async function loadHistory() {
       }
     } catch (e) { console.error("Firestore load error:", e); }
   }
-  
+
+  // Also load incidents and merge into the list
+  try {
+    const incidents = await incDbGetAllHistory();
+    // Mark each incident so renderHistory can distinguish them
+    incidents.forEach(inc => { inc._isIncident = true; });
+    local = [...local, ...incidents];
+  } catch (e) { /* incidents.js may not be loaded yet, that's ok */ }
+
   currentInfractions = local;
   currentInfractions.sort((a, b) => new Date(b.created) - new Date(a.created));
   renderHistory();
@@ -609,18 +614,39 @@ function renderHistory() {
 
   filtered.forEach(inf => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      <div class="infraction-header">
-        <span class="tenant">${esc(inf.tenant)}</span>
-        <span class="plate">${esc(inf.plate)}</span>
-      </div>
-      <span class="type">${esc(inf.type)}</span>
-      ${inf.vehicleStatus ? `<span class="status-badge ${inf.vehicleStatus}">${inf.vehicleStatus === 'moved' ? '✅ Moved' : '🚫 Stayed'}</span>` : ""}
-      <div class="date">${formatDate(inf.date)}</div>
-      ${inf.vehicle ? `<div class="vehicle">${esc(inf.vehicle)}</div>` : ""}
-      ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
-    `;
-    li.addEventListener("click", () => showDetail(inf.id));
+    if (inf._isIncident) {
+      // Render as incident
+      const catIcons = { security: "🔒", maintenance: "🔧", emergency: "🚨", noise: "🔊", other: "📌" };
+      const priColors = { low: "#22c55e", medium: "#f59e0b", high: "#f97316", critical: "#ef4444" };
+      li.style.borderLeftColor = priColors[inf.priority] || "#94a3b8";
+      li.innerHTML = `
+        <div class="infraction-header">
+          <span class="tenant">${catIcons[inf.category] || "📌"} ${esc(inf.description ? inf.description.substring(0, 40) : "Incident")}</span>
+          <span class="plate" style="background:${priColors[inf.priority] || '#94a3b8'}20;color:${priColors[inf.priority] || '#94a3b8'}">${esc(inf.priority)}</span>
+        </div>
+        <span class="type" style="background:#ede9fe;color:#5b21b6">${esc(inf.category)}</span>
+        ${inf.status ? `<span class="status-badge ${inf.status === 'resolved' || inf.status === 'closed' ? 'moved' : 'not-moved'}">${inf.status}</span>` : ""}
+        <div class="date">${formatDate(inf.date)}</div>
+        ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
+      `;
+      li.addEventListener("click", () => {
+        if (typeof showIncidentDetail === 'function') showIncidentDetail(inf.id);
+      });
+    } else {
+      // Render as parking infraction (original)
+      li.innerHTML = `
+        <div class="infraction-header">
+          <span class="tenant">${esc(inf.tenant)}</span>
+          <span class="plate">${esc(inf.plate)}</span>
+        </div>
+        <span class="type">${esc(inf.type)}</span>
+        ${inf.vehicleStatus ? `<span class="status-badge ${inf.vehicleStatus}">${inf.vehicleStatus === 'moved' ? '✅ Moved' : '🚫 Stayed'}</span>` : ""}
+        <div class="date">${formatDate(inf.date)}</div>
+        ${inf.vehicle ? `<div class="vehicle">${esc(inf.vehicle)}</div>` : ""}
+        ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
+      `;
+      li.addEventListener("click", () => showDetail(inf.id));
+    }
     list.appendChild(li);
   });
 }

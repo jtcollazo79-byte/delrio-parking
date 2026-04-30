@@ -61,6 +61,9 @@ function incDbGetAll() {
   }));
 }
 
+// Alias for app-v3.js loadHistory to call
+function incDbGetAllHistory() { return incDbGetAll(); }
+
 function incDbDelete(id) {
   return openIncidentsDB().then(db => new Promise((res, rej) => {
     const tx = db.transaction(INCIDENTS_STORE, "readwrite");
