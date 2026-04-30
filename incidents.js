@@ -249,6 +249,12 @@ function initIncidentsTab() {
     const companyName = companyKey && typeof OFFICER_GROUPS !== "undefined" && OFFICER_GROUPS[companyKey] ? OFFICER_GROUPS[companyKey].name : null;
     const officerSelect = document.getElementById("officerSelect");
     
+    // Auto-set current date/time
+    const nowInc = new Date();
+    const offsetInc = nowInc.getTimezoneOffset();
+    const localInc = new Date(nowInc.getTime() - offsetInc * 60000);
+    const incidentDate = localInc.toISOString().slice(0, 10) + "T" + localInc.toISOString().slice(11, 16);
+
     const incident = {
       id: "inc_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
       category: selectedCategory,
@@ -256,7 +262,7 @@ function initIncidentsTab() {
       title: document.getElementById("incidentTitleInput").value.trim(),
       description: document.getElementById("incidentDescInput").value.trim(),
       location: document.getElementById("incidentLocationInput").value.trim(),
-      date: document.getElementById("incidentDateInput").value + "T" + document.getElementById("incidentTimeInput").value,
+      date: incidentDate,
       status: "open",
       photos: currentIncidentPhotos.slice(),
       gps: gps,
