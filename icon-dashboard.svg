@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="#0f172a"/>
+  
+  <!-- Shield -->
+  <path d="M256 70 L410 140 L410 300 Q410 400 256 460 Q102 400 102 300 L102 140 Z" fill="#0d9488" stroke="#14b8a6" stroke-width="4"/>
+  
+  <!-- Eye shape -->
+  <ellipse cx="256" cy="250" rx="100" ry="55" fill="none" stroke="#f0fdfa" stroke-width="6"/>
+  <circle cx="256" cy="250" r="35" fill="#f0fdfa"/>
+  <circle cx="256" cy="250" r="18" fill="#0f172a"/>
+  <circle cx="265" cy="242" r="6" fill="#f0fdfa" opacity="0.7"/>
+  
+  <!-- DEL RÍO text -->
+  <text x="256" y="360" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="48" font-weight="800" fill="#f0fdfa" letter-spacing="4">DEL RÍO</text>
+  
+  <!-- DB badge -->
+  <rect x="196" y="378" width="120" height="40" rx="8" fill="#14b8a6"/>
+  <text x="256" y="407" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#0f172a" letter-spacing="6">DB</text>
+</svg>

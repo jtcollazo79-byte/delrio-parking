@@ -169,19 +169,45 @@ function renderIncidentCard(inc) {
   const time = inc.date ? inc.date.split("T")[1] || "" : "";
   const date = inc.date ? inc.date.split("T")[0] || "" : "";
   const eid = inc.id;
+  const statusOptions = ['open', 'in-progress', 'resolved', 'closed'].map(s => {
+    const sel = inc.status === s ? 'selected' : '';
+    return `<option value="${s}" ${sel}>${STATUS_LABELS[s]}</option>`;
+  }).join('');
+  const priOptions = ['low', 'medium', 'high', 'critical'].map(p => {
+    const sel = inc.priority === p ? 'selected' : '';
+    return `<option value="${p}" ${sel}>${p}</option>`;
+  }).join('');
+  const catOptions = Object.entries(CAT_LABELS).map(([k, v]) => {
+    const sel = inc.category === k ? 'selected' : '';
+    return `<option value="${k}" ${sel}>${v}</option>`;
+  }).join('');
+
   return `
     <div class="infraction-card" id="card-${eid}" style="border-left:4px solid ${priColor}">
       <div class="card-header">
         <span class="field space-num">${cat} ${inc.description ? inc.description.substring(0, 60) + (inc.description.length > 60 ? '...' : '') : 'Sin descripción'}</span>
         <span class="status-badge" style="background:${priColor}20;color:${priColor}">${inc.priority}</span>
       </div>
-      <div class="card-fields">
+      <div class="card-fields" id="fields-${eid}">
         <div class="field"><span>Categoría:</span> <strong>${catLabel}</strong></div>
         <div class="field"><span>Estado:</span> <strong>${statusLabel}</strong></div>
         <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
         <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
         <div class="field"><span>Oficial:</span> <strong>${officerName}${inc.officerCompany ? ' — ' + inc.officerCompany : ''}</strong></div>
         <div class="field"><span>Notas:</span> <strong>${inc.description || '—'}</strong></div>
+      </div>
+      <div class="card-edit" id="edit-${eid}" style="display:none">
+        <div class="field edit-row"><label>Categoría:</label><select id="ie-cat-${eid}">${catOptions}</select></div>
+        <div class="field edit-row"><label>Prioridad:</label><select id="ie-pri-${eid}">${priOptions}</select></div>
+        <div class="field edit-row"><label>Estado:</label><select id="ie-status-${eid}">${statusOptions}</select></div>
+        <div class="field edit-row"><label>Notas:</label><input id="ie-desc-${eid}" value="${(inc.description || '').replace(/"/g, '&quot;')}"></div>
+        <div class="field edit-row"><label>Ubicación:</label><input id="ie-loc-${eid}" value="${(inc.location || '').replace(/"/g, '&quot;')}"></div>
+      </div>
+      <div class="card-actions">
+        <button onclick="toggleIncEdit('${eid}')" class="edit-btn" id="editbtn-${eid}">✏️ Editar</button>
+        <button onclick="saveIncEdit('${eid}')" class="save-btn" id="savebtn-${eid}" style="display:none">💾 Guardar</button>
+        <button onclick="cancelIncEdit('${eid}')" class="cancel-btn" id="cancelbtn-${eid}" style="display:none">Cancelar</button>
+        <button onclick="deleteInc('${eid}')" class="delete-btn">🗑</button>
       </div>
     </div>
   `;
@@ -261,7 +287,48 @@ document.getElementById("filterStatus").addEventListener("change", applyFilters)
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
 
-// --- Edit Functions ---
+// --- Incident Edit Functions ---
+window.toggleIncEdit = function(id) {
+  document.getElementById('fields-' + id).style.display = 'none';
+  document.getElementById('edit-' + id).style.display = 'block';
+  document.getElementById('editbtn-' + id).style.display = 'none';
+  document.getElementById('savebtn-' + id).style.display = 'inline-block';
+  document.getElementById('cancelbtn-' + id).style.display = 'inline-block';
+};
+
+window.cancelIncEdit = function(id) {
+  document.getElementById('fields-' + id).style.display = 'grid';
+  document.getElementById('edit-' + id).style.display = 'none';
+  document.getElementById('editbtn-' + id).style.display = 'inline-block';
+  document.getElementById('savebtn-' + id).style.display = 'none';
+  document.getElementById('cancelbtn-' + id).style.display = 'none';
+};
+
+window.saveIncEdit = async function(id) {
+  const updates = {
+    category: document.getElementById('ie-cat-' + id).value,
+    priority: document.getElementById('ie-pri-' + id).value,
+    status: document.getElementById('ie-status-' + id).value,
+    description: document.getElementById('ie-desc-' + id).value,
+    location: document.getElementById('ie-loc-' + id).value,
+    updatedAt: new Date().toISOString()
+  };
+  try {
+    await db.collection('incidents').doc(id).update(updates);
+    fetchData(dateInput.value);
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window.deleteInc = async function(id) {
+  const pwd = prompt("Password para eliminar:");
+  if (pwd !== "DelRio") { alert("Password incorrecto"); return; }
+  try {
+    await db.collection('incidents').doc(id).delete();
+    fetchData(dateInput.value);
+  } catch(e) { alert("Error: " + e.message); }
+};
+
+// --- Infraction Edit Functions ---
 window.toggleEdit = function(id) {
   document.getElementById('fields-' + id).style.display = 'none';
   document.getElementById('edit-' + id).style.display = 'block';
