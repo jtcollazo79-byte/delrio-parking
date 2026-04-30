@@ -231,7 +231,7 @@ const OFFICER_GROUPS = {
     color: "#1e40af",
     officers: [
       "Héctor J. Prieto Pacheco",
-      "Mashable Ojeda Ocasio",
+      "Nashalee Ojeda Ocasio",
       "Felix E. Aponte Sanchez",
       "Jose R. Cintrón Meléndez",
       "Jorge D. Moyett Dávila",
