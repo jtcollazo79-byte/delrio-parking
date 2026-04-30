@@ -41,6 +41,8 @@ for (let i = 1; i <= 19; i++) {
 }
 
 let allInfractions = [];
+let allIncidents = [];
+let allItems = [];
 
 
 // Date range picker
@@ -68,18 +70,28 @@ function fetchData(dateStr) {
   const endDate = dateEndInput && dateRangeMode ? dateEndInput.value : dateStr;
   document.getElementById("infractionsList").innerHTML = '<p class="empty">Cargando...</p>';
 
-  db.collection("infractions")
-    .get()
-    .then(snapshot => {
-      allInfractions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  // Fetch both infractions and incidents in parallel
+  Promise.all([
+    db.collection("infractions").get(),
+    db.collection("incidents").get()
+  ])
+    .then(([infSnapshot, incSnapshot]) => {
+      allInfractions = infSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), _type: "infraction" }))
         .filter(inf => {
           if (!inf.date) return false;
           const d = inf.date.split("T")[0];
-          if (dateRangeMode) {
-            return d >= dateStr && d <= endDate;
-          }
-          return d === dateStr;
+          return dateRangeMode ? (d >= dateStr && d <= endDate) : d === dateStr;
         });
+
+      allIncidents = incSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), _type: "incident" }))
+        .filter(inc => {
+          if (!inc.date) return false;
+          const d = inc.date.split("T")[0];
+          return d >= dateStr && d <= endDate;
+        });
+
+      // Merge and sort by date descending
+      allItems = [...allInfractions, ...allIncidents].sort((a, b) => new Date(b.created || b.date) - new Date(a.created || a.date));
       applyFilters();
     })
     .catch(err => {
@@ -94,46 +106,86 @@ function applyFilters() {
   const spaceFilter = document.getElementById("filterSpace").value;
   const plateFilter = document.getElementById("filterPlate").value.toLowerCase();
 
-  let filtered = allInfractions;
+  let filtered = allItems;
 
-  if (statusFilter === "moved") filtered = filtered.filter(i => i.vehicleStatus === "moved");
-  else if (statusFilter === "stayed") filtered = filtered.filter(i => i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved");
+  if (statusFilter === "moved") filtered = filtered.filter(i => i._type === "infraction" && i.vehicleStatus === "moved");
+  else if (statusFilter === "stayed") filtered = filtered.filter(i => i._type === "infraction" && (i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved"));
   else if (statusFilter === "") {
     const val = document.getElementById("filterStatus").selectedOptions[0].textContent;
-    if (val.includes("Pendiente")) filtered = filtered.filter(i => !i.vehicleStatus);
+    if (val.includes("Pendiente")) filtered = filtered.filter(i => i._type === "infraction" && !i.vehicleStatus);
   }
 
   if (spaceFilter) filtered = filtered.filter(i => {
+    if (i._type === "incident") return false;
     const s = i.space || (i.tenant ? parseInt(i.tenant) : null);
     return s == spaceFilter;
   });
-  if (plateFilter) filtered = filtered.filter(i => i.plate && i.plate.toLowerCase().includes(plateFilter));
+  if (plateFilter) filtered = filtered.filter(i => i._type === "infraction" && i.plate && i.plate.toLowerCase().includes(plateFilter));
 
   renderList(filtered);
   updateStats();
 }
 
 function updateStats() {
-  const total = allInfractions.length;
-  const moved = allInfractions.filter(i => i.vehicleStatus === "moved").length;
-  const stayed = allInfractions.filter(i => i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved").length;
-  const pending = total - moved - stayed;
+  const infs = allItems.filter(i => i._type === "infraction");
+  const incs = allItems.filter(i => i._type === "incident");
+  const total = allItems.length;
+  const moved = infs.filter(i => i.vehicleStatus === "moved").length;
+  const stayed = infs.filter(i => i.vehicleStatus === "stayed" || i.vehicleStatus === "not-moved").length;
+  const pending = infs.length - moved - stayed;
 
   document.getElementById("statTotal").textContent = total;
   document.getElementById("statMoved").textContent = moved;
   document.getElementById("statStayed").textContent = stayed;
   document.getElementById("statPending").textContent = pending;
+  document.getElementById("statIncidents").textContent = incs.length;
 }
 
-function renderList(infractions) {
+function renderList(items) {
   const list = document.getElementById("infractionsList");
 
-  if (infractions.length === 0) {
-    list.innerHTML = '<p class="empty">Sin infracciones para esta fecha</p>';
+  if (items.length === 0) {
+    list.innerHTML = '<p class="empty">Sin registros para esta fecha</p>';
     return;
   }
 
-  list.innerHTML = infractions.map(inf => {
+  list.innerHTML = items.map(item => {
+    if (item._type === "incident") {
+      return renderIncidentCard(item);
+    } else {
+      return renderInfractionCard(item);
+    }
+  }).join("");
+}
+
+function renderIncidentCard(inc) {
+  const cat = CAT_ICONS[inc.category] || "📌";
+  const catLabel = CAT_LABELS[inc.category] || inc.category;
+  const priColor = PRI_COLORS[inc.priority] || "#94a3b8";
+  const statusLabel = STATUS_LABELS[inc.status] || "🟡 Abierto";
+  const officerName = inc.officer && typeof inc.officer === "object" ? (inc.officer.name || "—") : (inc.officer || "—");
+  const time = inc.date ? inc.date.split("T")[1] || "" : "";
+  const date = inc.date ? inc.date.split("T")[0] || "" : "";
+  const eid = inc.id;
+  return `
+    <div class="infraction-card" id="card-${eid}" style="border-left:4px solid ${priColor}">
+      <div class="card-header">
+        <span class="field space-num">${cat} ${inc.description ? inc.description.substring(0, 60) + (inc.description.length > 60 ? '...' : '') : 'Sin descripción'}</span>
+        <span class="status-badge" style="background:${priColor}20;color:${priColor}">${inc.priority}</span>
+      </div>
+      <div class="card-fields">
+        <div class="field"><span>Categoría:</span> <strong>${catLabel}</strong></div>
+        <div class="field"><span>Estado:</span> <strong>${statusLabel}</strong></div>
+        <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
+        <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
+        <div class="field"><span>Oficial:</span> <strong>${officerName}${inc.officerCompany ? ' — ' + inc.officerCompany : ''}</strong></div>
+        <div class="field"><span>Notas:</span> <strong>${inc.description || '—'}</strong></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderInfractionCard(inf) {
     // Normalize vehicle status
     const vs = inf.vehicleStatus === "not-moved" ? "stayed" : (inf.vehicleStatus || "");
     const statusClass = vs === "moved" ? "status-moved"
@@ -193,18 +245,16 @@ function renderList(infractions) {
         </div>
       </div>
     `;
-  }).join("");
 }
 
 // Event listeners
-dateInput.addEventListener("change", () => { fetchData(dateInput.value); fetchIncidents(); });
-if (dateEndInput) dateEndInput.addEventListener("change", () => { fetchData(dateInput.value); fetchIncidents(); });
+dateInput.addEventListener("change", () => fetchData(dateInput.value));
+if (dateEndInput) dateEndInput.addEventListener("change", () => fetchData(dateInput.value));
 document.getElementById("btnToday").addEventListener("click", () => {
   dateInput.value = new Date().toISOString().split("T")[0];
   fetchData(dateInput.value);
-  fetchIncidents();
 });
-document.getElementById("btnRefresh").addEventListener("click", () => { fetchData(dateInput.value); fetchIncidents(); });
+document.getElementById("btnRefresh").addEventListener("click", () => fetchData(dateInput.value));
 document.getElementById("filterStatus").addEventListener("change", applyFilters);
 document.getElementById("filterSpace").addEventListener("change", applyFilters);
 document.getElementById("filterPlate").addEventListener("input", applyFilters);
@@ -301,85 +351,14 @@ document.getElementById("exportPDF").addEventListener("click", () => {
   a.click();
 });
 
-// Start
-fetchData(dateInput.value);
-fetchIncidents();
-
-// --- INCIDENTS ---
-let allIncidents = [];
-
+// --- Incident constants (shared with renderIncidentCard) ---
 const CAT_ICONS = { security: "🔒", maintenance: "🔧", emergency: "🚨", noise: "🔊", other: "📌" };
 const CAT_LABELS = { security: "Seguridad", maintenance: "Mantenimiento", emergency: "Emergencia", noise: "Ruido", other: "Otro" };
 const PRI_COLORS = { low: "#22c55e", medium: "#f59e0b", high: "#f97316", critical: "#ef4444" };
 const STATUS_LABELS = { open: "🟡 Abierto", "in-progress": "🔵 En Progreso", resolved: "🟢 Resuelto", closed: "⚪ Cerrado" };
 
-function fetchIncidents() {
-  const startDate = dateInput.value;
-  const endDate = dateEndInput && dateRangeMode ? dateEndInput.value : startDate;
-
-  db.collection("incidents")
-    .get()
-    .then(snapshot => {
-      allIncidents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter(inc => {
-          if (!inc.date) return false;
-          const d = inc.date.split("T")[0];
-          return d >= startDate && d <= endDate;
-        });
-      allIncidents.sort((a, b) => new Date(b.created) - new Date(a.created));
-      renderIncidents();
-    })
-    .catch(err => console.error("Incidents fetch error:", err));
-}
-
-function renderIncidents() {
-  const header = document.getElementById("incidentsHeader");
-  const stats = document.getElementById("incidentsStats");
-  const list = document.getElementById("incidentsList");
-
-  if (allIncidents.length === 0) {
-    header.style.display = "none";
-    stats.style.display = "none";
-    list.innerHTML = '<p class="empty">Sin incidentes para esta fecha</p>';
-    return;
-  }
-
-  header.style.display = "block";
-  stats.style.display = "flex";
-
-  // Stats
-  document.getElementById("incStatTotal").textContent = allIncidents.length;
-  document.getElementById("incStatOpen").textContent = allIncidents.filter(i => i.status === 'open' || !i.status).length;
-  document.getElementById("incStatResolved").textContent = allIncidents.filter(i => i.status === 'resolved' || i.status === 'closed').length;
-  document.getElementById("incStatCritical").textContent = allIncidents.filter(i => i.priority === 'critical').length;
-
-  list.innerHTML = allIncidents.map(inc => {
-    const cat = CAT_ICONS[inc.category] || "📌";
-    const catLabel = CAT_LABELS[inc.category] || inc.category;
-    const priColor = PRI_COLORS[inc.priority] || "#94a3b8";
-    const statusLabel = STATUS_LABELS[inc.status] || "🟡 Abierto";
-    const officerName = inc.officer && typeof inc.officer === "object" ? (inc.officer.name || "—") : (inc.officer || "—");
-    const time = inc.date ? inc.date.split("T")[1] || "" : "";
-    const date = inc.date ? inc.date.split("T")[0] || "" : "";
-
-    return `
-      <div class="infraction-card" style="border-left:4px solid ${priColor}">
-        <div class="card-header">
-          <span class="field space-num">${cat} ${inc.description ? inc.description.substring(0, 60) + (inc.description.length > 60 ? '...' : '') : 'Sin descripción'}</span>
-          <span class="status-badge" style="background:${priColor}20;color:${priColor}">${inc.priority}</span>
-        </div>
-        <div class="card-fields">
-          <div class="field"><span>Categoría:</span> <strong>${catLabel}</strong></div>
-          <div class="field"><span>Estado:</span> <strong>${statusLabel}</strong></div>
-          <div class="field"><span>Fecha:</span> <strong>${date}</strong></div>
-          <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
-          <div class="field"><span>Oficial:</span> <strong>${officerName}${inc.officerCompany ? ' — ' + inc.officerCompany : ''}</strong></div>
-          <div class="field"><span>Notas:</span> <strong>${inc.description || '—'}</strong></div>
-        </div>
-      </div>
-    `;
-  }).join("");
-}
+// Start
+fetchData(dateInput.value);
 
 // Auto-refresh every 2 minutes
-setInterval(() => { fetchData(dateInput.value); fetchIncidents(); }, 120000);
+setInterval(() => fetchData(dateInput.value), 120000);

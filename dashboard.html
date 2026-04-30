@@ -47,7 +47,7 @@
   <div class="stats-row">
     <div class="stat-card">
       <span class="stat-number" id="statTotal">0</span>
-      <span class="stat-label">Infracciones</span>
+      <span class="stat-label">Total Registros</span>
     </div>
     <div class="stat-card">
       <span class="stat-number" id="statMoved">0</span>
@@ -60,6 +60,10 @@
     <div class="stat-card">
       <span class="stat-number" id="statPending">0</span>
       <span class="stat-label">⏳ Pendientes</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statIncidents">0</span>
+      <span class="stat-label">🚨 Incidentes</span>
     </div>
   </div>
 
@@ -79,28 +83,6 @@
   <div id="infractionsList" class="infractions-list">
     <p class="empty">Cargando datos...</p>
   </div>
-
-  <!-- INCIDENTS SECTION -->
-  <h2 id="incidentsHeader" style="color:#e94560;margin:1.5rem 0 0.5rem;font-size:1.1rem;display:none">🚨 Incidentes</h2>
-  <div class="stats-row" id="incidentsStats" style="display:none">
-    <div class="stat-card">
-      <span class="stat-number" id="incStatTotal">0</span>
-      <span class="stat-label">Incidentes</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number" id="incStatOpen">0</span>
-      <span class="stat-label">🟡 Abiertos</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number" id="incStatResolved">0</span>
-      <span class="stat-label">🟢 Resueltos</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number" id="incStatCritical">0</span>
-      <span class="stat-label">🔴 Críticos</span>
-    </div>
-  </div>
-  <div id="incidentsList" class="infractions-list"></div>
 
   <script src="dashboard-v2.js"></script>
   <script>
