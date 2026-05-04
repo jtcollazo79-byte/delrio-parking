@@ -22,6 +22,13 @@
   <link rel="stylesheet" href="incidents.css">
 </head>
 <body>
+  <!-- Sync Status Banner -->
+  <div id="syncBanner" class="sync-banner sync-pending">
+    <span id="syncDot" class="sync-dot"></span>
+    <span id="syncText">Connecting...</span>
+    <span id="syncCount" class="sync-count" style="display:none"></span>
+  </div>
+
   <!-- Nav Tabs -->
   <nav id="navTabs">
     <button class="tab active" data-tab="log">📝 Log</button>

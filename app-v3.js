@@ -16,14 +16,43 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const FIRESTORE_COLLECTION = "infractions";
 
+// --- Sync Status Indicator ---
+function updateSyncStatus(status, text, queueLen) {
+  const banner = document.getElementById('syncBanner');
+  const dot = document.getElementById('syncDot');
+  const txt = document.getElementById('syncText');
+  const cnt = document.getElementById('syncCount');
+  if (!banner) return;
+  banner.className = 'sync-banner sync-' + status; // ok | pending | error
+  txt.textContent = text;
+  if (queueLen > 0) {
+    cnt.style.display = 'inline';
+    cnt.textContent = queueLen + ' pending';
+  } else {
+    cnt.style.display = 'none';
+  }
+}
+
 // Anonymous auth
 // Wait for auth before any Firestore ops
 let authReady = false;
 auth.signInAnonymously()
-  .then(() => { authReady = true; console.log("Auth ready"); processSyncQueue(); })
-  .catch(e => console.error("Auth failed:", e));
+  .then(() => {
+    authReady = true;
+    console.log("Auth ready");
+    updateSyncStatus('ok', 'Synced');
+    processSyncQueue();
+  })
+  .catch(e => {
+    console.error("Auth failed:", e);
+    updateSyncStatus('error', 'Sync error');
+  });
 auth.onAuthStateChanged(user => {
-  if (user) { authReady = true; processSyncQueue(); }
+  if (user) {
+    authReady = true;
+    updateSyncStatus('ok', 'Synced');
+    processSyncQueue();
+  }
 });
 
 // --- IndexedDB Setup ---
@@ -302,7 +331,11 @@ function removeFromSyncQueue(id) {
 }
 async function processSyncQueue() {
   const q = getSyncQueue();
-  if (q.length === 0) return;
+  if (q.length === 0) {
+    updateSyncStatus('ok', 'Synced');
+    return;
+  }
+  updateSyncStatus('pending', 'Syncing...', q.length);
   console.log(`Processing ${q.length} pending syncs...`);
   for (const id of q) {
     try {
@@ -314,18 +347,28 @@ async function processSyncQueue() {
         await db.collection(FIRESTORE_COLLECTION).doc(id).set(syncData);
       }
       removeFromSyncQueue(id);
-    } catch (e) { console.error(`Sync failed for ${id}:`, e); }
+    } catch (e) {
+      console.error(`Sync failed for ${id}:`, e);
+      updateSyncStatus('error', 'Sync failed', getSyncQueue().length);
+      return;
+    }
   }
+  updateSyncStatus('ok', 'Synced');
   console.log("Sync queue processed");
 }
 
 // Auto-sync when online
 window.addEventListener("online", () => {
   console.log("Back online, processing sync queue...");
+  updateSyncStatus('pending', 'Syncing...');
   processSyncQueue();
+});
+window.addEventListener("offline", () => {
+  updateSyncStatus('error', 'Offline');
 });
 // Also try on load if online
 if (navigator.onLine) processSyncQueue();
+else updateSyncStatus('error', 'Offline');
 
 // --- Full Sync: push ALL local items to Firestore ---
 async function fullSyncToFirestore() {
@@ -367,7 +410,11 @@ async function fullSyncToFirestore() {
     }
     localStorage.setItem("syncQueue", JSON.stringify([]));
     console.log(`Full sync: ${pushed} pushed, ${skipped} skipped, ${pulled} pulled from remote`);
-  } catch (e) { console.error("Full sync error:", e); }
+    updateSyncStatus('ok', 'Synced');
+  } catch (e) {
+    console.error("Full sync error:", e);
+    updateSyncStatus('error', 'Sync error');
+  }
 }
 
 // Retry pending syncs every 30 seconds

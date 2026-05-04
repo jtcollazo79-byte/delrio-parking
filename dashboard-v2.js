@@ -47,16 +47,22 @@ let allIncidents = [];
 let allItems = [];
 
 
-// Date range picker
+// Date range picker — default to last 7 days
 const dateInput = document.getElementById("filterDate");
 const dateEndInput = document.getElementById("filterDateEnd");
-dateInput.value = new Date().toISOString().split("T")[0];
-if (dateEndInput) dateEndInput.value = new Date().toISOString().split("T")[0];
+const today = new Date().toISOString().split("T")[0];
+const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+dateInput.value = sevenDaysAgo;
+if (dateEndInput) dateEndInput.value = today;
 
 // Date range mode toggle
-let dateRangeMode = false;
+let dateRangeMode = true; // Start in range mode by default
 const rangeToggle = document.getElementById("rangeToggle");
 if (rangeToggle) {
+  rangeToggle.textContent = "📅 Range";
+  rangeToggle.classList.add("active");
+  const endGroup = document.getElementById("endDateGroup");
+  if (endGroup) endGroup.style.display = "inline-block";
   rangeToggle.addEventListener("click", () => {
     dateRangeMode = !dateRangeMode;
     rangeToggle.textContent = dateRangeMode ? "📅 Range" : "📅 Day";
@@ -279,7 +285,8 @@ function renderInfractionCard(inf) {
 dateInput.addEventListener("change", () => fetchData(dateInput.value));
 if (dateEndInput) dateEndInput.addEventListener("change", () => fetchData(dateInput.value));
 document.getElementById("btnToday").addEventListener("click", () => {
-  dateInput.value = new Date().toISOString().split("T")[0];
+  dateInput.value = sevenDaysAgo;
+  if (dateEndInput) dateEndInput.value = today;
   fetchData(dateInput.value);
 });
 document.getElementById("btnRefresh").addEventListener("click", () => fetchData(dateInput.value));
