@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head><title>Storage Test</title></head>
+<body>
+<h3>Firebase Storage Upload Test</h3>
+<pre id="log">Starting...</pre>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script>
+const log = document.getElementById('log');
+function addLog(msg) { log.textContent += '\n' + msg; console.log(msg); }
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAo8THlHjdaA-B5DoZgAg4xUySy85MYzOo",
+  authDomain: "del-rio-parking.firebaseapp.com",
+  projectId: "del-rio-parking",
+  storageBucket: "del-rio-parking.firebasestorage.app",
+  messagingSenderId: "32189559016",
+  appId: "1:32189559016:web:758d96678f68715c64595d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
+
+addLog('Firebase initialized');
+addLog('Storage bucket: ' + storage.ref().bucket);
+
+auth.signInAnonymously().then(async () => {
+  addLog('Auth OK');
+  
+  // 1. Check how many infractions exist
+  const snap = await db.collection('infractions').get();
+  addLog('Firestore docs: ' + snap.size);
+  
+  let withPhotos = 0, withPhotoUrls = 0;
+  const toUpload = [];
+  
+  snap.docs.forEach(doc => {
+    const d = doc.data();
+    if (d.photos) withPhotos++;
+    if (d.photoUrls) withPhotoUrls++;
+    addLog('  ' + doc.id + ' | photos:' + !!d.photos + ' photoUrls:' + !!d.photoUrls + ' | ' + (d.tenant || '?'));
+  });
+  
+  addLog('\nWith photos (base64): ' + withPhotos);
+  addLog('With photoUrls: ' + withPhotoUrls);
+  
+  // 2. Try uploading a test file
+  addLog('\n--- Test upload ---');
+  try {
+    const testBlob = new Blob(['test from dashboard'], { type: 'text/plain' });
+    const testRef = storage.ref('photos/test-upload.txt');
+    addLog('Uploading test file...');
+    await testRef.put(testBlob);
+    const url = await testRef.getDownloadURL();
+    addLog('Test upload OK! URL: ' + url);
+  } catch (e) {
+    addLog('Test upload FAILED: ' + e.message);
+    addLog('Error code: ' + e.code);
+  }
+  
+}).catch(e => addLog('Auth failed: ' + e.message));
+</script>
+</body>
+</html>
