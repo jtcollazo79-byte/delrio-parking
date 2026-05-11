@@ -389,7 +389,7 @@ window.deleteInf = async function(id) {
 // --- Export CSV ---
 document.getElementById("exportCSV").addEventListener("click", () => {
   if (allInfractions.length === 0) return alert("No hay datos");
-  const headers = ["Espacio","Tenant","Placa","Vehículo","Tipo","Fecha","Hora","Oficial","Estado","Notas"];
+  const headers = ["Espacio","Tenant","Placa","Vehículo","Tipo","Fecha","Hora","Oficial","Estado","Notas","Fotos"];
   const rows = allInfractions.map(inf => {
     const spaceNum = inf.space || (inf.tenant ? inf.tenant.split(":")[0].trim() : "");
     const tenantName = inf.tenant || "";
@@ -397,7 +397,8 @@ document.getElementById("exportCSV").addEventListener("click", () => {
     const officerName = inf.officer && typeof inf.officer === "object" ? (inf.officer.name || "") : (inf.officer || "");
     const time = inf.date ? inf.date.split("T")[1] || "" : "";
     const date = inf.date ? inf.date.split("T")[0] || "" : "";
-    return [spaceNum, tenantName, inf.plate||"", inf.vehicle||"", inf.type||"", date, time, officerName, vs, inf.notes||""].map(v => `"${v}"`).join(",");
+    const photos = (inf.photoUrls && inf.photoUrls.length) ? inf.photoUrls.join(" | ") : "";
+    return [spaceNum, tenantName, inf.plate||"", inf.vehicle||"", inf.type||"", date, time, officerName, vs, inf.notes||"", photos].map(v => `"${v}"`).join(",");
   });
   const csv = [headers.join(","), ...rows].join("\n");
   const blob = new Blob([csv], {type: "text/csv"});
@@ -412,14 +413,15 @@ document.getElementById("exportPDF").addEventListener("click", () => {
   if (allInfractions.length === 0) return alert("No hay datos");
   let html = `<html><head><title>Del Rio - Infracciones</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #333;padding:6px 8px;font-size:11px}th{background:#e94560;color:#fff}h1{color:#e94560}</style></head><body>`;
   html += `<h1>Del Rio Shopping Center - Infracciones</h1><p>Fecha: ${dateInput.value}${dateRangeMode && dateEndInput ? ' a ' + dateEndInput.value : ''} | Total: ${allInfractions.length}</p>`;
-  html += `<table><tr><th>Fecha</th><th>Espacio</th><th>Tenant</th><th>Placa</th><th>Vehículo</th><th>Tipo</th><th>Hora</th><th>Oficial</th><th>Estado</th><th>Notas</th></tr>`;
+  html += `<table><tr><th>Fecha</th><th>Espacio</th><th>Tenant</th><th>Placa</th><th>Vehículo</th><th>Tipo</th><th>Hora</th><th>Oficial</th><th>Estado</th><th>Notas</th><th>Fotos</th></tr>`;
   allInfractions.forEach(inf => {
     const spaceNum = inf.space || (inf.tenant ? inf.tenant.split(":")[0].trim() : "");
     const vs = inf.vehicleStatus === "not-moved" ? "Se Quedó" : (inf.vehicleStatus === "moved" ? "Se Movió" : "Pendiente");
     const officerName = inf.officer && typeof inf.officer === "object" ? (inf.officer.name || "") : (inf.officer || "");
     const dateOnly = inf.date ? inf.date.split("T")[0] || "" : "";
     const time = inf.date ? inf.date.split("T")[1] || "" : "";
-    html += `<tr><td>${dateOnly}</td><td>${spaceNum}</td><td>${inf.tenant||""}</td><td>${inf.plate||""}</td><td>${inf.vehicle||""}</td><td>${inf.type||""}</td><td>${time}</td><td>${officerName}</td><td>${vs}</td><td>${inf.notes||""}</td></tr>`;
+    const photoImgs = (inf.photoUrls && inf.photoUrls.length) ? inf.photoUrls.map(u => `<img src="${u}" style="width:100px;height:75px;object-fit:cover;margin:2px">`).join("") : "";
+    html += `<tr><td>${dateOnly}</td><td>${spaceNum}</td><td>${inf.tenant||""}</td><td>${inf.plate||""}</td><td>${inf.vehicle||""}</td><td>${inf.type||""}</td><td>${time}</td><td>${officerName}</td><td>${vs}</td><td>${inf.notes||""}</td><td>${photoImgs}</td></tr>`;
   });
   html += `</table></body></html>`;
   const blob = new Blob([html], {type: "text/html"});
