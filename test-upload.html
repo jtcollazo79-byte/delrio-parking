@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><title>Storage Test</title></head>
+<head><title>Photo Upload Fix</title></head>
 <body>
-<h3>Firebase Storage Upload Test</h3>
+<h3>Uploading photos to Storage...</h3>
 <pre id="log">Starting...</pre>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -26,42 +26,73 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
 
-addLog('Firebase initialized');
-addLog('Storage bucket: ' + storage.ref().bucket);
+function dataUrlToBlob(dataUrl) {
+  const parts = dataUrl.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const bstr = atob(parts[1]);
+  const u8arr = new Uint8Array(bstr.length);
+  for (let i = 0; i < bstr.length; i++) u8arr[i] = bstr.charCodeAt(i);
+  return new Blob([u8arr], { type: mime });
+}
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open("DelRioParking", 3);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGetAll() {
+  return openDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction("infractions", "readonly");
+    const req = tx.objectStore("infractions").getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  }));
+}
 
 auth.signInAnonymously().then(async () => {
   addLog('Auth OK');
   
-  // 1. Check how many infractions exist
-  const snap = await db.collection('infractions').get();
-  addLog('Firestore docs: ' + snap.size);
+  const local = await dbGetAll();
+  addLog('Local IndexedDB items: ' + local.length);
   
-  let withPhotos = 0, withPhotoUrls = 0;
-  const toUpload = [];
+  let uploaded = 0, skipped = 0, errors = 0;
   
-  snap.docs.forEach(doc => {
-    const d = doc.data();
-    if (d.photos) withPhotos++;
-    if (d.photoUrls) withPhotoUrls++;
-    addLog('  ' + doc.id + ' | photos:' + !!d.photos + ' photoUrls:' + !!d.photoUrls + ' | ' + (d.tenant || '?'));
-  });
-  
-  addLog('\nWith photos (base64): ' + withPhotos);
-  addLog('With photoUrls: ' + withPhotoUrls);
-  
-  // 2. Try uploading a test file
-  addLog('\n--- Test upload ---');
-  try {
-    const testBlob = new Blob(['test from dashboard'], { type: 'text/plain' });
-    const testRef = storage.ref('photos/test-upload.txt');
-    addLog('Uploading test file...');
-    await testRef.put(testBlob);
-    const url = await testRef.getDownloadURL();
-    addLog('Test upload OK! URL: ' + url);
-  } catch (e) {
-    addLog('Test upload FAILED: ' + e.message);
-    addLog('Error code: ' + e.code);
+  for (const inf of local) {
+    if (!inf.photos || inf.photos.length === 0) {
+      skipped++;
+      continue;
+    }
+    
+    addLog('\nUploading ' + inf.photos.length + ' photos for: ' + (inf.tenant || inf.id));
+    
+    try {
+      const photoUrls = [];
+      for (let i = 0; i < inf.photos.length; i++) {
+        const blob = dataUrlToBlob(inf.photos[i]);
+        addLog('  Photo ' + i + ': ' + (blob.size/1024).toFixed(1) + 'KB');
+        const ref = storage.ref('photos/' + inf.id + '_' + i + '.jpg');
+        await ref.put(blob);
+        const url = await ref.getDownloadURL();
+        photoUrls.push(url);
+        addLog('  Photo ' + i + ' OK');
+      }
+      
+      await db.collection('infractions').doc(inf.id).update({ photoUrls });
+      addLog('  Firestore updated with ' + photoUrls.length + ' URLs');
+      uploaded++;
+    } catch (e) {
+      addLog('  ERROR: ' + e.message);
+      errors++;
+    }
   }
+  
+  addLog('\n=== DONE ===');
+  addLog('Uploaded: ' + uploaded);
+  addLog('Skipped (no photos): ' + skipped);
+  addLog('Errors: ' + errors);
   
 }).catch(e => addLog('Auth failed: ' + e.message));
 </script>
