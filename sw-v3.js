@@ -1,4 +1,4 @@
-const CACHE = "delrio-v14.0";
+const CACHE = "delrio-v15.0";
 const FILES = [
   "./",
   "./index.html",
@@ -11,7 +11,8 @@ const FILES = [
   "./manifest.json",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js",
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js",
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"
 ];
 
 // Install: cache files, skip waiting
