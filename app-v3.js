@@ -411,7 +411,26 @@ async function fullSyncToFirestore() {
             continue;
           }
           if (lTime <= rTime) {
-            // Same age — skip, no need to push
+            // Same age — but check if photos need uploading
+            if (inf.photos && inf.photos.length > 0 && !remote.photoUrls && !inf.photoUrls) {
+              // Photos exist locally but not in Storage — upload them
+              try {
+                const photoUrls = [];
+                for (let i = 0; i < inf.photos.length; i++) {
+                  const blob = dataUrlToBlob(inf.photos[i]);
+                  const ref = storage.ref(`photos/${inf.id}_${i}.jpg`);
+                  await ref.put(blob);
+                  const url = await ref.getDownloadURL();
+                  photoUrls.push(url);
+                }
+                if (photoUrls.length > 0) {
+                  await db.collection(FIRESTORE_COLLECTION).doc(inf.id).update({ photoUrls });
+                  inf.photoUrls = photoUrls;
+                  await dbPut(inf);
+                  console.log(`Uploaded ${photoUrls.length} photos for ${inf.id}`);
+                }
+              } catch (e) { console.error(`Photo upload failed for ${inf.id}:`, e); }
+            }
             skipped++;
             continue;
           }
