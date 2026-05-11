@@ -418,6 +418,20 @@ async function fullSyncToFirestore() {
         }
         // Local is newer or remote doesn't exist — push
         const syncData = { ...inf };
+        // Upload photos to Storage if not yet uploaded
+        if (inf.photos && inf.photos.length > 0 && !inf.photoUrls) {
+          const photoUrls = [];
+          for (let i = 0; i < inf.photos.length; i++) {
+            try {
+              const blob = dataUrlToBlob(inf.photos[i]);
+              const ref = storage.ref(`photos/${inf.id}_${i}.jpg`);
+              await ref.put(blob);
+              const url = await ref.getDownloadURL();
+              photoUrls.push(url);
+            } catch (e) { console.error(`Photo upload failed for ${inf.id}_${i}:`, e); }
+          }
+          if (photoUrls.length > 0) syncData.photoUrls = photoUrls;
+        }
         delete syncData.photos;
         await db.collection(FIRESTORE_COLLECTION).doc(inf.id).set(syncData, { merge: true });
         pushed++;
