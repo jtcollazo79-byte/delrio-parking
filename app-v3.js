@@ -14,6 +14,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 const FIRESTORE_COLLECTION = "infractions";
 
 // --- Sync Status Indicator ---
@@ -343,6 +344,20 @@ async function processSyncQueue() {
       const inf = all.find(i => i.id === id);
       if (inf) {
         const syncData = { ...inf };
+        // Upload photos to Storage if present and not yet uploaded
+        if (inf.photos && inf.photos.length > 0 && !inf.photoUrls) {
+          const photoUrls = [];
+          for (let i = 0; i < inf.photos.length; i++) {
+            try {
+              const blob = dataUrlToBlob(inf.photos[i]);
+              const ref = storage.ref(`photos/${inf.id}_${i}.jpg`);
+              await ref.put(blob);
+              const url = await ref.getDownloadURL();
+              photoUrls.push(url);
+            } catch (e) { console.error(`Photo upload failed for ${inf.id}_${i}:`, e); }
+          }
+          if (photoUrls.length > 0) syncData.photoUrls = photoUrls;
+        }
         delete syncData.photos;
         await db.collection(FIRESTORE_COLLECTION).doc(id).set(syncData);
       }
@@ -558,10 +573,23 @@ document.getElementById("infractionForm").addEventListener("submit", async (e) =
 
   try {
     await dbAdd(infraction);
-    // Sync to Firestore (wait for auth)
+    // Upload photos to Firebase Storage
     const doSync = async () => {
       try {
         const syncData = { ...infraction };
+        // Upload photos to Storage if present
+        if (infraction.photos && infraction.photos.length > 0) {
+          const photoUrls = [];
+          for (let i = 0; i < infraction.photos.length; i++) {
+            const dataUrl = infraction.photos[i];
+            const blob = dataUrlToBlob(dataUrl);
+            const ref = storage.ref(`photos/${infraction.id}_${i}.jpg`);
+            await ref.put(blob);
+            const url = await ref.getDownloadURL();
+            photoUrls.push(url);
+          }
+          syncData.photoUrls = photoUrls;
+        }
         delete syncData.photos;
         await db.collection(FIRESTORE_COLLECTION).doc(infraction.id).set(syncData);
       } catch (e) {
@@ -691,7 +719,7 @@ function renderHistory() {
         ${inf.vehicleStatus ? `<span class="status-badge ${inf.vehicleStatus}">${inf.vehicleStatus === 'moved' ? '✅ Moved' : '🚫 Stayed'}</span>` : ""}
         <div class="date">${formatDate(inf.date)}</div>
         ${inf.vehicle ? `<div class="vehicle">${esc(inf.vehicle)}</div>` : ""}
-        ${inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : ""}
+        ${inf.photoUrls && inf.photoUrls.length ? `<img class="photo-thumb" src="${inf.photoUrls[0]}" />` : (inf.photos && inf.photos.length ? `<img class="photo-thumb" src="${inf.photos[0]}" />` : "")}
       `;
       li.addEventListener("click", () => showDetail(inf.id));
     }
@@ -736,7 +764,7 @@ function showDetail(id) {
     <div class="detail-row"><div class="detail-label">Notes</div><div class="detail-value">${esc(inf.notes || "None")}</div></div>
     ${inf.gps ? `<div class="detail-row"><div class="detail-label">GPS Location</div><div class="detail-value">${inf.gps.lat.toFixed(6)}, ${inf.gps.lng.toFixed(6)}</div></div>` : ""}
     ${inf.officer && inf.officer.name ? `<div class="detail-row"><div class="detail-label">Officer</div><div class="detail-value">${esc(inf.officer.name)}${inf.officer.badge ? " — " + esc(inf.officer.badge) : ""}</div></div>` : ""}
-    ${inf.photos && inf.photos.length ? inf.photos.map(p => `<img class="detail-photo" src="${p}" />`).join("") : ""}
+    ${(inf.photoUrls && inf.photoUrls.length) ? inf.photoUrls.map(p => `<img class="detail-photo" src="${p}" />`).join("") : (inf.photos && inf.photos.length ? inf.photos.map(p => `<img class="detail-photo" src="${p}" />`).join("") : "")}
   `;
   document.getElementById("detailModal").classList.add("active");
 }
@@ -952,6 +980,15 @@ document.getElementById("saveOfficerBtn").addEventListener("click", () => {
 });
 
 // --- Helpers ---
+function dataUrlToBlob(dataUrl) {
+  const parts = dataUrl.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const bstr = atob(parts[1]);
+  const u8arr = new Uint8Array(bstr.length);
+  for (let i = 0; i < bstr.length; i++) u8arr[i] = bstr.charCodeAt(i);
+  return new Blob([u8arr], { type: mime });
+}
+
 function esc(str) {
   if (!str) return "";
   const d = document.createElement("div");
