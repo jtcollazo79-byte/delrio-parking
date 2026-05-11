@@ -81,6 +81,9 @@ header h1 { font-size: 1.3rem; color: #fff; }
 .card-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
 .card-edit { display: grid; grid-template-columns: 1fr; gap: 4px; }
 .card-actions { grid-column: 1 / -1; display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2a2a4a; }
+.card-photos { grid-column: 1 / -1; display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.dashboard-photo { width: 120px; height: 90px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid #2a2a4a; transition: transform 0.2s, border-color 0.2s; }
+.dashboard-photo:hover { transform: scale(1.05); border-color: #e94560; }
 
 .edit-btn { background: #2a5298; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
 .edit-btn:hover { background: #3a62a8; }

@@ -249,6 +249,7 @@ function renderInfractionCard(inf) {
           <div class="field"><span>Hora:</span> <strong>${time}</strong></div>
           <div class="field"><span>Oficial:</span> <strong>${officerName}</strong></div>
           <div class="field"><span>Notas:</span> <strong>${inf.notes || "—"}</strong></div>
+          ${(inf.photoUrls && inf.photoUrls.length) ? `<div class="card-photos">${inf.photoUrls.map(u => `<img src="${u}" class="dashboard-photo" onclick="window.open('${u}','_blank')" />`).join('')}</div>` : ''}
         </div>
         <div class="card-edit" id="edit-${eid}" style="display:none">
           <div class="field edit-row">
