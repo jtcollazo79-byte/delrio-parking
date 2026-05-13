@@ -1,6 +1,6 @@
 {
   "name": "Del Rio Dashboard",
-  "short_name": "DelRio Dash",
+  "short_name": "Dashboard",
   "description": "Del Rio Parking Enforcement Dashboard",
   "start_url": "./dashboard.html",
   "display": "standalone",
