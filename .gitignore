@@ -1,1 +1,85 @@
-node_modules/
+# Operating System Files
+.DS_Store
+
+# OpenClaw specific files and directories
+.openclaw/
+AGENTS.md
+HEARTBEAT.md
+IDENTITY.md
+LESSONS.md
+MEMORY.md
+REVISION_EXPEDIENTES.md
+SOUL.md
+TOOLS.md
+USER.md
+openclaw-workspace-state.json
+
+# Media files
+*.mp4
+*.jpg
+*.png
+*.gif
+*.wav
+*.mp3
+
+# PDF files (general, may need exceptions later)
+*.pdf
+
+# Temporary files
+temp_*.pdf
+tmp_policies/
+email_inbox.json
+concat.txt
+
+# Directories
+avatars/
+letters/
+media/
+memory/
+properties/
+scripts/
+verticals/corporativo/
+verticals/inversiones/
+verticals/jtic/
+verticals/legal/
+verticals/propiedades/aquadura/
+verticals/propiedades/del-rio-shopping-center/
+verticals/propiedades/finca-fajardo/
+verticals/propiedades/jardines-de-caguas/
+verticals/propiedades/leslie-torres/
+verticals/propiedades/levittown/
+verticals/propiedades/villablanca/
+scripts/
+verticals/propiedades/PORTAFOLIO.md
+verticals/propiedades/PORTAFOLIO.md
+
+# PWA related files - excluding core app files for now,
+# but ignoring specific temporary/generated ones if they appear.
+# This section might need adjustment based on actual project needs.
+verticals/propiedades/del-rio/pwa/copilot-conversation.docx
+verticals/propiedades/del-rio/pwa/test-firebase.html
+verticals/propiedades/del-rio/pwa/test-incident-save.html
+
+# Specific files
+verticals/propiedades/del-rio/pwa/dashboard.css
+verticals/propiedades/del-rio/pwa/dashboard.html
+verticals/propiedades/del-rio/pwa/styles-v3.css
+verticals/propiedades/del-rio/pwa/index.html
+verticals/propiedades/del-rio/pwa/manifest-dashboard.json
+verticals/propiedades/del-rio/pwa/manifest.json
+verticals/propiedades/del-rio/pwa/sw-v3.js
+verticals/propiedades/del-rio/pwa/icon-192.png
+verticals/propiedades/del-rio/pwa/icon-512.png
+verticals/propiedades/del-rio/pwa/icon-dashboard-192.png
+verticals/propiedades/del-rio/pwa/icon-dashboard-512.png
+verticals/propiedades/del-rio/pwa/icon-dashboard-new-512.png
+verticals/propiedades/del-rio/pwa/icon-dashboard.svg
+verticals/propiedades/del-rio/pwa/icon-dashboard.svg.png
+verticals/propiedades/del-rio/pwa/icon-delrio.jpg
+verticals/propiedades/del-rio/pwa/incidents.css
+verticals/propiedades/del-rio/pwa/incidents.js
+verticals/propiedades/del-rio/pwa/app-v3.js
+verticals/propiedades/del-rio/pwa/check-firestore.js
+verticals/propiedades/del-rio/pwa/PORTAFOLIO.md
+verticals/propiedades/del-rio/INQUILINOS.md
+
