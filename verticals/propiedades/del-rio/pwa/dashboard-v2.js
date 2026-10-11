@@ -45,6 +45,7 @@ for (let i = 1; i <= 19; i++) {
 let allInfractions = [];
 let allIncidents = [];
 let allItems = [];
+let dataReady = Promise.resolve();
 
 
 // Date range picker — default to last 7 days
@@ -78,8 +79,7 @@ function fetchData(dateStr) {
   const endDate = dateEndInput && dateRangeMode ? dateEndInput.value : dateStr;
   document.getElementById("infractionsList").innerHTML = '<p class="empty">Cargando...</p>';
 
-  // Fetch both infractions and incidents in parallel
-  Promise.all([
+  dataReady = Promise.all([
     db.collection("infractions").get(),
     db.collection("incidents").get()
   ])
@@ -387,7 +387,8 @@ window.deleteInf = async function(id) {
 };
 
 // --- Export CSV ---
-document.getElementById("exportCSV").addEventListener("click", () => {
+document.getElementById("exportCSV").addEventListener("click", async () => {
+  await dataReady;
   if (allInfractions.length === 0) return alert("No hay datos");
   const headers = ["Espacio","Tenant","Placa","Vehículo","Tipo","Fecha","Hora","Oficial","Estado","Multa","Notas","Fotos"];
   const rows = allInfractions.map(inf => {
@@ -410,7 +411,8 @@ document.getElementById("exportCSV").addEventListener("click", () => {
 });
 
 // --- Export PDF (HTML) ---
-document.getElementById("exportPDF").addEventListener("click", () => {
+document.getElementById("exportPDF").addEventListener("click", async () => {
+  await dataReady;
   if (allInfractions.length === 0) return alert("No hay datos");
   let html = `<html><head><title>Del Rio - Infracciones</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #333;padding:6px 8px;font-size:11px}th{background:#e94560;color:#fff}h1{color:#e94560}</style></head><body>`;
   html += `<h1>Del Rio Shopping Center - Infracciones</h1><p>Fecha: ${dateInput.value}${dateRangeMode && dateEndInput ? ' a ' + dateEndInput.value : ''} | Total: ${allInfractions.length}</p>`;
