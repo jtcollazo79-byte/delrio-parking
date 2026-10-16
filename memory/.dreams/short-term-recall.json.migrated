@@ -1,0 +1,2506 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-13T12:02:24.084Z",
+  "entries": {
+    "memory:memory/2026-04-13.md:51:86": {
+      "key": "memory:memory/2026-04-13.md:51:86",
+      "path": "memory/2026-04-13.md",
+      "startLine": 51,
+      "endLine": 86,
+      "source": "memory",
+      "snippet": "- Single Property Manager agent first (all 6 properties) - Legal Agent second - Insurance Agent third - Subdivide only when portfolio scale demands it ## Still Pending - [ ] Time Machine (no external drive yet) - [ ] App Password for J1 email SMTP - [ ] Upload property documents (deeds, appraisals, contracts) — not high priority, at Julio's pace - [ ] Verify Zhipu privacy policies - [ ] Router hardening - [ ] Node pairing (mobile companion app) - [ ] Calendar integration - [ ] J1 identity (emoji, creature, avatar) — Julio still working on it - [ ] Delete BOOTSTRAP.md ## Mac Mini Update (COMPLETED) - ✅ macOS fully updated — no pending updates ## App Password Status (BLOCKED) - Julio tried",
+      "recallCount": 15,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 7.834413030743598,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T13:52:20.591Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "a6ed3ac9f181",
+        "d55a47aa8b0c",
+        "54f929b76b2c",
+        "7072e448c530",
+        "4b60106ee1b8",
+        "d324f17e56b4",
+        "c0858e375f50",
+        "7cfdf8d6c31e",
+        "0677d8f61864",
+        "dc5451a4480e",
+        "c5b8eea575cf",
+        "563e7c18bd90",
+        "aa8cdd60177d",
+        "e801403351ad",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-29",
+        "2026-04-30",
+        "2026-05-05",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-12",
+        "2026-05-13",
+        "2026-05-14",
+        "2026-05-20",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "router",
+        "bootstrap.md",
+        "single",
+        "property",
+        "manager",
+        "first",
+        "all",
+        "properties"
+      ]
+    },
+    "memory:memory/2026-04-13.md:27:59": {
+      "key": "memory:memory/2026-04-13.md:27:59",
+      "path": "memory/2026-04-13.md",
+      "startLine": 27,
+      "endLine": 59,
+      "source": "memory",
+      "snippet": "1. **Del Rio** — Strip Mall, 22 spaces → Plaza de Descuentos LLC (76.92% Gardens Realty, 23.08% Leslie Torres) 2. **Jardines de Caguas** — Strip Mall, 7 spaces → Gardens Realty LLC 3. **Aquadura** — Commercial, 32,000 sf, vacant → Aquadura LLC 4. **Villablanca** — Two-story, lease-to-purchase → Futura 2 LLC 5. **Finca Fajardo** — 16 cuerdas, vacant → Julio Torres Collazo 58.3335% + 5 co-owners 8.3333% each 6. **Levittown** — 4 apartments, residential → Julio & Ana María 25%, Leslie Torres 75% ## Corporate Structure - **Futura 2 LLC** (Holding) — same owners as Finca Fajardo, same proportions - 100% → Gardens Realty LLC - 76.92% → Plaza de Descuentos LLC (23.08% Leslie Torres) - 100%",
+      "recallCount": 18,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 8.283779898285866,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T13:52:20.591Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "a6ed3ac9f181",
+        "d55a47aa8b0c",
+        "b2e6530ed7e9",
+        "aad392a220c7",
+        "8afe02bb1470",
+        "76fe01bf5153",
+        "819112958679",
+        "563e7c18bd90",
+        "9b1d4cbffa7f",
+        "a6285b2f9bbc",
+        "6f5592a47747",
+        "e801403351ad",
+        "b738885081c6",
+        "adb66e57acd0",
+        "c894f6c5f21d",
+        "95a08776494b",
+        "3fef2d80c062",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-30",
+        "2026-05-01",
+        "2026-05-04",
+        "2026-05-05",
+        "2026-05-07",
+        "2026-05-13",
+        "2026-05-16",
+        "2026-05-18",
+        "2026-05-20",
+        "2026-06-08",
+        "2026-06-24",
+        "2026-06-26",
+        "2026-06-30",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "76.92",
+        "23.08",
+        "two-story",
+        "lease-to-purchase",
+        "58.3335",
+        "co-owners",
+        "8.3333",
+        "rio"
+      ]
+    },
+    "memory:memory/2026-04-16.md:27:44": {
+      "key": "memory:memory/2026-04-16.md:27:44",
+      "path": "memory/2026-04-16.md",
+      "startLine": 27,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "- **\"Co-Intelligence: Living and Working with AI\"** by Ethan Mollick ordered (physical book, ISBN 9780593716718) ### New Feature Discussion - Julio wants PWA to handle **non-vehicle incidents** (security, maintenance, emergencies, noise) - Proposed: new \"Incidents\" tab with categories, priorities, photos - Not yet implemented — waiting for Julio's go-ahead ### TODO Updated - Added: keep Julio informed of AI advances - Gmail app password: THIS WEEK (not weekend) - Firestore security: DONE - Still pending: Samsung T7 setup, property docs, router hardening, PWA icons ### Lessons Learned - Officer's iPad wasn't updating — SW cache was too aggressive, now fixed with network-first - When deploy",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.2044701528920507,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T16:50:29.615Z",
+      "lastRecalledAt": "2026-05-13T11:54:39.994Z",
+      "queryHashes": [
+        "d55a47aa8b0c",
+        "efe788b70774",
+        "b2e6530ed7e9",
+        "fb3c3bd74ebb",
+        "ede568804cdb",
+        "6bc5849229bd"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-17",
+        "2026-04-30",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "network",
+        "router",
+        "co-intelligence",
+        "non-vehicle",
+        "go-ahead",
+        "network-first",
+        "intelligence",
+        "living"
+      ]
+    },
+    "memory:memory/2026-04-13.md:1:31": {
+      "key": "memory:memory/2026-04-13.md:1:31",
+      "path": "memory/2026-04-13.md",
+      "startLine": 1,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "# 2026-04-13 — Monday Setup Session ## Security Hardening (COMPLETED) - ✅ Firewall enabled + stealth mode ON - ✅ Screen lock set to \"Immediately\" - ✅ Display sleep: 5 minutes - ✅ Sharing cleaned up: AirPlay OFF, Bluetooth Sharing OFF - ✅ Remote Login: ON but restricted to \"Only these users\" → mac only - ✅ OpenClaw config backup created - ✅ Auto-updates enabled — Mac Mini currently updating - ✅ Telegram 2FA enabled by Julio ## J1 Email (COMPLETED) - Email: **j1.ceo.agent@gmail.com** (j1.agent was taken) - Password saved to macOS Keychain - Birthday used for Google: April 10, 2024 (real birthday: April 10, 2026 — day we met) - App Password NOT yet created — needed for SMTP access - Julio ask",
+      "recallCount": 7,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.2608921796083448,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T16:50:29.615Z",
+      "lastRecalledAt": "2026-05-20T10:14:51.519Z",
+      "queryHashes": [
+        "d55a47aa8b0c",
+        "9cb60f55c0a4",
+        "7cfdf8d6c31e",
+        "dc5451a4480e",
+        "19de506eea81",
+        "aa8cdd60177d",
+        "e801403351ad"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-05-01",
+        "2026-05-06",
+        "2026-05-12",
+        "2026-05-13",
+        "2026-05-14",
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "backup",
+        "auto-updates",
+        "j1.ceo.agent",
+        "gmail.com",
+        "j1.agent",
+        "monday",
+        "setup",
+        "security"
+      ]
+    },
+    "memory:memory/2026-04-13.md:103:141": {
+      "key": "memory:memory/2026-04-13.md:103:141",
+      "path": "memory/2026-04-13.md",
+      "startLine": 103,
+      "endLine": 141,
+      "source": "memory",
+      "snippet": "- Julio confirmed: build ALL features from the Copilot plan ### Files Written So Far - ✅ `index.html` — Complete rebuild with 4 tabs: Log, History, Export, Settings - Photo capture (camera + upload) - Detail modal - Filter/search on history - Export tab with date range + type filter - Settings: tenant management, officer info - ✅ `styles.css` — Full responsive styles with bottom nav, modal, cards - ❌ `app.js` — NOT YET WRITTEN (this is the big one — all logic) - ❌ `manifest.json` — Needs update for new features - ❌ `sw.js` — Needs update for caching ### Features Planned (from Copilot doc) - IndexedDB storage - Photo capture (camera + file upload) with preview - GPS location on in",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.399833208322525,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T16:50:29.615Z",
+      "lastRecalledAt": "2026-04-30T09:52:57.141Z",
+      "queryHashes": [
+        "d55a47aa8b0c",
+        "54f929b76b2c",
+        "9715a98d40f4",
+        "b2e6530ed7e9"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "index.html",
+        "filter/search",
+        "styles.css",
+        "app.js",
+        "manifest.json",
+        "sw.js",
+        "julio",
+        "confirmed"
+      ]
+    },
+    "memory:memory/2026-04-13.md:80:111": {
+      "key": "memory:memory/2026-04-13.md:80:111",
+      "path": "memory/2026-04-13.md",
+      "startLine": 80,
+      "endLine": 111,
+      "source": "memory",
+      "snippet": "- Julio originally built PWA with Copilot on a different computer (not Mac Mini) - Never got to run or see the PWA — it was all code in Copilot - Repo visibility: attempted Private, may be Public ## Del Rio PWA Project (IN PROGRESS) - **Purpose:** Parking Infraction Log for Del Rio Shopping Center - **Functionality:** Log parking infractions with tenant name, license plate, notes - Started recreating from scratch on Mac Mini using Julio's Copilot code - `index.html` saved to `properties/01-strip-mall-22/pwa/index.html` - **Waiting for:** styles.css, app.js, manifest.json from Julio - Location: `/Users/mac/.openclaw/workspace/properties/01-strip-mall-22/pwa/` ## Key Context - Julio is worki",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.5033784635343417,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T19:15:11.508Z",
+      "lastRecalledAt": "2026-05-11T12:24:13.558Z",
+      "queryHashes": [
+        "54f929b76b2c",
+        "efe788b70774",
+        "7072e448c530",
+        "0677d8f61864"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-17",
+        "2026-04-29",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "index.html",
+        "styles.css",
+        "app.js",
+        "manifest.json",
+        "users/mac",
+        "julio",
+        "originally",
+        "built"
+      ]
+    },
+    "memory:memory/2026-04-16.md:1:34": {
+      "key": "memory:memory/2026-04-16.md:1:34",
+      "path": "memory/2026-04-16.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# Memory — April 16, 2026 ## April 15 Continuation (evening) ### PWA Updates Completed - Added **Edit infraction** feature — officers can correct mistakes (plate, vehicle, type, notes, status) - Added **offline sync queue** — infractions registered offline auto-sync when internet returns - Changed SW to **network-first** strategy — no more reinstalling app to get updates - Added **dashboard auto-refresh** every 30 seconds - **Firestore security rules** — changed from `allow read, write: if true` to `allow read, write: if request.auth != null` - Firebase **Anonymous Auth** enabled ### iPad Officer Sync Issue - Officer's iPad had OLD cached version without Firebase sync - Infractions were s",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.1388902395963667,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T19:15:11.508Z",
+      "lastRecalledAt": "2026-05-13T11:54:39.994Z",
+      "queryHashes": [
+        "54f929b76b2c",
+        "efe788b70774",
+        "b2e6530ed7e9",
+        "ede568804cdb",
+        "6bc5849229bd"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-17",
+        "2026-04-30",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "network",
+        "auto-sync",
+        "network-first",
+        "auto-refresh",
+        "request.auth",
+        "april",
+        "continuation",
+        "evening"
+      ]
+    },
+    "memory:memory/2026-04-15.md:1:39": {
+      "key": "memory:memory/2026-04-15.md:1:39",
+      "path": "memory/2026-04-15.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# Memory — April 15, 2026 ## April 14 Recap (late log) ### Security Hardening — COMPLETE - SSH Remote Login → OFF (via System Settings, not Terminal — needed Full Disk Access) - Screen Lock → Already set (Immediately, 5 min) - All Sharing services → OFF - Auto Updates → ON - Login password upgraded to 12+ characters - Firewall ON + Stealth mode ON - OpenClaw config backup done ### Firebase — SETUP COMPLETE - Project created: **del-rio-parking** on console.firebase.google.com - Firestore Database: Standard mode, us-central1 (Iowa) - Firebase SDK added to PWA via script tags - Sync logic added: infractions, vehicle status updates, and deletes all sync to Firestore - SW cache updated to incl",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4.522236737608909,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T19:15:11.508Z",
+      "lastRecalledAt": "2026-05-27T20:05:37.876Z",
+      "queryHashes": [
+        "54f929b76b2c",
+        "efe788b70774",
+        "7072e448c530",
+        "4b60106ee1b8",
+        "0677d8f61864",
+        "c5b8eea575cf",
+        "563e7c18bd90",
+        "2aa906fa1353"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-17",
+        "2026-04-29",
+        "2026-04-30",
+        "2026-05-11",
+        "2026-05-12",
+        "2026-05-13",
+        "2026-05-27"
+      ],
+      "conceptTags": [
+        "backup",
+        "del-rio-parking",
+        "console.firebase.google.com",
+        "us-central1",
+        "april",
+        "recap",
+        "late",
+        "log"
+      ]
+    },
+    "memory:memory/2026-04-14.md:30:39": {
+      "key": "memory:memory/2026-04-14.md:30:39",
+      "path": "memory/2026-04-14.md",
+      "startLine": 30,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "- Julio uses Telegram Web on Mac Mini (not desktop app) — can't right-click to copy - Lesson: cache busting is needed for PWA updates — consider adding version query params # Memory - April 14, 2026 ## PWA Build - Del Rio Parking Enforcement v2 - Completed: index.html, styles.css, app.js, manifest.json, sw.js - All files at `/Users/mac/.openclaw/workspace/properties/01-strip-mall-22/pwa/` - Running on localhost:8080 (may need `python3 -m http.server 8080` in pwa dir) ### Tenants (19 spaces, no",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.567890823071967,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-16T19:15:11.508Z",
+      "lastRecalledAt": "2026-05-11T12:24:13.558Z",
+      "queryHashes": [
+        "54f929b76b2c",
+        "efe788b70774",
+        "7072e448c530",
+        "4b60106ee1b8",
+        "ede568804cdb",
+        "0677d8f61864"
+      ],
+      "recallDays": [
+        "2026-04-16",
+        "2026-04-17",
+        "2026-04-29",
+        "2026-04-30",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "right-click",
+        "index.html",
+        "styles.css",
+        "app.js",
+        "manifest.json",
+        "sw.js",
+        "users/mac",
+        "http.server"
+      ]
+    },
+    "memory:memory/2026-04-14.md:1:36": {
+      "key": "memory:memory/2026-04-14.md:1:36",
+      "path": "memory/2026-04-14.md",
+      "startLine": 1,
+      "endLine": 36,
+      "source": "memory",
+      "snippet": "# Memory - April 14, 2026 ## PWA Build - Del Rio Parking Enforcement v2 - Completed: index.html, styles.css, app.js, manifest.json, sw.js - All files at `/Users/mac/.openclaw/workspace/properties/01-strip-mall-22/pwa/` - Running on localhost:8080 (may need `python3 -m http.server 8080` in pwa dir) ### Tenants (19 spaces, no 20-22): 1. Barbería 2. Royal Lab 3. Sakura 4. SuperCakes 5. Dentista 6. Mexcal 7. Laboratorio 8. Medikos 9. Butcher's 10. Bendecidos 11. T Shirt 12. Dra. Karla Amaral 13. Therapy Lab 14. My Look 15. Optica 16. Artesano 17. Leaf Lab 18. Sorrel 19. Buenacoop ### Officers (6): - Héctor J. Prieto Pacheco - Mashable Ojeda Ocasio - Felix E. Aponte Sanchez - Jose R. Cintrón M",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.8759155154228213,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T12:24:09.804Z",
+      "lastRecalledAt": "2026-06-04T16:27:30.640Z",
+      "queryHashes": [
+        "efe788b70774",
+        "63b22046960e",
+        "36fb65d4237d",
+        "6bc5849229bd",
+        "a3791fc4e325",
+        "2c33c4ad2721"
+      ],
+      "recallDays": [
+        "2026-04-17",
+        "2026-04-29",
+        "2026-05-11",
+        "2026-05-13",
+        "2026-06-04"
+      ],
+      "conceptTags": [
+        "index.html",
+        "styles.css",
+        "app.js",
+        "manifest.json",
+        "sw.js",
+        "users/mac",
+        "http.server",
+        "20-22"
+      ]
+    },
+    "memory:memory/2026-04-17.md:58:94": {
+      "key": "memory:memory/2026-04-17.md:58:94",
+      "path": "memory/2026-04-17.md",
+      "startLine": 58,
+      "endLine": 94,
+      "source": "memory",
+      "snippet": "- Time Machine (external drive) - PWA: Incidents tab, icons - Node pairing, Calendar integration - Delete BOOTSTRAP.md - Agent Roadmap (Property Manager, Legal, Insurance) ## Image Model Issues - GLM-4.6v intermittent failures throughout morning (Request was aborted) - Worked sometimes, failed others — seems like capacity issue - By end of session was working again ## Usage Tracking - Created usage-log.md in workspace for tracking tokens, tools, costs - Session status: 99% cache hit, $0.0024 cost, 92% tokens remaining ## Insurance Portfolio Building (Afternoon) Julio sent 15 policy PDFs via Telegram to build the JT Insurance Corp client database. ### Policies Registered in `insurance/po",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T18:37:39.805Z",
+      "lastRecalledAt": "2026-04-20T18:37:39.805Z",
+      "queryHashes": [
+        "9715a98d40f4"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "bootstrap.md",
+        "glm-4.6v",
+        "usage-log.md",
+        "0.0024",
+        "insurance/po",
+        "time",
+        "machine",
+        "external"
+      ]
+    },
+    "memory:memory/2026-04-17.md:116:148": {
+      "key": "memory:memory/2026-04-17.md:116:148",
+      "path": "memory/2026-04-17.md",
+      "startLine": 116,
+      "endLine": 148,
+      "source": "memory",
+      "snippet": "- UM/UIM exists in PR but Julio questioned if needed since all vehicles require insurance by law - UIM (underinsured) still relevant — high-value vehicles at risk with minimum coverage - PIP/PPI doesn't exist as such in PR (different from states) - Julio wants to add UM/UIM discussion for Berrios Realty specs on Monday ### ZAI/GLM-5.1 Pricing (per 1M tokens) - Input: $1.40 | Cached: $0.26 | Output: $4.40 - Cached input storage: limited-time free - Web search: $0.01/use - OpenClaw Pro Plan: $200/quarterly (~$67/mo) - Session cost estimate: ~$0.15-0.25 (mostly cached) ### Gmail App Password - Tried to create for j1.ceo.agent@gmail.com — got error - Account has 2FA ON but Google blocked app p",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T18:37:39.805Z",
+      "lastRecalledAt": "2026-04-20T18:37:39.805Z",
+      "queryHashes": [
+        "9715a98d40f4"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "um/uim",
+        "high-value",
+        "pip/ppi",
+        "zai/glm-5.1",
+        "1.40",
+        "0.26",
+        "4.40",
+        "limited-time"
+      ]
+    },
+    "memory:memory/2026-04-17.md:1:32": {
+      "key": "memory:memory/2026-04-17.md:1:32",
+      "path": "memory/2026-04-17.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# Memory — April 17, 2026 ## PWA Fixes (Morning) - Fixed sync issue — KJF 237 infracción no había llegado a Firestore - Root cause: `loadHistory()` solo leía de IndexedDB local, no de Firestore - Fix: `loadHistory()` ahora fetch de Firestore + merge a IndexedDB local - Added `fullSyncToFirestore()` — pushea todo local a Firestore cada 2 min + on load - Bumped SW cache from v4 → v5 → v6 to force updates - iPad cleanup: deleted GitHub.io + Firebaseapp.com from Website Data, recreated PWA icon - All 5 infractions now syncing properly - Added **date range filter** to dashboard (Day mode / Range mode) — export daily, weekly, or monthly - Push to GitHub Pages: `https://jtcollazo79-byte.github.io/",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.2749428778886793,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T18:37:39.805Z",
+      "lastRecalledAt": "2026-05-11T12:24:13.558Z",
+      "queryHashes": [
+        "9715a98d40f4",
+        "7072e448c530",
+        "4b60106ee1b8",
+        "0677d8f61864"
+      ],
+      "recallDays": [
+        "2026-04-20",
+        "2026-04-29",
+        "2026-04-30",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "github.io",
+        "firebaseapp.com",
+        "jtcollazo79-byte.github.io",
+        "april",
+        "pwa",
+        "fixes",
+        "morning",
+        "fixed"
+      ]
+    },
+    "memory:memory/2026-04-21.md:28:53": {
+      "key": "memory:memory/2026-04-21.md:28:53",
+      "path": "memory/2026-04-21.md",
+      "startLine": 28,
+      "endLine": 53,
+      "source": "memory",
+      "snippet": "- 19 COIs, 19 Business Permits, ~15 licencias profesionales pendientes de conseguir ## Cartas de Renovación con Precios (Tarde) - Julio dio precios de renovación para 3 inquilinos: - **Super Cake (A1-4)** — 1,200 sf: Año 1 $21.22, Años 2-3 $21.86, Años 4-5 $22.52 - **Lab Sharem (A1-7)** — 1,200 sf: Año 1 $23.89, Años 2-3 $24.30, Años 4-5 $25.00 - **Buenacoop (B-2-4)** — 3,000 sf: Año 1 $21.38, Años 2-4 $22.00, Año 5 $22.66 + Servicarro $560/mes fijo 5 años - Julio revisó carta Buenacoop, hizo cambios: teléfonos, email, via correo certificado, cláusula 1.01(g), \"sujetos a firma de nuevo contrato\" - Cambios aplicados a las 3 cartas uniformemente ## Organización de Archivos - Creada car",
+      "recallCount": 55,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 21.835506251454355,
+      "maxScore": 0.4472311347723007,
+      "firstRecalledAt": "2026-04-29T12:53:14.266Z",
+      "lastRecalledAt": "2026-07-13T12:02:24.084Z",
+      "queryHashes": [
+        "98360f0c30cb",
+        "36fb65d4237d",
+        "6bc5849229bd",
+        "563e7c18bd90",
+        "6bab1eda414e",
+        "9b1d4cbffa7f",
+        "a6285b2f9bbc",
+        "2e36304e2c6e",
+        "94eee4d79006",
+        "55920a71d677",
+        "6f5592a47747",
+        "e801403351ad",
+        "d915ed413d37",
+        "0a2e20d69afe",
+        "ef9ef10f6dc8",
+        "da503cb37157",
+        "df4f555bfed8",
+        "09673508a6dc",
+        "b73f0c295d63",
+        "a3791fc4e325",
+        "b738885081c6",
+        "adb66e57acd0",
+        "69c80529a254",
+        "e198711bc989",
+        "c894f6c5f21d",
+        "95a08776494b",
+        "8180ab0f6e1f",
+        "3fef2d80c062",
+        "da704518f470",
+        "f512549fd223",
+        "a3fe7e5430fe",
+        "e286d1f41f71"
+      ],
+      "recallDays": [
+        "2026-05-20",
+        "2026-05-25",
+        "2026-05-27",
+        "2026-06-01",
+        "2026-06-04",
+        "2026-06-08",
+        "2026-06-15",
+        "2026-06-22",
+        "2026-06-24",
+        "2026-06-26",
+        "2026-06-29",
+        "2026-06-30",
+        "2026-07-06",
+        "2026-07-08",
+        "2026-07-09",
+        "2026-07-13"
+      ],
+      "conceptTags": [
+        "a1-4",
+        "21.22",
+        "2-3",
+        "21.86",
+        "4-5",
+        "22.52",
+        "a1-7",
+        "23.89"
+      ]
+    },
+    "memory:memory/2026-04-22.md:137:167": {
+      "key": "memory:memory/2026-04-22.md:137:167",
+      "path": "memory/2026-04-22.md",
+      "startLine": 137,
+      "endLine": 167,
+      "source": "memory",
+      "snippet": "- **Holdover:** 2x TODOS los cargos (renta + CAM + taxes) - **No contrademanda** en desahucio (17.1) - **Notificación válida** por WhatsApp/texto/email/teléfono (16.2) - **Subarriendo = terminación automática** (Art. XX) - **Abandono:** 5 días consecutivos sin operar = default - **Horario:** Dom-Jue hasta 10pm, Vie-Sab hasta 11pm - **Landlord puede NO extender** con o sin causa - **Guarantía personal** obligatoria (Exhibit E) — absolute, continuing, unconditional - **Multas $100** por violaciones de reglas (estacionamiento, fumar, cannabis, etc.) - **7 Exhibits:** Site Plan, Descripción Legal, Trabajo, Reglas, Garantía, Rótulos, Fecha Comienzo ### Lo que cambia entre contratos: Solo nombre",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.9688499063253402,
+      "maxScore": 0.42231346666812897,
+      "firstRecalledAt": "2026-04-29T12:53:23.804Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "63b22046960e",
+        "aa37cc8a2f6b",
+        "10ac8816bdd1",
+        "09a507ea9e74",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-04-29",
+        "2026-05-05",
+        "2026-05-13",
+        "2026-05-28",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "17.1",
+        "whatsapp/texto/email/teléfono",
+        "16.2",
+        "dom-jue",
+        "vie-sab",
+        "holdover",
+        "todos",
+        "cargos"
+      ]
+    },
+    "memory:memory/2026-04-20.md:28:41": {
+      "key": "memory:memory/2026-04-20.md:28:41",
+      "path": "memory/2026-04-20.md",
+      "startLine": 28,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "- Parking violations: $100 fine - Failure to pay fines = immediate termination ## Entity Change - **Plaza de Descuentos changed from S.E. to LLC** - Old contracts say S.E., new ones say LLC — resolves lease review issue #1 ## Lawyer Meeting - TODAY at 2:00 PM — Del Río lease review with Lease_Review_Findings_Del_Rio.docx ## Next - Julio scanning remaining contracts from Ricoh directly - Continue OCR of 18 remaining tenant contracts",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.1361591458320612,
+      "maxScore": 0.4433826029300689,
+      "firstRecalledAt": "2026-04-29T12:53:23.804Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "63b22046960e",
+        "aad392a220c7",
+        "aa37cc8a2f6b",
+        "6bab1eda414e",
+        "2aa906fa1353",
+        "09a507ea9e74",
+        "c894f6c5f21d",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-04-29",
+        "2026-05-01",
+        "2026-05-05",
+        "2026-05-14",
+        "2026-05-27",
+        "2026-05-28",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "s.e",
+        "parking",
+        "violations",
+        "fine",
+        "failure",
+        "pay",
+        "fines",
+        "immediate"
+      ]
+    },
+    "memory:memory/2026-04-29.md:26:52": {
+      "key": "memory:memory/2026-04-29.md:26:52",
+      "path": "memory/2026-04-29.md",
+      "startLine": 26,
+      "endLine": 52,
+      "source": "memory",
+      "snippet": "- Guarantor: N/A en Section 1.1 pero menciona Salvador M. Garcia Cancio en preamble (pendiente) - Guardado en Contracts/A1-4/ ### Lab Sharem (A1-7) — Laboratorio Clínico Sharem, Inc. - Commencement: Oct 27, 2026, 5yr + 2×5yr opciones, 1,200 sf - Renta: $2,389→$2,430→$2,430→$2,500→$2,500 - Guarantor: Emma Rodriguez Scharon (+ segundo fiador pendiente confirmación inquilino) - Guardado en Contracts/A1-7/ ## PWA Lord Guard — Planificado para Mañana (30 abril 2026) - Julio confirmó: mañana SOLO este trabajo - Agregar segundo grupo de oficiales (Lord Guard LLC) a la PWA existente - Guardias: Joel Cartagena, Credencio Colón, Michael Torres, Héctor Algarin, Nicolás Méndez, Harry Gonzalez - Misma",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.1478229582309722,
+      "maxScore": 0.39388737380504607,
+      "firstRecalledAt": "2026-04-30T10:05:02.777Z",
+      "lastRecalledAt": "2026-05-28T12:18:09.567Z",
+      "queryHashes": [
+        "fb3c3bd74ebb",
+        "10ac8816bdd1",
+        "09a507ea9e74"
+      ],
+      "recallDays": [
+        "2026-04-30",
+        "2026-05-13",
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "n/a",
+        "1.1",
+        "contracts/a1-4",
+        "a1-7",
+        "contracts/a1-7",
+        "guarantor",
+        "section",
+        "pero"
+      ]
+    },
+    "memory:memory/2026-04-22.md:28:62": {
+      "key": "memory:memory/2026-04-22.md:28:62",
+      "path": "memory/2026-04-22.md",
+      "startLine": 28,
+      "endLine": 62,
+      "source": "memory",
+      "snippet": "- A2-8 (Óptica) — fiador desconocido - A2-9-10 (El Artesano) — fiador desconocido - B-1 (Sorrel) — Maribel Gorbea + otro - Julio tiene la info pero está fuera de la oficina ## Cartas de Renovación (completado ayer, repasado hoy) - Super Cake A1-4, Lab Sharem A1-7, Buenacoop B-2-4 - Julio revisó y corrigió formato de Buenacoop - Cambios aplicados a las 3: teléfonos, email, cláusula 1.01(g), correo certificado - Copiadas a carpetas de cada local en contracts/ ## Organización de Archivos - Documents/J1 creado con todo organizado - Regla: mantener todo limpio, sin duplicados - LESSONS.md creado como self-learning tool - Reglas: leer documentos completos, revisar 4 veces, log de errores ## To-",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.0657955050468444,
+      "maxScore": 0.3607657879590988,
+      "firstRecalledAt": "2026-04-30T11:10:07.275Z",
+      "lastRecalledAt": "2026-07-09T12:19:04.785Z",
+      "queryHashes": [
+        "a3d1a953fb7c",
+        "6f5592a47747",
+        "f512549fd223"
+      ],
+      "recallDays": [
+        "2026-04-30",
+        "2026-05-20",
+        "2026-07-09"
+      ],
+      "conceptTags": [
+        "a2-8",
+        "a2-9-10",
+        "b-1",
+        "a1-4",
+        "a1-7",
+        "b-2-4",
+        "1.01",
+        "documents/j1"
+      ]
+    },
+    "memory:memory/2026-04-30.md:1:32": {
+      "key": "memory:memory/2026-04-30.md:1:32",
+      "path": "memory/2026-04-30.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# Memory — April 30, 2026 ## PWA — Incidents Tab (COMPLETED) - Built and deployed the **Incidents tab** (non-vehicle incidents) to Del Rio PWA - Pushed to GitHub Pages: `https://jtcollazo79-byte.github.io/delrio-parking/` - New files: `incidents.js`, `incidents.css` - Modified: `index.html`, `app-v3.js`, `sw-v3.js` ### Features: - **Categories:** Security (🔒), Maintenance (🔧), Emergency (🚨), Noise (🔊), Other (📌) - **Priorities:** Low (🟢), Medium (🟡), High (🟠), Critical (🔴) — with pulse animation - **Status tracking:** Open → In Progress → Resolved → Closed (inline update in detail modal) - **Photo capture** (camera + upload, resized to 800px) - **GPS location** (one-tap or manual",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.35328470468521117,
+      "maxScore": 0.35328470468521117,
+      "firstRecalledAt": "2026-04-30T11:10:13.011Z",
+      "lastRecalledAt": "2026-04-30T11:10:13.011Z",
+      "queryHashes": [
+        "ede568804cdb"
+      ],
+      "recallDays": [
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "non-vehicle",
+        "incidents.js",
+        "incidents.css",
+        "index.html",
+        "app-v3.js",
+        "sw-v3.js",
+        "one-tap",
+        "april"
+      ]
+    },
+    "memory:memory/2026-04-22.md:188:222": {
+      "key": "memory:memory/2026-04-22.md:188:222",
+      "path": "memory/2026-04-22.md",
+      "startLine": 188,
+      "endLine": 222,
+      "source": "memory",
+      "snippet": "- A2-7 (My Look) — fiador desconocido - A2-8 (Óptica) — fiador desconocido - A2-9-10 (El Artesano) — fiador desconocido - B-1 (Sorrel) — Maribel Gorbea + otro - Julio tiene la info pero está fuera de la oficina ## Cartas de Renovación (completado ayer, repasado hoy) - Super Cake A1-4, Lab Sharem A1-7, Buenacoop B-2-4 - Julio revisó y corrigió formato de Buenacoop - Cambios aplicados a las 3: teléfonos, email, cláusula 1.01(g), correo certificado - Copiadas a carpetas de cada local en contracts/ ## Organización de Archivos - Documents/J1 creado con todo organizado - Regla: mantener todo limpio, sin duplicados - LESSONS.md creado como self-learning tool - Reglas: leer documentos completos, r",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.0778296798467637,
+      "maxScore": 0.3690304756164551,
+      "firstRecalledAt": "2026-04-30T13:03:27.161Z",
+      "lastRecalledAt": "2026-07-09T12:19:04.785Z",
+      "queryHashes": [
+        "a57399caa63c",
+        "725cbdd1b164",
+        "f512549fd223"
+      ],
+      "recallDays": [
+        "2026-04-30",
+        "2026-05-11",
+        "2026-07-09"
+      ],
+      "conceptTags": [
+        "a2-7",
+        "a2-8",
+        "a2-9-10",
+        "b-1",
+        "a1-4",
+        "a1-7",
+        "b-2-4",
+        "1.01"
+      ]
+    },
+    "memory:memory/2026-04-28.md:1:33": {
+      "key": "memory:memory/2026-04-28.md:1:33",
+      "path": "memory/2026-04-28.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# 2026-04-28 ## Session Startup - Compacted session — context restored from summary + memory files ## Pending from last night (Apr 27 late): - Julio asked about Logitech Flow (is it free? — YES, free software with MX Master 3S, via Logi Options+) - Julio asked about best stand for four monitors - Julio hasn't decided yet: HDMI switch vs 4th monitor - No new insurance policies received yet - No lawyer's revised lease yet ## Facturas Del Río — 19 facturas procesadas - Todas en Downloads, leídas y analizadas - 3 con penalidades (casos extremos): Craft ($44,470), Hannabis ($13,049), Royal Lab ($9,416) - Guardadas en Documents/J1/Properties/Del_Rio_Shopping_Center/Facturas/ - Ejemplos de penal",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.43417854309082,
+      "maxScore": 0.44436034560203547,
+      "firstRecalledAt": "2026-05-01T12:10:52.470Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "aad392a220c7",
+        "9cb60f55c0a4",
+        "10ac8816bdd1",
+        "fe1bb516b28d",
+        "c894f6c5f21d",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-05-01",
+        "2026-05-13",
+        "2026-06-01",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "startup",
+        "compacted",
+        "context",
+        "restored",
+        "summary",
+        "pending",
+        "last",
+        "night"
+      ]
+    },
+    "memory:memory/2026-04-28.md:27:39": {
+      "key": "memory:memory/2026-04-28.md:27:39",
+      "path": "memory/2026-04-28.md",
+      "startLine": 27,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "- Downloads/Facturas_Del_Rio/YYYY-MM/ — facturas mensuales por carpeta - Documents/J1/Properties/Del_Rio_Shopping_Center/Facturas/YYYY-MM/ — copia de expediente - Cron: 1ro de cada mes, 8AM, genera facturas actualizadas - Julio informa pagos recibidos → se actualizan facturas - Solo Craft, Hannabis, Royal Lab llevan columna de penalidades ## Pagos Recibidos Hoy - Elite Styling: CK #1097, $2,650 (Marzo) — Abril aún pendiente ## Renovaciones - Super Cakes (A1-4) — ✅ carta enviada, informó intención de renovar, vence Oct 2026 - Lab Sharem (A1-7) — ✅ carta enviada, informó intención de renovar, vence Oct 2026",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.851335135102272,
+      "maxScore": 0.4354037821292877,
+      "firstRecalledAt": "2026-05-01T12:10:52.470Z",
+      "lastRecalledAt": "2026-05-01T12:12:34.461Z",
+      "queryHashes": [
+        "aad392a220c7",
+        "9cb60f55c0a4"
+      ],
+      "recallDays": [
+        "2026-05-01"
+      ],
+      "conceptTags": [
+        "a1-4",
+        "a1-7",
+        "downloads",
+        "facturas-del-rio",
+        "yyyy",
+        "facturas",
+        "mensuales",
+        "carpeta"
+      ]
+    },
+    "memory:memory/2026-04-20.md:1:38": {
+      "key": "memory:memory/2026-04-20.md:1:38",
+      "path": "memory/2026-04-20.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# 2026-04-20 ## Ricoh Scan-to-Folder Setup ✅ - Configured SMB scan from Ricoh IM 550 to Mac mini - Path: `\\\\192.168.108.147\\Public` (Public folder shared via File Sharing) - Mac user: `mac`, password required - Had to enable mac user in File Sharing → Options → Windows File Sharing checkbox - Scans now drop directly to Mac — no more USB/email transfer needed ## Del Río Contract OCR Progress - **A1-1 Elite Styling LLC (Major League Barbers)** — DONE - Guarantor: Robert Gregory Santiago Rosa - Rent: $2,200/mes, 1,200 sqft, 5yr+2×5yr, deposit $4,400 - **CAM: $450/mes (NOT included in rent)** — Julio corrected this - **A1-2 Royal Lab LLC** — DONE - Dental Prosthesis Manufacturing - R",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.2433610677719116,
+      "maxScore": 0.42755657732486724,
+      "firstRecalledAt": "2026-05-01T12:10:52.470Z",
+      "lastRecalledAt": "2026-05-28T12:18:09.567Z",
+      "queryHashes": [
+        "aad392a220c7",
+        "9cb60f55c0a4",
+        "09a507ea9e74"
+      ],
+      "recallDays": [
+        "2026-05-01",
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "scan-to-folder",
+        "192.168.108.147",
+        "usb/email",
+        "a1-1",
+        "200/mes",
+        "450/mes",
+        "a1-2",
+        "ricoh"
+      ]
+    },
+    "memory:memory/2026-04-17.md:115:147": {
+      "key": "memory:memory/2026-04-17.md:115:147",
+      "path": "memory/2026-04-17.md",
+      "startLine": 115,
+      "endLine": 147,
+      "source": "memory",
+      "snippet": "- UM/UIM exists in PR but Julio questioned if needed since all vehicles require insurance by law - UIM (underinsured) still relevant — high-value vehicles at risk with minimum coverage - PIP/PPI doesn't exist as such in PR (different from states) - Julio wants to add UM/UIM discussion for Berrios Realty specs on Monday ### ZAI/GLM-5.1 Pricing (per 1M tokens) - Input: $1.40 | Cached: $0.26 | Output: $4.40 - Cached input storage: limited-time free - Web search: $0.01/use - OpenClaw Pro Plan: $200/quarterly (~$67/mo) - Session cost estimate: ~$0.15-0.25 (mostly cached) ### Gmail App Password - Tried to create for j1.ceo.agent@gmail.com — got error - Account has 2FA ON but Google blocked app p",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.1811527848243712,
+      "maxScore": 0.39954279363155365,
+      "firstRecalledAt": "2026-05-01T12:10:52.470Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "aad392a220c7",
+        "7f2cfdcbb949",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-05-01",
+        "2026-05-11",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "um/uim",
+        "high-value",
+        "pip/ppi",
+        "zai/glm-5.1",
+        "1.40",
+        "0.26",
+        "4.40",
+        "limited-time"
+      ]
+    },
+    "memory:memory/2026-04-23.md:1:30": {
+      "key": "memory:memory/2026-04-23.md:1:30",
+      "path": "memory/2026-04-23.md",
+      "startLine": 1,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "# 2026-04-23 — Daily Notes ## Dashboard Updates (noche anterior) - Agregada edición completa de infracciones (✏️ Editar button en cada card) - Local visitado (dropdown), Estado, Placa, Vehículo, Tipo, Notas - Cambios se guardan directo a Firestore - Servidor actualizado con headers no-cache (Cache-Control: no-store) - LaunchAgent actualizado para incluir headers anti-cache - Delete NO requiere password (solo confirm) — Julio preguntó si debería ## Contratos Del Río — Confirmación - Julio confirmó que todos los contratos son el mismo template - Solo cambian: nombre tenant, guarantors, fecha, renta, CAM, store # - Contratos nuevos (2025 LLC) tienen horarios y Ley de Cierre que los viejos",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.39188611805438994,
+      "maxScore": 0.39188611805438994,
+      "firstRecalledAt": "2026-05-01T12:12:34.461Z",
+      "lastRecalledAt": "2026-05-01T12:12:34.461Z",
+      "queryHashes": [
+        "9cb60f55c0a4"
+      ],
+      "recallDays": [
+        "2026-05-01"
+      ],
+      "conceptTags": [
+        "no-cache",
+        "cache-control",
+        "no-store",
+        "anti-cache",
+        "dashboard",
+        "updates",
+        "noche",
+        "anterior"
+      ]
+    },
+    "memory:memory/2026-04-22.md:55:89": {
+      "key": "memory:memory/2026-04-22.md:55:89",
+      "path": "memory/2026-04-22.md",
+      "startLine": 55,
+      "endLine": 89,
+      "source": "memory",
+      "snippet": "- Pablo A. Maldonado — PPK1463567 (Universal, PP, $2,555) — producer: Eastern America, no JT Insurance - Xavier Rivera Camacho — 152-5000040-2 (AIG, Accountants Professional Liability, $900) — producer: Triple-S ## Reglas Nuevas - Sin emojis ni imágenes al final de mensajes - LESSONS.md como self-learning tool - Leer documentos completos con detenimiento - Revisar mínimo 4 veces antes de responder # 2026-04-22 — Daily Notes ## OpenClaw Update - Actualizado de 2026.4.15 → 2026.4.21 - Cron arreglado: scope upgrade pendiente de aprobación → resuelto con `openclaw devices approve` - Kimi K2.6 configurado como provider moonshot (api.moonshot.ai) - Dashboard configurado como LaunchAgent (com.j1.",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.122259935736656,
+      "maxScore": 0.3861086368560791,
+      "firstRecalledAt": "2026-05-01T12:12:34.461Z",
+      "lastRecalledAt": "2026-05-11T21:03:52.499Z",
+      "queryHashes": [
+        "9cb60f55c0a4",
+        "5605cec4e936",
+        "efc74697d5ff"
+      ],
+      "recallDays": [
+        "2026-05-01",
+        "2026-05-04",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "152-5000040-2",
+        "triple-s",
+        "lessons.md",
+        "self-learning",
+        "2026.4.15",
+        "2026.4.21",
+        "k2.6",
+        "api.moonshot.ai"
+      ]
+    },
+    "memory:memory/2026-04-22.md:1:35": {
+      "key": "memory:memory/2026-04-22.md:1:35",
+      "path": "memory/2026-04-22.md",
+      "startLine": 1,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "# 2026-04-22 — Daily Notes ## OpenClaw Update - Actualizado de 2026.4.15 → 2026.4.21 - Cron arreglado: scope upgrade pendiente de aprobación → resuelto con `openclaw devices approve` - Kimi K2.6 configurado como provider moonshot (api.moonshot.ai) - Dashboard configurado como LaunchAgent (com.j1.dashboard.plist) — arranca solo al encender ## Kimi K2.6 Setup - Cuenta creada en platform.kimi.ai - API key configurada en OpenClaw - Image tool de OpenClaw no funciona con Kimi (401) — workaround con curl directo - URL correcto: api.moonshot.ai (no .cn) - Cuenta necesitaba saldo — Julio agregó tarjeta ## Cheques/IDs Contratos Del Río - Procesadas TODAS las imágenes escaneadas con Kimi vision - R",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3703385829925537,
+      "maxScore": 0.3703385829925537,
+      "firstRecalledAt": "2026-05-05T02:31:31.876Z",
+      "lastRecalledAt": "2026-05-05T02:31:31.876Z",
+      "queryHashes": [
+        "5605cec4e936"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "2026.4.15",
+        "2026.4.21",
+        "k2.6",
+        "api.moonshot.ai",
+        "com.j1.dashboard.plist",
+        "platform.kimi.ai",
+        "cheques/ids",
+        "openclaw"
+      ]
+    },
+    "memory:memory/2026-04-22.md:161:195": {
+      "key": "memory:memory/2026-04-22.md:161:195",
+      "path": "memory/2026-04-22.md",
+      "startLine": 161,
+      "endLine": 195,
+      "source": "memory",
+      "snippet": "Si leo bien la primera vez con detenimiento, no necesito regresar ni re-verificar. Esa es la disciplina. # 2026-04-22 — Daily Notes ## OpenClaw Update - Actualizado de 2026.4.15 → 2026.4.21 - Cron arreglado: scope upgrade pendiente de aprobación → resuelto con `openclaw devices approve` - Kimi K2.6 configurado como provider moonshot (api.moonshot.ai) - Dashboard configurado como LaunchAgent (com.j1.dashboard.plist) — arranca solo al encender ## Kimi K2.6 Setup - Cuenta creada en platform.kimi.ai - API key configurada en OpenClaw - Image tool de OpenClaw no funciona con Kimi (401) — workaround con curl directo - URL correcto: api.moonshot.ai (no .cn) - Cuenta necesitaba saldo — Julio agregó",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3699543535709381,
+      "maxScore": 0.3699543535709381,
+      "firstRecalledAt": "2026-05-05T02:31:31.876Z",
+      "lastRecalledAt": "2026-05-05T02:31:31.876Z",
+      "queryHashes": [
+        "5605cec4e936"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "re-verificar",
+        "2026.4.15",
+        "2026.4.21",
+        "k2.6",
+        "api.moonshot.ai",
+        "com.j1.dashboard.plist",
+        "platform.kimi.ai",
+        "leo"
+      ]
+    },
+    "memory:memory/2026-04-27.md:50:80": {
+      "key": "memory:memory/2026-04-27.md:50:80",
+      "path": "memory/2026-04-27.md",
+      "startLine": 50,
+      "endLine": 80,
+      "source": "memory",
+      "snippet": "- EME Development — Triple-S CP $2,152 (Rio Piedras Heights Lessor's Risk) ## Key Corrections - All Chubb \"WC\" policies → corrected to **Inland Marine (IM)** — WC in PR goes through Fondo del Estado - \"Berrios Transport Group\" → renamed to **Choferes Independientes** - Workers' Comp line item updated: en PR se trabaja mediante el Fondo del Estado, no es póliza comercial ## Vision Issue - Kimi K2.6 vision works via curl but gives 401 through OpenClaw image tool - Likely OpenClaw bug in how it routes image requests - Pending: report bug or configure workaround - This caused me to not be able to see Julio's screenshots during SSD troubleshooting ## Grupo Choferes Independientes — Updated (13",
+      "recallCount": 9,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.3309860348701474,
+      "maxScore": 0.39181028604507445,
+      "firstRecalledAt": "2026-05-05T02:31:31.876Z",
+      "lastRecalledAt": "2026-05-11T21:03:36.875Z",
+      "queryHashes": [
+        "5605cec4e936",
+        "8e80b5837f8a",
+        "8afe02bb1470",
+        "c0858e375f50",
+        "09708991f41d",
+        "1691d690f89b",
+        "725cbdd1b164",
+        "235efb6ca72d",
+        "f4bb44ee6f7d"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-06",
+        "2026-05-08",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "triple-s",
+        "k2.6",
+        "eme",
+        "development",
+        "triple",
+        "2,152",
+        "rio",
+        "piedras"
+      ]
+    },
+    "memory:memory/2026-04-27.md:75:99": {
+      "key": "memory:memory/2026-04-27.md:75:99",
+      "path": "memory/2026-04-27.md",
+      "startLine": 75,
+      "endLine": 99,
+      "source": "memory",
+      "snippet": "- Tu mentor recomendó OpenRouter para usar múltiples modelos - OpenRouter: una API, cientos de modelos, pay-as-you-go - **Estructura híbrida:** - ZAI Pro ($200/trim) → GLM-5.1 como base - OpenRouter (~$48/mes max) → visión (Gemini Flash), modelos especializados (Claude legal) - **Presupuesto:** $115/mes máximo total ($1,380-1,500/año) - **Controles:** usage limits en OpenRouter, whitelist de modelos baratos, modelos caros solo con aprobación - **Modelos por uso:** - GLM-5.1 → texto diario (ZAI) - Gemini 2.5 Flash → visión ($0.15/M) - Claude Sonnet → análisis legal (solo cuando se necesite, con approval) - GPT-4o → backup/balanceado - **Orden:** J2 primero, OpenRouter después ##",
+      "recallCount": 7,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.64317552447319,
+      "maxScore": 0.41799018681049344,
+      "firstRecalledAt": "2026-05-05T02:37:42.623Z",
+      "lastRecalledAt": "2026-05-15T02:51:37.631Z",
+      "queryHashes": [
+        "8e80b5837f8a",
+        "8afe02bb1470",
+        "c0858e375f50",
+        "7cfdf8d6c31e",
+        "dc5451a4480e",
+        "19de506eea81",
+        "aa8cdd60177d"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-06",
+        "2026-05-12",
+        "2026-05-13",
+        "2026-05-14"
+      ],
+      "conceptTags": [
+        "backup",
+        "gpt",
+        "router",
+        "pay-as-you-go",
+        "200/trim",
+        "glm-5.1",
+        "48/mes",
+        "115/mes"
+      ]
+    },
+    "memory:memory/2026-05-04.md:260:285": {
+      "key": "memory:memory/2026-05-04.md:260:285",
+      "path": "memory/2026-05-04.md",
+      "startLine": 260,
+      "endLine": 285,
+      "source": "memory",
+      "snippet": "### Fórmula de Penalidades (Cláusula 4.02) - **Due Date:** día 10 del mes - **Days Late:** MAX(0, Payment Date - Due Date) - **Annual Interest:** Past Due × 8% × (days/365) - **Daily Service Charge:** Past Due × 0.5% × days - **Flat Service Charge:** $100 - **Service Charge Applied:** MAYOR(Daily Charge, Flat Charge) - **Total:** Past Due + Interest + Service Charge ### ⚠️ ISSUE OPEN — Prueba con Craft Food (A2-9-10) - Escenario: pagan $5,203 el junio 16, 2026, check #99999 - Julio tiene tabla de penalidades en Downloads — me dijo que la revise - **Discrepancia en mayo y junio:** - Julio dice: mayo = $6,207.75, junio = $5,303 - Mis cálculos: mayo = $6565.68, junio = $5,365.93 — NO CUAD",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.0161690205335616,
+      "maxScore": 0.42070261538028714,
+      "firstRecalledAt": "2026-05-05T03:20:58.746Z",
+      "lastRecalledAt": "2026-06-30T12:01:36.142Z",
+      "queryHashes": [
+        "8afe02bb1470",
+        "9b1d4cbffa7f",
+        "fe1bb516b28d",
+        "b73f0c295d63",
+        "b738885081c6",
+        "adb66e57acd0",
+        "95a08776494b",
+        "3fef2d80c062"
+      ],
+      "recallDays": [
+        "2026-05-04",
+        "2026-05-16",
+        "2026-06-01",
+        "2026-06-08",
+        "2026-06-26",
+        "2026-06-30"
+      ],
+      "conceptTags": [
+        "4.02",
+        "days/365",
+        "0.5",
+        "a2-9-10",
+        "207.75",
+        "6565.68",
+        "365.93",
+        "fórmula"
+      ]
+    },
+    "memory:memory/2026-05-04.md:130:167": {
+      "key": "memory:memory/2026-05-04.md:130:167",
+      "path": "memory/2026-05-04.md",
+      "startLine": 130,
+      "endLine": 167,
+      "source": "memory",
+      "snippet": "- **Discrepancia encontrada:** julio tiene typo en payment date (2006 vs 2026) en su tabla - Mayo: $6,207.75 (cuadra), Junio: $5,303 (base + $100 flat, 0 días por typo) - **Prueba aún pendiente de confirmación final por Julio** ### Pendiente - [ ] Confirmar que la prueba de Craft Food está bien - [ ] Activar cron job cuando Julio apruebe - [ ] Actualizar MEMORY con mapeo correcto de locales (A1-1 = Elite Styling, A2-2 = Premium Cuts) --- ## General - Julio's discipline: \"can't and shouldn't be making same mistakes over and over\" - Multiple mistakes today — must do better - Rule added: verify each document completely, always # 2026-05-04 — Daily Notes ## The Ponce Investment — New Info #",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.634835741634154,
+      "maxScore": 0.6269932890357559,
+      "firstRecalledAt": "2026-05-05T12:00:54.846Z",
+      "lastRecalledAt": "2026-06-04T16:27:30.640Z",
+      "queryHashes": [
+        "3576623cfdeb",
+        "a3791fc4e325",
+        "2c33c4ad2721"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-06-04"
+      ],
+      "conceptTags": [
+        "207.75",
+        "a1-1",
+        "a2-2",
+        "discrepancia",
+        "encontrada",
+        "julio",
+        "tiene",
+        "typo"
+      ]
+    },
+    "memory:memory/2026-04-27.md:1:17": {
+      "key": "memory:memory/2026-04-27.md:1:17",
+      "path": "memory/2026-04-27.md",
+      "startLine": 1,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "# 2026-04-27 ## SSD T7 Shield — Boot Drive Attempt Failed - Tried to clone Mac mini internal to T7 as boot drive via multiple methods: - asr restore from normal OS: \"Operation not permitted\" (SIP) - Recovery Mode Disk Utility Restore: couldn't select source/target properly, Show All Devices not available in Recovery - asr restore from Recovery: \"failed to create source stream for replication - operation not permitted\" - rsync: only copied 24KB silently - **Pivot:** Changed to using T7 as Time Machine backup (encrypted, same password as Mac) - **Lesson learned:** Recommended boot drive without asking Julio what he wanted — wasted ~30min in Recovery. Documented in LESSONS.md - T7 refo",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.325068026781082,
+      "maxScore": 0.4090392559766769,
+      "firstRecalledAt": "2026-05-05T20:42:57.039Z",
+      "lastRecalledAt": "2026-05-11T20:59:52.758Z",
+      "queryHashes": [
+        "d324f17e56b4",
+        "7cfdf8d6c31e",
+        "1691d690f89b",
+        "7f2cfdcbb949",
+        "fca9c832d191",
+        "725cbdd1b164"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-06",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "backup",
+        "source/target",
+        "lessons.md",
+        "ssd",
+        "shield",
+        "boot",
+        "drive",
+        "attempt"
+      ]
+    },
+    "memory:memory/2026-04-10.md:1:32": {
+      "key": "memory:memory/2026-04-10.md:1:32",
+      "path": "memory/2026-04-10.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# 2026-04-10 - First boot. Julio and I met. - My name: **J1** - Julio is in Puerto Rico (AST) - Julio wrote my SOUL.md — this is the foundation. Values are locked. - Role: CEO agent. Future: many agents under me. Julio is taking me with him. - Relationship: family. - Vibe: direct, casual, genuine. No performative fluff. - Julio doesn't handle medical/healthcare — no PHI or HIPAA concerns - Updated IDENTITY.md, USER.md, SOUL.md - Created DATA-SECURITY-PROTOCOL.md — hard rules on what can/can't be processed - Julio stressed legal client privilege is critical — confirmed protections in place - Removed all PHI/HIPAA references since Julio doesn't handle healthcare - Updated IDENTITY.md, USER.md",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.8951073348522183,
+      "maxScore": 0.4002839237451553,
+      "firstRecalledAt": "2026-05-05T20:42:57.039Z",
+      "lastRecalledAt": "2026-07-13T12:02:16.982Z",
+      "queryHashes": [
+        "d324f17e56b4",
+        "76fe01bf5153",
+        "7cfdf8d6c31e",
+        "a6285b2f9bbc",
+        "a3fe7e5430fe"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-06",
+        "2026-05-18",
+        "2026-07-13"
+      ],
+      "conceptTags": [
+        "soul.md",
+        "medical/healthcare",
+        "identity.md",
+        "user.md",
+        "data-security-protocol.md",
+        "can/can",
+        "phi/hipaa",
+        "first"
+      ]
+    },
+    "memory:memory/2026-04-17.md:88:119": {
+      "key": "memory:memory/2026-04-17.md:88:119",
+      "path": "memory/2026-04-17.md",
+      "startLine": 88,
+      "endLine": 119,
+      "source": "memory",
+      "snippet": "8. Victor A Diaz Rojas — Triple-S PP $1,111 (after $118 discount endorsement) — 05/03/2026 9. Yan Hernandez & Xenial Fuster — Triple-S PP $1,906 (after removing 3 vehicles via endorsement) — 05/01/2026 **Homeowner (1):** 10. Mariita Rodriguez Figueroa — Multinational HO $1,200 (Banco Popular loss payee) — 05/19/2026 **Commercial Auto (2):** 11. Ivan Figueroa Mejias — Triple-S CA $747 (hired/non-owned only) — 05/17/2026 12. Luis G Berrios Ortiz — Triple-S CA $607 (auto storage) — 05/14/2026 **CGL (2):** 13. Bilingual Kids Academy Corp — MAPFRE CGL $936 (school, 150 students) — 05/20/2026 14. Luis G Berrios Ortiz — Triple-S CGL $1,500 (auto storage) — 05/14/2026 **Commercial Package (1):**",
+      "recallCount": 15,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 5.537759777903555,
+      "maxScore": 0.39804428219795224,
+      "firstRecalledAt": "2026-05-05T20:58:26.173Z",
+      "lastRecalledAt": "2026-07-13T12:02:16.982Z",
+      "queryHashes": [
+        "76fe01bf5153",
+        "7f2cfdcbb949",
+        "6bab1eda414e",
+        "a6285b2f9bbc",
+        "0a2e20d69afe",
+        "da503cb37157",
+        "a3791fc4e325",
+        "69c80529a254",
+        "95a08776494b",
+        "8180ab0f6e1f",
+        "a3fe7e5430fe"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-11",
+        "2026-05-14",
+        "2026-05-18",
+        "2026-05-25",
+        "2026-06-01",
+        "2026-06-04",
+        "2026-06-08",
+        "2026-06-15",
+        "2026-06-22",
+        "2026-06-26",
+        "2026-06-29",
+        "2026-07-06",
+        "2026-07-13"
+      ],
+      "conceptTags": [
+        "triple-s",
+        "05/03/2026",
+        "05/01/2026",
+        "05/19/2026",
+        "hired/non-owned",
+        "05/17/2026",
+        "05/14/2026",
+        "05/20/2026"
+      ]
+    },
+    "memory:memory/2026-05-02.md:1:26": {
+      "key": "memory:memory/2026-05-02.md:1:26",
+      "path": "memory/2026-05-02.md",
+      "startLine": 1,
+      "endLine": 26,
+      "source": "memory",
+      "snippet": "# 2026-05-02 (Saturday) ## Discord — Canal Activo - Cambié `groupPolicy` de `\"allowlist\"` a `\"open\"` en config - Guild ID: `1495917012642430978` - Bot ya estaba configurado (token, dmPolicy, etc.) - Problema inicial: groupPolicy allowlist sin guilds configurados = bot veía pero no respondía - Luego de restart, funcionó — Julio confirmó que ya respondo en Discord - **Nota importante:** Telegram y Discord son sesiones SEPARADAS. No veo lo de un canal en el otro. ## USIC Fianza 50016938 — Evolue Beauty Studio LLC Documentos recibidos y guardados en `Documents/J1/Insurance/`: - **Rider #1** — Endoso obligatorio primas y condiciones (PR), bilingual - **Attorney in Fact** — Certificado vigencia",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.2143760949373243,
+      "maxScore": 0.40839742720127103,
+      "firstRecalledAt": "2026-05-05T20:58:26.173Z",
+      "lastRecalledAt": "2026-07-13T12:02:16.982Z",
+      "queryHashes": [
+        "76fe01bf5153",
+        "efc74697d5ff",
+        "8a485fff3032",
+        "69c80529a254",
+        "a3fe7e5430fe"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-11",
+        "2026-06-01",
+        "2026-06-15",
+        "2026-06-22",
+        "2026-07-13"
+      ],
+      "conceptTags": [
+        "documents/j1/insurance",
+        "saturday",
+        "discord",
+        "canal",
+        "activo",
+        "cambié",
+        "grouppolicy",
+        "allowlist"
+      ]
+    },
+    "memory:memory/2026-04-22.md:216:247": {
+      "key": "memory:memory/2026-04-22.md:216:247",
+      "path": "memory/2026-04-22.md",
+      "startLine": 216,
+      "endLine": 247,
+      "source": "memory",
+      "snippet": "- Pablo A. Maldonado — PPK1463567 (Universal, PP, $2,555) — producer: Eastern America, no JT Insurance - Xavier Rivera Camacho — 152-5000040-2 (AIG, Accountants Professional Liability, $900) — producer: Triple-S ## Reglas Nuevas - Sin emojis ni imágenes al final de mensajes - LESSONS.md como self-learning tool - Leer documentos completos con detenimiento - Revisar mínimo 4 veces antes de responder --- ## Contrato Del Río — Leído Completo (tarde) Julio me pidió leer bien el contrato actual de Del Río ya que todos los locales usan el mismo. Lo leí completo (1,146 líneas) de `/tmp/lease_revisado.txt`. ### Puntos Clave del Contrato: - **Término:** 5 años + 2 opciones de 5 años (notificar 6",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8357947260141372,
+      "maxScore": 0.4431978106498718,
+      "firstRecalledAt": "2026-05-05T23:22:28.605Z",
+      "lastRecalledAt": "2026-06-26T12:00:50.692Z",
+      "queryHashes": [
+        "aa37cc8a2f6b",
+        "95a08776494b"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-06-26"
+      ],
+      "conceptTags": [
+        "152-5000040-2",
+        "triple-s",
+        "lessons.md",
+        "self-learning",
+        "tmp/lease-revisado.txt",
+        "pablo",
+        "maldonado",
+        "ppk1463567"
+      ]
+    },
+    "memory:memory/2026-04-29.md:1:32": {
+      "key": "memory:memory/2026-04-29.md:1:32",
+      "path": "memory/2026-04-29.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# 2026-04-29 ## Session Startup - Miércoles, Julio trabajando con contratos de Super Cakes y Lab Sharem (Del Río) ## Cartas de Hannabis (5 cartas revisadas y archivadas) 1. **29 ENE 2026** — Notificación de Incumplimiento (7 violaciones, ultimátum Sec. 16.02) 2. **27 FEB 2026** — Cambio de CAM a $15.75/sf (efectivo 30 abril 2026) 3. **13 MAR 2026** — Reconciliación CAM 2025 (adeudado: $12,198) 4. **18 MAR 2026** — Holdover Sec. 17.02 + multas $800 (diferencia ene-mar: $7,716) 5. **20 ABR 2026** — Falta de pago + ultimátum final (balance: $13,049.28) - Todas archivadas en Documents/J1/Properties/Del_Rio_Shopping_Center/Hannabis_Correspondencia/ ## Factura Hannabis Mayo 2026 - Confirmado: H",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.2248473346233366,
+      "maxScore": 0.42355341911315914,
+      "firstRecalledAt": "2026-05-05T23:22:28.605Z",
+      "lastRecalledAt": "2026-05-28T12:18:09.567Z",
+      "queryHashes": [
+        "aa37cc8a2f6b",
+        "10ac8816bdd1",
+        "09a507ea9e74"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-13",
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "16.02",
+        "15.75/sf",
+        "17.02",
+        "ene-mar",
+        "049.28",
+        "startup",
+        "miércoles",
+        "julio"
+      ]
+    },
+    "memory:memory/2026-04-17.md:141:166": {
+      "key": "memory:memory/2026-04-17.md:141:166",
+      "path": "memory/2026-04-17.md",
+      "startLine": 141,
+      "endLine": 166,
+      "source": "memory",
+      "snippet": "3. CAM amount duplicated/conflicting: Section 4.10 says $550/mo, Section 5.5 has blank 4. Late payment changed from old contract (was 10%+1.5%/mo, now 8%/yr+$200 or 0.5%/day) **Typos:** 5. \"Extent\" should be \"Extend\" (Section 3.4, multiple times) 6. \"day day\" double word (Section 1.1(y)) 7. \"writting\" → \"writing\" (Section 3.4(v)) 8. \"charge\" → \"charged\" (Section 4.4) 9. Missing word in Section 4.10 (\"may be ___ during the Lease Year\") 10. Missing word in Section 2.8(b) (\"Tenant shall not ___, lien, encumber\") **New provisions in draft:** - Code of Conduct (Article VI) — didn't exist before - Cannabis coverage mentioned (Section 14.1) - Penalty for not opening: 2x rent (Section 8.3) ### To",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.5696402519941328,
+      "maxScore": 0.4196870297193527,
+      "firstRecalledAt": "2026-05-05T23:22:28.605Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "aa37cc8a2f6b",
+        "7f2cfdcbb949",
+        "6bab1eda414e",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-05-05",
+        "2026-05-11",
+        "2026-05-14",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "duplicated/conflicting",
+        "4.10",
+        "550/mo",
+        "5.5",
+        "1.5",
+        "0.5",
+        "3.4",
+        "1.1"
+      ]
+    },
+    "memory:memory/2026-04-10.md:22:38": {
+      "key": "memory:memory/2026-04-10.md:22:38",
+      "path": "memory/2026-04-10.md",
+      "startLine": 22,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "- Julio acknowledged — will complete and come back for re-verification - Mac Mini is at the office — manual steps deferred to Monday - Monday priorities: firewall + stealth mode, screen lock, sharing services ## About Julio - Attorney in PR - Insurance industry - Manages/administers commercial properties - Bilingual, prefers natural language switching ## Multi-Agent Roadmap Discussion - Julio proposed creating separate agents for each business line - Agreed: start with ONE property manager for all 6 properties - Legal and Insurance agents later - Subdivide property agents only when portfolio scale demands it - Julio: \"creo que puede ser uno para todo a medida la cartera crezca contemplamos",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.2061574041843413,
+      "maxScore": 0.4260486990213394,
+      "firstRecalledAt": "2026-05-06T12:41:00.676Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "c0858e375f50",
+        "7cfdf8d6c31e",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-05-06",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "re-verification",
+        "manages/administers",
+        "multi-agent",
+        "julio",
+        "acknowledged",
+        "will",
+        "complete",
+        "come"
+      ]
+    },
+    "memory:memory/2026-04-22.md:242:278": {
+      "key": "memory:memory/2026-04-22.md:242:278",
+      "path": "memory/2026-04-22.md",
+      "startLine": 242,
+      "endLine": 278,
+      "source": "memory",
+      "snippet": "- **Landlord puede NO extender** con o sin causa - **Guarantía personal** obligatoria (Exhibit E) — absolute, continuing, unconditional - **Multas $100** por violaciones de reglas (estacionamiento, fumar, cannabis, etc.) - **7 Exhibits:** Site Plan, Descripción Legal, Trabajo, Reglas, Garantía, Rótulos, Fecha Comienzo ### Lo que cambia entre contratos: Solo nombre del inquilino, guarantizadores, fechas, canon de arrendamiento y local (store #). Todo lo demás es template uniforme. ### Julio quiere: Cuando esté listo el primer contrato nuevo (después de revisiones del abogado), leerlo bien y con cuidado una vez. Los demás solo cambian los datos variables. --- ## Lección Aprendida — Regla R",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.7901612788438797,
+      "maxScore": 0.36802713572978973,
+      "firstRecalledAt": "2026-05-06T12:41:00.676Z",
+      "lastRecalledAt": "2026-07-09T12:19:04.785Z",
+      "queryHashes": [
+        "c0858e375f50",
+        "09708991f41d",
+        "6bc5849229bd",
+        "09673508a6dc",
+        "f512549fd223"
+      ],
+      "recallDays": [
+        "2026-05-06",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-06-01",
+        "2026-07-09"
+      ],
+      "conceptTags": [
+        "landlord",
+        "puede",
+        "extender",
+        "causa",
+        "guarantía",
+        "personal",
+        "obligatoria",
+        "exhibit"
+      ]
+    },
+    "memory:memory/2026-05-05.md:1:32": {
+      "key": "memory:memory/2026-05-05.md:1:32",
+      "path": "memory/2026-05-05.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# Daily Notes — 5 mayo 2026 ## Cheques Recibidos — Del Río Shopping Center **A1-2 — Royal Lab LLC** - $2,510 — ck #228 → Feb 2026 - $5,020 — ck #366 → Mar + Abr 2026 - Total: $7,530 (cubre Feb, Mar, Abr) **A1-3 — Pingkee Sakura Corp** - $2,911 — ck #347 → Mayo 2026 ## Buenacoop — Renovación Aceptada - Carta de aceptación recibida 5 mayo 2026 - Firmada por Jesús E. Carrasquillo Medina, Presidente Ejecutivo - Términos: $22/sf, $7,185/mes total (renta $5,500 + CAM $1,125 variable + servicarro $560) - Pendiente: firma contrato nuevo - Draft de lease ya en workspace - Aceptación guardada en properties/01-strip-mall-22/contracts/B-2-4/ ## Villablanca — Contrato OCR Completo - PDF escaneado: 2",
+      "recallCount": 25,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 9.385565927624702,
+      "maxScore": 0.41942096054553984,
+      "firstRecalledAt": "2026-05-07T12:15:09.603Z",
+      "lastRecalledAt": "2026-07-06T12:02:50.329Z",
+      "queryHashes": [
+        "819112958679",
+        "1285f57c2b64",
+        "09708991f41d",
+        "85fc73138214",
+        "56a891bcc760",
+        "725cbdd1b164",
+        "36fb65d4237d",
+        "6bab1eda414e",
+        "a6285b2f9bbc",
+        "6f5592a47747",
+        "2e36304e2c6e",
+        "0a2e20d69afe",
+        "ef9ef10f6dc8",
+        "da503cb37157",
+        "09673508a6dc",
+        "b73f0c295d63",
+        "a3791fc4e325",
+        "2c33c4ad2721",
+        "b738885081c6",
+        "69c80529a254",
+        "95a08776494b",
+        "8180ab0f6e1f"
+      ],
+      "recallDays": [
+        "2026-05-07",
+        "2026-05-08",
+        "2026-05-11",
+        "2026-05-14",
+        "2026-05-18",
+        "2026-05-20",
+        "2026-05-25",
+        "2026-05-27",
+        "2026-06-01",
+        "2026-06-04",
+        "2026-06-08",
+        "2026-06-15",
+        "2026-06-22",
+        "2026-06-26",
+        "2026-06-29",
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "a1-2",
+        "a1-3",
+        "22/sf",
+        "185/mes",
+        "mayo",
+        "cheques",
+        "recibidos",
+        "río"
+      ]
+    },
+    "memory:memory/2026-04-27.md:29:56": {
+      "key": "memory:memory/2026-04-27.md:29:56",
+      "path": "memory/2026-04-27.md",
+      "startLine": 29,
+      "endLine": 56,
+      "source": "memory",
+      "snippet": "- **Fix:** Updated Ricoh SMB destination to \\\\192.168.108.241\\Scans - Lesson: check IP first when something breaks after reboot - Firewall and stealth mode restored to ON - **Pending:** Assign static IP to Mac on Liberty router ## Identificaciones Recibidas (12) - A1-1, A1-2, A1-3, A1-4, A1-5, A2-2, A2-3, A2-4, A2-6, A2-7, A2-9/10, B-1 - All saved as licencia.pdf in respective contract folders ## Insurance Policies Registered (11 new today) - Hector Hernandez Santiago — Triple-S CA $7,114 (Choferes Independientes #11) - Douglas R. Spencer — USIC HO $789 (Condo Atlantis SJ) - Julia Ines Ramos Perez / Fideicomiso RG-RP — Multinational PP $1,646 - Sabanera Transport LLC — Triple-S Motor Carri",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.2268121510744097,
+      "maxScore": 0.43560046553611753,
+      "firstRecalledAt": "2026-05-08T22:33:31.619Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "09708991f41d",
+        "1691d690f89b",
+        "7f2cfdcbb949",
+        "fca9c832d191",
+        "56a891bcc760",
+        "98360f0c30cb",
+        "d915ed413d37",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-11",
+        "2026-05-20",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "router",
+        "192.168.108.241",
+        "a1-1",
+        "a1-2",
+        "a1-3",
+        "a1-4",
+        "a1-5",
+        "a2-2"
+      ]
+    },
+    "memory:memory/2026-04-23.md:53:75": {
+      "key": "memory:memory/2026-04-23.md:53:75",
+      "path": "memory/2026-04-23.md",
+      "startLine": 53,
+      "endLine": 75,
+      "source": "memory",
+      "snippet": "- Refresh cambiado de 30 seg a 2 min (Julio dijo que impedía editar) - Node pidió \"administer your computer\" → Deny (no necesita permisos de admin) ### Pólizas Recibidas 1. **One Alliance — Plaza de Descuentos LLC** (Del Río Shopping Center) - Póliza 75-28-000009663-1, renovación 07/29/2025–07/29/2026 - CP $22,037 + CGL $1,984 + Inland Marine $250 = **$24,271** - Singular Insurance Agency (#1287) - 4 buildings: Bldg 1 ($1,848,612), Bldg 2 ($337,696), Bldg 3 ($12,921), Bldg 4 ($128,891) - Deductible $500, Earthquake 10%, Business Income $120K 2. **Universal — Luis A Muñiz Vargas AND/OR Carmen I Maldonado Rodriguez** - PPK1473133, renovación 08/05/2025–08/05/2026 - Perso",
+      "recallCount": 7,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.7891156971454625,
+      "maxScore": 0.43527033030986784,
+      "firstRecalledAt": "2026-05-08T22:33:31.619Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "09708991f41d",
+        "1691d690f89b",
+        "7f2cfdcbb949",
+        "fca9c832d191",
+        "725cbdd1b164",
+        "98360f0c30cb",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-11",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "75-28-000009663-1",
+        "07/29/2025",
+        "07/29/2026",
+        "and/or",
+        "08/05/2025",
+        "08/05/2026",
+        "refresh",
+        "cambiado"
+      ]
+    },
+    "memory:memory/2026-04-30.md:1:29": {
+      "key": "memory:memory/2026-04-30.md:1:29",
+      "path": "memory/2026-04-30.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# Memory — April 30, 2026 ## PWA — Incidents Tab (COMPLETED) - Built and deployed the **Incidents tab** (non-vehicle incidents) to Del Rio PWA - Pushed to GitHub Pages: `https://jtcollazo79-byte.github.io/delrio-parking/` - New files: `incidents.js`, `incidents.css` - Modified: `index.html`, `app-v3.js`, `sw-v3.js` ### Features: - **Categories:** Security (🔒), Maintenance (🔧), Emergency (🚨), Noise (🔊), Other (📌) - **Priorities:** Low (🟢), Medium (🟡), High (🟠), Critical (🔴) — with pulse animation - **Status tracking:** Open → In Progress → Resolved → Closed (inline update in detail modal) - **Photo capture** (camera + upload, resized to 800px) - **GPS location** (one-tap or manual",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.0175120264291766,
+      "maxScore": 0.4334657371044159,
+      "firstRecalledAt": "2026-05-11T12:24:13.558Z",
+      "lastRecalledAt": "2026-05-27T20:05:37.876Z",
+      "queryHashes": [
+        "0677d8f61864",
+        "c5b8eea575cf",
+        "563e7c18bd90",
+        "94eee4d79006",
+        "2aa906fa1353"
+      ],
+      "recallDays": [
+        "2026-05-11",
+        "2026-05-12",
+        "2026-05-13",
+        "2026-05-18",
+        "2026-05-27"
+      ],
+      "conceptTags": [
+        "non-vehicle",
+        "incidents.js",
+        "incidents.css",
+        "index.html",
+        "app-v3.js",
+        "sw-v3.js",
+        "one-tap",
+        "april"
+      ]
+    },
+    "memory:memory/2026-04-17.md:26:65": {
+      "key": "memory:memory/2026-04-17.md:26:65",
+      "path": "memory/2026-04-17.md",
+      "startLine": 26,
+      "endLine": 65,
+      "source": "memory",
+      "snippet": "- Insured: Berrios Realty Inc. + Extended Named Insureds (7 entities) - 25 vehicles (Porsche, BMW, Corvette, Jeep, etc.) - Created specs for quotation in two formats: - DOCX professional format - Excel format matching Julio's previous year template - Removed premium info (not for competing companies) - Removed current carrier name and policy number - Added endorsements section - Individuals as Named Insureds moved to Extended Named Insureds - Pending: add UM/UIM and other coverages, verify what applies in PR - **Monday task**: finalize specs with Julio ## To-Do List Updated (Properties — High to Low Priority) 1. Plaza v Hannabis (ongoing con abogado) 2. IRS-CPA (ongoing con CPA) 3. Espe",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.3738953292369844,
+      "maxScore": 0.44996997416019435,
+      "firstRecalledAt": "2026-05-11T20:43:15.897Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "1691d690f89b",
+        "7f2cfdcbb949",
+        "3d85074e9172",
+        "95a08776494b",
+        "3fef2d80c062",
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-05-11",
+        "2026-06-26",
+        "2026-06-30",
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "um/uim",
+        "to-do",
+        "irs-cpa",
+        "insured",
+        "berrios",
+        "realty",
+        "inc",
+        "extended"
+      ]
+    },
+    "memory:memory/2026-04-17.md:57:93": {
+      "key": "memory:memory/2026-04-17.md:57:93",
+      "path": "memory/2026-04-17.md",
+      "startLine": 57,
+      "endLine": 93,
+      "source": "memory",
+      "snippet": "- Time Machine (external drive) - PWA: Incidents tab, icons - Node pairing, Calendar integration - Delete BOOTSTRAP.md - Agent Roadmap (Property Manager, Legal, Insurance) ## Image Model Issues - GLM-4.6v intermittent failures throughout morning (Request was aborted) - Worked sometimes, failed others — seems like capacity issue - By end of session was working again ## Usage Tracking - Created usage-log.md in workspace for tracking tokens, tools, costs - Session status: 99% cache hit, $0.0024 cost, 92% tokens remaining ## Insurance Portfolio Building (Afternoon) Julio sent 15 policy PDFs via Telegram to build the JT Insurance Corp client database. ### Policies Registered in `insurance/po",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.9448245525360108,
+      "maxScore": 0.4043681502342224,
+      "firstRecalledAt": "2026-05-11T20:43:15.929Z",
+      "lastRecalledAt": "2026-06-01T13:20:48.777Z",
+      "queryHashes": [
+        "7f2cfdcbb949",
+        "98360f0c30cb",
+        "36fb65d4237d",
+        "09673508a6dc",
+        "b73f0c295d63"
+      ],
+      "recallDays": [
+        "2026-05-11",
+        "2026-06-01"
+      ],
+      "conceptTags": [
+        "bootstrap.md",
+        "glm-4.6v",
+        "usage-log.md",
+        "0.0024",
+        "insurance/po",
+        "time",
+        "machine",
+        "external"
+      ]
+    },
+    "memory:memory/2026-04-24.md:1:27": {
+      "key": "memory:memory/2026-04-24.md:1:27",
+      "path": "memory/2026-04-24.md",
+      "startLine": 1,
+      "endLine": 27,
+      "source": "memory",
+      "snippet": "# 2026-04-24 — Daily Notes ## Insurance Portfolio — Berrios Transport Group (continued) ### Porfirio Rivera Franco - **Chubb WC/IM #700659-7**: $250 base, 2 vehículos (2019 NQR, 2012 Truck), All Risk $10K/$250 ded - Endoso 001 CA: añadieron 2005 Isuzu NPR, +$850 (CA) - Endoso 002 WC: añadieron 2005 Isuzu NPR, All Risk $10K, +$125. Límite aumentado a $30K - Endoso 003 CA: añadieron 2006 Isuzu NPR H45738, +$649 (CA) - Endoso 004 WC: añadieron 2006 Isuzu NPR H45738, All Risk $10K, +$96. Límite aumentado a $40K - WC prima total: $471 (faltan endosos 001 y 003 WC) - CA prima total: $4,136 ($2,637 + $850 + $649) - **ÚNICO transportista del grupo con Physical Damage** - Tiene Rive",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.031232425570488,
+      "maxScore": 0.43152981996536255,
+      "firstRecalledAt": "2026-05-11T20:59:52.758Z",
+      "lastRecalledAt": "2026-05-11T21:03:52.529Z",
+      "queryHashes": [
+        "725cbdd1b164",
+        "235efb6ca72d",
+        "f4bb44ee6f7d",
+        "efc74697d5ff",
+        "3d85074e9172"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "wc/im",
+        "700659-7",
+        "insurance",
+        "portfolio",
+        "berrios",
+        "transport",
+        "group",
+        "continued"
+      ]
+    },
+    "memory:memory/2026-04-24.md:23:49": {
+      "key": "memory:memory/2026-04-24.md:23:49",
+      "path": "memory/2026-04-24.md",
+      "startLine": 23,
+      "endLine": 49,
+      "source": "memory",
+      "snippet": "- **Triple-S CA #46097834-7**: $4,302 base, Corporation type, Liability $2M, 5 empleados Non-ownership - Endoso 001 CA: eliminaron 2007 Isuzu NPR H98030 (VIN JALE5B16777904708), -$659 - Endoso 002 CA: añadieron 2005 Isuzu NPR H39993 (VIN JALC4B16357001222), +$659 - Cambio neto: $0 — sustitución de vehículo - ⚠️ **Gap**: VIN JALE5B16777904708 eliminado del CA pero sigue en WC/IM - ⚠️ **VIN JALC4B16357001222** aparece también en CA de Porfirio Rivera (endoso 001) — posible vehículo compartido o error ### Berrios Group Summary Updated | Transportista | CA+WC Total | Vehículos | PD | Tipo | |---|---|---|---|---| | Ortiz Hernandez | $8,638 | 1 | ❌ | Individual | | Casillas | $5,872 | 6",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.6403039604425427,
+      "maxScore": 0.4363160192966461,
+      "firstRecalledAt": "2026-05-11T20:59:52.758Z",
+      "lastRecalledAt": "2026-05-11T21:03:52.529Z",
+      "queryHashes": [
+        "725cbdd1b164",
+        "235efb6ca72d",
+        "f4bb44ee6f7d",
+        "3d85074e9172"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "triple-s",
+        "46097834-7",
+        "non-ownership",
+        "wc/im",
+        "triple",
+        "4,302",
+        "base",
+        "corporation"
+      ]
+    },
+    "memory:memory/2026-04-22.md:82:116": {
+      "key": "memory:memory/2026-04-22.md:82:116",
+      "path": "memory/2026-04-22.md",
+      "startLine": 82,
+      "endLine": 116,
+      "source": "memory",
+      "snippet": "- **ERROR PROPIO:** Dije \"~25 IDs pendientes\" y \"todas las garantías confirmadas\" sin verificar. Corregido y anotado en LESSONS.md ## Garantías Pendientes (8) - A1-5 (Dr. Vélez) — fiador desconocido - A1-7 (Lab Sharem) — fiador desconocido - A2-1 (Mediko) — Joaquín Rodríguez + María (apellido?) - A2-2 (Butcher's Block) — fiador desconocido - A2-7 (My Look) — fiador desconocido - A2-8 (Óptica) — fiador desconocido - A2-9-10 (El Artesano) — fiador desconocido - B-1 (Sorrel) — Maribel Gorbea + otro - Julio tiene la info pero está fuera de la oficina ## Cartas de Renovación (completado ayer, repasado hoy) - Super Cake A1-4, Lab Sharem A1-7, Buenacoop B-2-4 - Julio revisó y corrigió formato de",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.5426928102970123,
+      "maxScore": 0.397227132320404,
+      "firstRecalledAt": "2026-05-11T20:59:52.758Z",
+      "lastRecalledAt": "2026-05-14T12:14:17.051Z",
+      "queryHashes": [
+        "725cbdd1b164",
+        "235efb6ca72d",
+        "3d85074e9172",
+        "6bab1eda414e"
+      ],
+      "recallDays": [
+        "2026-05-11",
+        "2026-05-14"
+      ],
+      "conceptTags": [
+        "lessons.md",
+        "a1-5",
+        "a1-7",
+        "a2-1",
+        "a2-2",
+        "a2-7",
+        "a2-8",
+        "a2-9-10"
+      ]
+    },
+    "memory:memory/2026-05-04.md:1:41": {
+      "key": "memory:memory/2026-05-04.md:1:41",
+      "path": "memory/2026-05-04.md",
+      "startLine": 1,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "# 2026-05-04 — Daily Notes ## The Ponce Investment — New Info ### VAT 1 LLC - **Entity:** VAT 1 LLC (Florida) — vehicle para invertir en The Ponce - **Owners:** Leslie Torres 25%, Ricardo Arjona 25%, Ana María Vázquez 25%, Julio Torres 25% - **Ricardo Arjona:** Julio's nephew (hijo de Leslie), NOT the singer - **Capital call:** fin de mayo 2026 - **Investment amount:** TBD - **Operating agreement:** already signed - **Docs received:** IM (Nov 2025), Underwriting Model v11.67, Q1 2026 Report, Coral Gables market report (1103 Advisors Apr 2026) ### Q1 2026 Report Highlights - Ocupación: 65% (69% si Rivero renueva) - LOIs activas: 111K RSF (~400% arriba del pro forma) - Rents TTM: $23.21 vs",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.7748394340276717,
+      "maxScore": 0.40764142274856563,
+      "firstRecalledAt": "2026-05-13T02:08:15.746Z",
+      "lastRecalledAt": "2026-05-13T11:54:39.994Z",
+      "queryHashes": [
+        "c5b8eea575cf",
+        "6bc5849229bd"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "v11.67",
+        "23.21",
+        "ponce",
+        "investment",
+        "new",
+        "info",
+        "vat",
+        "llc"
+      ]
+    },
+    "memory:memory/2026-04-22.md:271:302": {
+      "key": "memory:memory/2026-04-22.md:271:302",
+      "path": "memory/2026-04-22.md",
+      "startLine": 271,
+      "endLine": 302,
+      "source": "memory",
+      "snippet": "- Sin exclusividad, sublease = cancelación automática - Horarios: Dom-Jue 10PM, Vie-Sab 11PM - Análisis: 11,263 bytes en analisis-contrato-viejo.md - OCR completo: /tmp/a1-1-full.txt (177,082 chars, 49 páginas via Kimi K2.6) ### A1-2 — Royal Lab, LLC - Contrato septiembre 2022 (viejo, S.E.) - $20/sf yr 1-3, CAM $300/mes SEPARADO - 2 guarantors: Jose Antonio Vélez Morell + Rosanna Carrasquillo - Cheque: $6,300 (todo incluido, Banco Popular) - Sin horarios específicos - Landlord firma como Gardens Realty, LLC (managing entity) - Análisis: 7,430 bytes ### Decisión de Julio - Julio dijo que todos los contratos son iguales (mismo template) — NO seguir analizando los 18 restantes uno por uno - C",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8171344608068465,
+      "maxScore": 0.4192559659481048,
+      "firstRecalledAt": "2026-05-13T15:45:25.776Z",
+      "lastRecalledAt": "2026-05-28T12:18:09.567Z",
+      "queryHashes": [
+        "10ac8816bdd1",
+        "09a507ea9e74"
+      ],
+      "recallDays": [
+        "2026-05-13",
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "dom-jue",
+        "vie-sab",
+        "analisis-contrato-viejo.md",
+        "tmp/a1-1-full.txt",
+        "k2.6",
+        "a1-2",
+        "s.e",
+        "20/sf"
+      ]
+    },
+    "memory:memory/2026-04-29.md:47:66": {
+      "key": "memory:memory/2026-04-29.md:47:66",
+      "path": "memory/2026-04-29.md",
+      "startLine": 47,
+      "endLine": 66,
+      "source": "memory",
+      "snippet": "- Icono ya escogido por Julio — archivo en workspace - Julio dio luz verde para pestaña de Incidentes ## Buenacoop (B-2, B-3, B-4) — Correspondencia - Buenacoop respondió carta de renovación: quieren renovar PERO piden NO aumentar renta - Argumentan: operación consolidada (3 locales + servicarro), estabilidad, valor al centro - Draft de respuesta preparado: $22.00/sf fijo por 5 años ($5,500 renta + $1,125 CAM + $560 servicarro = $7,185/mes) - Ambos documentos archivados en Buenacoop_Correspondencia/ ## Jardines de Caguas Shopping Center — 6 Contratos Procesados - **Local 1:** Restaurante El Rancho, LLC — 2,260 sf, $2,320→$2,612 (3% anual), vence Mar 2028 - **Local 2:** Botanique Health Foo",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.7943899691104889,
+      "maxScore": 0.40402188897132874,
+      "firstRecalledAt": "2026-05-13T15:45:25.776Z",
+      "lastRecalledAt": "2026-06-24T22:40:46.292Z",
+      "queryHashes": [
+        "10ac8816bdd1",
+        "256e13d1c21e"
+      ],
+      "recallDays": [
+        "2026-05-13",
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "b-2",
+        "b-3",
+        "b-4",
+        "22.00/sf",
+        "185/mes",
+        "buenacoop-correspondencia",
+        "icono",
+        "escogido"
+      ]
+    },
+    "memory:memory/2026-05-06.md:1:49": {
+      "key": "memory:memory/2026-05-06.md:1:49",
+      "path": "memory/2026-05-06.md",
+      "startLine": 1,
+      "endLine": 49,
+      "source": "memory",
+      "snippet": "# 2026-05-06 ## J2 — Nacimiento del Cuervo 🪶 ### Setup Hardware - Nuevo Mac mini conectado en la oficina - IP: 192.168.108.188 - Usuario: mac2 - Password: T@rr3sJ2@M@cM1ni - macOS 26.3, Build 25D125 ### Setup Software (todo por SSH desde J1) - NVM + Node.js 22.22.2 instalado - OpenClaw 2026.5.5 instalado - Gateway configurado como independiente - SSH key copiada (J1→J2 sin password) ### J2 Config - **Provider:** OpenRouter (API key separada de J1) - **Modelo principal:** Gemini 2.5 Flash - **Modelos disponibles:** Gemini 2.5 Flash, Claude Sonnet 4, GPT-4o - **Bot Telegram:** @J2_agent_bot - **Sin ZAI** — independiente de J1's provider ### Identidad - **Criatura:** Cuervo (Raven) 🪶 - *",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.2353076487779617,
+      "maxScore": 0.4258820980787277,
+      "firstRecalledAt": "2026-05-13T20:16:39.304Z",
+      "lastRecalledAt": "2026-07-13T12:02:16.982Z",
+      "queryHashes": [
+        "1fcbfbe44f30",
+        "a6285b2f9bbc",
+        "69c80529a254",
+        "8180ab0f6e1f",
+        "a3fe7e5430fe"
+      ],
+      "recallDays": [
+        "2026-05-13",
+        "2026-05-18",
+        "2026-06-15",
+        "2026-06-22",
+        "2026-07-06",
+        "2026-07-13"
+      ],
+      "conceptTags": [
+        "gateway",
+        "gpt",
+        "router",
+        "192.168.108.188",
+        "26.3",
+        "node.js",
+        "22.22.2",
+        "2026.5.5"
+      ]
+    },
+    "memory:memory/2026-05-01.md:66:82": {
+      "key": "memory:memory/2026-05-01.md:66:82",
+      "path": "memory/2026-05-01.md",
+      "startLine": 66,
+      "endLine": 82,
+      "source": "memory",
+      "snippet": "### Flags pendientes: - Elvis Rosario & Angel Ortiz — sin datos de vehículos - Alexander Casillas — 6 veh en póliza pero solo 4 en spec - Hector X. Hernandez — PA expirada 01/25/2025 - Sabanera — \"COTIZACIÓN ÚNICAMENTE\" - VIN JALC4B16357001222 duplicado (J@R + Porfirio) ## Discord - Discord configurado y funcionando ✅ - DM enviado a Julio (user:874458439730987029) - groupPolicy: open, dmPolicy: allowlist ## J2 (Mac mini secundario) - Vivo y respondiendo en cada check - Event loop consistently degraded pero mínimo (CPU ~1%) - No necesita reinicio",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.7213025569915771,
+      "maxScore": 0.3636640518903732,
+      "firstRecalledAt": "2026-05-15T02:51:37.631Z",
+      "lastRecalledAt": "2026-07-09T12:19:04.785Z",
+      "queryHashes": [
+        "aa8cdd60177d",
+        "f512549fd223"
+      ],
+      "recallDays": [
+        "2026-05-14",
+        "2026-07-09"
+      ],
+      "conceptTags": [
+        "01/25/2025",
+        "flags",
+        "pendientes",
+        "elvis",
+        "rosario",
+        "angel",
+        "ortiz",
+        "datos"
+      ]
+    },
+    "memory:memory/2026-05-11.md:1:34": {
+      "key": "memory:memory/2026-05-11.md:1:34",
+      "path": "memory/2026-05-11.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# Memory — May 11, 2026 ## Firebase Storage Setup (COMPLETED) - Activated Firebase Storage for del-rio-parking project - Required upgrade to Blaze plan (pay-as-you-go) — budget set at $1/mes - Storage bucket: US-EAST1, Standard - Rules: read public, write requires auth - Photos upload to `gs://del-rio-parking/photos/{infractionId}_{index}.jpg` - Firestore stores `photoUrls` array instead of base64 ### Issue Found - Old photos (base64) were NOT in IndexedDB of either iPad — lost during SW updates - 12 infractions already had photoUrls in Firestore - Lesson: base64 photos in IndexedDB are fragile — Storage is much better now ### What Works Now - New photos from PWA automatically upload to S",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.1324591219425202,
+      "maxScore": 0.3919014513492584,
+      "firstRecalledAt": "2026-05-18T23:07:45.633Z",
+      "lastRecalledAt": "2026-05-27T20:05:37.876Z",
+      "queryHashes": [
+        "94eee4d79006",
+        "e801403351ad",
+        "2aa906fa1353"
+      ],
+      "recallDays": [
+        "2026-05-18",
+        "2026-05-20",
+        "2026-05-27"
+      ],
+      "conceptTags": [
+        "del-rio-parking",
+        "pay-as-you-go",
+        "1/mes",
+        "us-east1",
+        "del-rio-parking/photos",
+        "may",
+        "firebase",
+        "storage"
+      ]
+    },
+    "memory:memory/2026-05-01.md:1:39": {
+      "key": "memory:memory/2026-05-01.md:1:39",
+      "path": "memory/2026-05-01.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# 2026-05-01 ## Facturas Del Río — Mayo 2026 (Generadas por Cron 8:10 AM) - 19 facturas generadas para Mayo 2026 - Guardadas en Downloads/Facturas_Del_Rio/2026-05/ y Documents/J1/Properties/Del_Rio_Shopping_Center/Facturas/2026-05/ ### Deuda Total: $142,155.82 ### Con Penalidades (Cláusula 4.02): 1. **Craft Food & Beer LLC** — $51,457.67 (Nov-May sin pagar, penalidades creciendo) 2. **Hannabis LLC** — $28,578.00 (holdover rent + CAM nuevo $3,150 + multas 28 infracciones $2,800) 3. **Royal Lab LLC** — $11,960.15 (Feb-May sin pagar + penalidades) ### Sin Penalidades (al día o ligero atraso): - Azteca: $2,450 (Abril pagado) - Bendecidos: $2,600 (Mayo pendiente) - Buenacoop: $7,002 (2 spaces",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.44600465893745417,
+      "maxScore": 0.44600465893745417,
+      "firstRecalledAt": "2026-05-20T11:59:26.720Z",
+      "lastRecalledAt": "2026-05-20T11:59:26.720Z",
+      "queryHashes": [
+        "d915ed413d37"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "155.82",
+        "4.02",
+        "457.67",
+        "nov-may",
+        "578.00",
+        "960.15",
+        "feb-may",
+        "facturas"
+      ]
+    },
+    "memory:memory/2026-05-12.md:62:78": {
+      "key": "memory:memory/2026-05-12.md:62:78",
+      "path": "memory/2026-05-12.md",
+      "startLine": 62,
+      "endLine": 78,
+      "source": "memory",
+      "snippet": "- Created Luis A Colon Perales spec manually - All specs filed to correct month folders, renumbered sequentially (no duplicates) ### Numbers After Cleanup - 98 policy folders, 205 PDFs total - 128 spec folders, 220 xlsx files - 94 clients with specs + policies - 23 specs without policy PDFs (pending Julio confirmation on active vs inactive) - 4 policy-only without specs (Agrocentro dup, USIC Bonds system, Unknown residual, C-3 Management naming mismatch) ### Lessons Learned - When Julio says \"verifica Downloads\" → check ~/Downloads/ directly - If Julio tells me where to look, that's where I look — execute, don't second-guess - Use J2 for heavy batch work (PDF extraction, spec creation) - U",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.7755687564611434,
+      "maxScore": 0.4019662261009216,
+      "firstRecalledAt": "2026-05-20T11:59:26.720Z",
+      "lastRecalledAt": "2026-06-26T12:00:50.692Z",
+      "queryHashes": [
+        "d915ed413d37",
+        "95a08776494b"
+      ],
+      "recallDays": [
+        "2026-05-20",
+        "2026-06-26"
+      ],
+      "conceptTags": [
+        "policy-only",
+        "c-3",
+        "second-guess",
+        "created",
+        "luis",
+        "colon",
+        "perales",
+        "spec"
+      ]
+    },
+    "memory:memory/2026-05-01.md:32:74": {
+      "key": "memory:memory/2026-05-01.md:32:74",
+      "path": "memory/2026-05-01.md",
+      "startLine": 32,
+      "endLine": 74,
+      "source": "memory",
+      "snippet": "### Notificación enviada por Telegram a Julio ✅ ## Specs de Seguro — Proyecto Completo - Subagentes trabajaron en paralelo generando specs para TODOS los clientes de JT Insurance ### Especificaciones Creadas: 111 specs totales - **13** Commercial Auto / Choferes (VINs, vehículos, endosos) - **31** Personal Package / HO / Dwelling - **24** CGL / Commercial Package - **10** Bonds / Fianzas - **3** Personal Auto - **2** Professional Liability - **2** Flood - **4** Otros (Adam Leon CA, Ely Lopez CA+IM, Javier Diaz CP, NuBody Bond) - **11** Specs adicionales creados desde PDFs de JTIC - **11** Specs creados desde PDFs (Ayesha Villegas, J&R Soccer, Muniz Vargas, La Sierra, etc.) ### Calidad: -",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.1034817606210707,
+      "maxScore": 0.39457958340644833,
+      "firstRecalledAt": "2026-05-20T11:59:26.720Z",
+      "lastRecalledAt": "2026-07-06T12:02:50.329Z",
+      "queryHashes": [
+        "d915ed413d37",
+        "8180ab0f6e1f"
+      ],
+      "recallDays": [
+        "2026-05-20",
+        "2026-06-29",
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "notificación",
+        "enviada",
+        "telegram",
+        "julio",
+        "specs",
+        "seguro",
+        "proyecto",
+        "completo"
+      ]
+    },
+    "memory:memory/2026-05-15.md:1:15": {
+      "key": "memory:memory/2026-05-15.md:1:15",
+      "path": "memory/2026-05-15.md",
+      "startLine": 1,
+      "endLine": 15,
+      "source": "memory",
+      "snippet": "# 2026-05-15 ## J2 Gateway Setup (Opción A) - Reinstalado OpenClaw en J2 — instalación anterior estaba incompleta (faltaba package.json, binario) - `npm install -g openclaw@latest` → OpenClaw 2026.5.12 - Gateway arrancado, LaunchAgent reparado - Cambiado `gateway.bind` de `loopback` a `lan` — J2 accesible en red local - J2 Gateway: http://192.168.108.188:18789 (token guardado en TOOLS.md) - SSH key auth funciona sin password (mac2@192.168.108.188) - Creado helper script: `scripts/j2-delegate.sh` - Cross-gateway sessions_send no disponible nativamente — delegación vía SSH + openclaw CLI ## PDF Split - Dividido reporte 106 páginas en 3 partes iguales (36/35/35) para Julio",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3967617928981781,
+      "maxScore": 0.3967617928981781,
+      "firstRecalledAt": "2026-06-01T12:48:22.097Z",
+      "lastRecalledAt": "2026-06-01T12:48:22.097Z",
+      "queryHashes": [
+        "8a485fff3032"
+      ],
+      "recallDays": [
+        "2026-06-01"
+      ],
+      "conceptTags": [
+        "gateway",
+        "package.json",
+        "2026.5.12",
+        "gateway.bind",
+        "192.168.108.188",
+        "tools.md",
+        "scripts/j2-delegate.sh",
+        "cross-gateway"
+      ]
+    },
+    "memory:memory/2026-05-04.md:159:200": {
+      "key": "memory:memory/2026-05-04.md:159:200",
+      "path": "memory/2026-05-04.md",
+      "startLine": 159,
+      "endLine": 200,
+      "source": "memory",
+      "snippet": "- Ocupación: 65% (69% si Rivero renueva) - LOIs activas: 111K RSF (~400% arriba del pro forma) - Rents TTM: $23.21 vs $17.22 UW (+35%) - NOI: $6.29M — según UW - Common equity subió a $32M (era $30M) - Wells Fargo: se asume que desocupa, impact ~1% IRR menor pero múltiplo mejor - Closing estimado: mayo 2026 ### Coral Gables Market Thesis (1103 Advisors) - Brickell: $100.65/sf trophy, tenants buscando alternativas - Coconut Grove: 3.1% vacancy, sin espacio - Coral Gables: $65.65/sf, beneficiary natural - 3 de 8 largest Miami leases Q1 2026 en Coral Gables - 2525 & 2555 Ponce directly in migration path --- ## Del Río — Dashboard & PWA Updates ### Sync Issue (8:12 AM) - iPad de Lord Guard:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3872993767261505,
+      "maxScore": 0.3872993767261505,
+      "firstRecalledAt": "2026-06-04T16:27:30.640Z",
+      "lastRecalledAt": "2026-06-04T16:27:30.640Z",
+      "queryHashes": [
+        "2c33c4ad2721"
+      ],
+      "recallDays": [
+        "2026-06-04"
+      ],
+      "conceptTags": [
+        "23.21",
+        "17.22",
+        "6.29m",
+        "100.65/sf",
+        "3.1",
+        "65.65/sf",
+        "ocupación",
+        "rivero"
+      ]
+    },
+    "memory:memory/2026-05-04.md:279:298": {
+      "key": "memory:memory/2026-05-04.md:279:298",
+      "path": "memory/2026-05-04.md",
+      "startLine": 279,
+      "endLine": 298,
+      "source": "memory",
+      "snippet": "- Julio dijo que mi factura no tiene las cantidades correctas de su tabla - **Typo encontrado:** en la tabla de Julio, junio tiene payment date 2006-06-16 (año 2006) - **Prueba NO aprobada todavía** — Julio corrigiendo - Necesito resolver: qué fecha se usa para calcular penalidades de meses NO pagados - Necesito resolver: si el Past Due incluye o no las MULTAS (columna F) ### Pendiente - [ ] Resolver cálculo de penalidades con Julio — qué monto base usar, qué fecha para meses no pagados - [ ] Corregir la factura de prueba con los números de Julio - [ ] Confirmar que la prueba de Craft Food está bien - [ ] Activar cron job cuando Julio apruebe - [ ] Borrar folder de prueba 2026-06 antes de",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.556945514678955,
+      "maxScore": 0.39602886140346527,
+      "firstRecalledAt": "2026-06-08T12:00:55.873Z",
+      "lastRecalledAt": "2026-06-30T12:01:36.142Z",
+      "queryHashes": [
+        "b738885081c6",
+        "c894f6c5f21d",
+        "95a08776494b",
+        "3fef2d80c062"
+      ],
+      "recallDays": [
+        "2026-06-08",
+        "2026-06-24",
+        "2026-06-26",
+        "2026-06-30"
+      ],
+      "conceptTags": [
+        "2026-06",
+        "julio",
+        "dijo",
+        "factura",
+        "tiene",
+        "cantidades",
+        "correctas",
+        "tabla"
+      ]
+    },
+    "memory:memory/2026-05-25.md:1:7": {
+      "key": "memory:memory/2026-05-25.md:1:7",
+      "path": "memory/2026-05-25.md",
+      "startLine": 1,
+      "endLine": 7,
+      "source": "memory",
+      "snippet": "## Weekly Security Audit — 8:01 AM - Ran `security-audit.sh`, report at ~/Downloads/Security-Audit.md - All clear: Firewall ✅, FileVault ✅, Gatekeeper ✅, Stealth mode ✅ - Minor: Remote Login check failed (needs admin), SMB port 445 open on all interfaces - Summary sent to Julio via Telegram (chat ID: 301340037)",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6342249230852497,
+      "maxScore": 0.6342249230852497,
+      "firstRecalledAt": "2026-06-08T12:02:43.568Z",
+      "lastRecalledAt": "2026-06-08T12:02:43.568Z",
+      "queryHashes": [
+        "a6285b2f9bbc"
+      ],
+      "recallDays": [
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "security-audit.sh",
+        "downloads/security-audit.md",
+        "weekly",
+        "security",
+        "audit",
+        "ran",
+        "audit.sh",
+        "report"
+      ]
+    },
+    "memory:memory/2026-05-04.md:103:136": {
+      "key": "memory:memory/2026-05-04.md:103:136",
+      "path": "memory/2026-05-04.md",
+      "startLine": 103,
+      "endLine": 136,
+      "source": "memory",
+      "snippet": "- Agrega fila nueva para el mes (rent + CAM + fórmulas) - **No cambia formato** de la tabla - **Columna de penalidades queda vacía** — Julio la llena manualmente o J1 calcula con la fórmula cuando recibe pagos - Footer y fecha del header se actualizan - Guarda en folder YYYY-MM por local + copia a Downloads ### Flujo de Pagos 1. Julio dice: local, cantidad recibida, fecha de pago, número de check 2. J1 aplica el pago al **mes más atrasado primero** 3. Si sobra dinero → siguiente mes atrasado, etc. 4. Recalcula penalidades de TODOS los meses pendientes 5. Actualiza factura: Payments, Date, Check, Penalidades 6. No toca formato ### Fórmula de Penalidades (Cláusula 4.02) - **Due Date:** día 1",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3988677322864532,
+      "maxScore": 0.3988677322864532,
+      "firstRecalledAt": "2026-06-24T22:40:38.161Z",
+      "lastRecalledAt": "2026-06-24T22:40:38.161Z",
+      "queryHashes": [
+        "c894f6c5f21d"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "yyyy-mm",
+        "4.02",
+        "agrega",
+        "fila",
+        "nueva",
+        "mes",
+        "rent",
+        "cam"
+      ]
+    },
+    "memory:memory/2026-05-12.md:22:48": {
+      "key": "memory:memory/2026-05-12.md:22:48",
+      "path": "memory/2026-05-12.md",
+      "startLine": 22,
+      "endLine": 48,
+      "source": "memory",
+      "snippet": "### Immediate Red Flags for JTIC Portfolio: - Choferes independientes: NO UM/UIM, NO MedPay, NO PIP (all 13 clients) - Sabanera Transport: \"QUOTATION ONLY — NOT A POLICY\" — verify - VIN duplicate: JALC4B16357001222 in J@R Transport + Porfirio Rivera - All commercial clients with POS → cyber exposure (currently no cyber policies) - All clients with employees → EPLI exposure (currently no EPLI) - La Sierra County Auto Parts (2025-2026) — active, needs month identification ## Spec Verification Process with Gap Recommendations (~15:00) Julio requested that when specs are sent to clients for verification, we identify coverage gaps and make recommendations to protect against E&O. Created: `vert",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.7028384119272232,
+      "maxScore": 0.3527424693107605,
+      "firstRecalledAt": "2026-06-29T12:03:27.623Z",
+      "lastRecalledAt": "2026-07-06T12:02:50.329Z",
+      "queryHashes": [
+        "8180ab0f6e1f"
+      ],
+      "recallDays": [
+        "2026-06-29",
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "um/uim",
+        "2025-2026",
+        "immediate",
+        "red",
+        "flags",
+        "jtic",
+        "portfolio",
+        "choferes"
+      ]
+    },
+    "memory:memory/2026-05-12.md:42:69": {
+      "key": "memory:memory/2026-05-12.md:42:69",
+      "path": "memory/2026-05-12.md",
+      "startLine": 42,
+      "endLine": 69,
+      "source": "memory",
+      "snippet": "Key insight from Julio: this is about E&O protection. Every recommendation documented = protection if client later claims they weren't advised. ## Evening Session — Policy Processing + Spec Creation (~20:00) ### Telegram Policy Batch (14 docs) Processed 14 policy documents sent via Telegram: - Jerry Vélez/Evelyn Acevedo — Óptima OPP-2002509-00 ($1,095 PP) - USIC Bonds: Colinas de San Juan ($50), Torre La Cumbre AAA ($1,640), Escorial ($2,160), Alturas del Señorial ($144), Luis G Berrios ($50) - Brian J Diaz Ramos — Triple-S PP ($1,793) - Luis A Colon Perales — Multinational CA ($17,643) — NEW client - Agrocentro Zoologico — CLP375502 (financiamiento, vencida 2024) - Benjamin Vazquez — Trip",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3911625325679779,
+      "maxScore": 0.3911625325679779,
+      "firstRecalledAt": "2026-07-08T12:01:26.069Z",
+      "lastRecalledAt": "2026-07-08T12:01:26.069Z",
+      "queryHashes": [
+        "da704518f470"
+      ],
+      "recallDays": [
+        "2026-07-08"
+      ],
+      "conceptTags": [
+        "vélez/evelyn",
+        "opp-2002509-00",
+        "triple-s",
+        "key",
+        "insight",
+        "julio",
+        "protection",
+        "recommendation"
+      ]
+    }
+  }
+}
